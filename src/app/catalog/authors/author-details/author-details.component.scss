@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+mat-card-content {
+  margin-top: 16px;
+  max-width: 720px;
+}
+
+mat-card-header {
+  align-items: center;
+}
+
+.mat-card-header .mat-card-title {
+  margin-bottom: 0;
+}
+
+.mat-list-base .mat-list-item .mat-list-avatar,
+.mat-list-base .mat-list-option .mat-list-avatar {
+  border-radius: 0;
+  height: 48px;
+  width: auto;
+}
+
+.books {
+  margin-top: 24px;
+
+  h3 {
+    margin: 0 0 4px;
+  }
+}

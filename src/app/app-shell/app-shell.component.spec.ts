@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AppShellComponent } from './app-shell.component';
+import { AppShellComponent } from "./app-shell.component";
 
-describe('AppShellComponent', () => {
+describe("AppShellComponent", () => {
   let component: AppShellComponent;
   let fixture: ComponentFixture<AppShellComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppShellComponent ]
-    })
-    .compileComponents();
+      declarations: [AppShellComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('AppShellComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

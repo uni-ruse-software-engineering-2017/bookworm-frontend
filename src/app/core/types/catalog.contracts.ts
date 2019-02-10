@@ -42,6 +42,7 @@ export interface IAuthor {
 
 export interface IAuthorListItem {
   readonly id?: string;
+  imageUrl?: string;
   name: string;
 }
 

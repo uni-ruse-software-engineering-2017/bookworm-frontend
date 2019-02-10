@@ -1,7 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { NotFoundComponent } from "../not-found/not-found.component";
+import { AuthorDetailsComponent } from "./authors/author-details/author-details.component";
 import { AuthorsComponent } from "./authors/authors.component";
+import { BookDetailsComponent } from "./books/book-details/book-details.component";
 import { BooksComponent } from "./books/books.component";
 import { CategoriesComponent } from "./categories/categories.component";
 import { HomeComponent } from "./home/home.component";
@@ -16,8 +18,16 @@ const routes: Routes = [
     component: AuthorsComponent
   },
   {
+    path: "authors/:authorId/details",
+    component: AuthorDetailsComponent
+  },
+  {
     path: "books",
     component: BooksComponent
+  },
+  {
+    path: "books/:bookId/details",
+    component: BookDetailsComponent
   },
   {
     path: "categories",

@@ -1,3 +1,18 @@
-<p>
-  authors works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Authors</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-nav-list>
+      <a
+        *ngFor="let author of authors; trackBy: author?.id"
+        mat-list-item
+        [routerLink]="['./', author.id, 'details']"
+      >
+        <img matListAvatar [src]="author.imageUrl" [alt]="author.name" />
+        <h3 matLine>{{ author.name }}</h3>
+      </a>
+    </mat-nav-list>
+  </mat-card-content>
+  <mat-card-actions> </mat-card-actions>
+</mat-card>

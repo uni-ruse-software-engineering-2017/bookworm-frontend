@@ -9,4 +9,9 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.link {
+  color: unset;
+  text-decoration: none;
+}
+
 @import "./themes.scss";

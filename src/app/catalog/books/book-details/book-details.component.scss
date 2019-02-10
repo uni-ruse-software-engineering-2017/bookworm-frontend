@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.book-container {
+  display: flex;
+}
+
+.book-header {
+  img {
+    border-radius: 4px;
+    height: 280px;
+  }
+
+  margin-right: 12px;
+}
+
+.book-metadata {
+  h1 {
+    margin-bottom: 0px;
+  }
+  h2 {
+    font-weight: 400;
+    margin-top: 0;
+  }
+
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.book-summary {
+  margin-top: 24px;
+}

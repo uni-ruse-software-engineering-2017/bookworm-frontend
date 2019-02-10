@@ -1,0 +1,23 @@
+<mat-card *ngIf="author">
+  <mat-card-header>
+    <img mat-card-avatar [src]="author.imageUrl" />
+    <mat-card-title>{{ author.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    {{ author.biography }}
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-content class="books mat-typography">
+    <h3>Books</h3>
+    <mat-nav-list>
+      <a
+        *ngFor="let book of author.books"
+        mat-list-item
+        [routerLink]="['/books', book.id, 'details']"
+      >
+        <img matListAvatar [src]="book.coverImage" [alt]="book.title" />
+        <h3 matLine>{{ book.title }}</h3>
+      </a>
+    </mat-nav-list>
+  </mat-card-content>
+</mat-card>
