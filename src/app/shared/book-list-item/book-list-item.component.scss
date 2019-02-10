@@ -1,0 +1,77 @@
+// Import theming functions
+@import "~@angular/material/theming";
+@import "color-pallete.scss";
+@import "layout.scss";
+
+:host {
+  display: block;
+  margin: 8px;
+  width: 420px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 0;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+.book {
+  $height: 180px;
+  $padding: 16px;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+  display: flex;
+  height: $height;
+
+  img {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    height: $height;
+  }
+
+  .book-content {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .book-header {
+      flex: 1;
+      padding: $padding;
+      h2 {
+        font-size: 1.375em;
+        margin-bottom: 0;
+        line-height: 1em;
+      }
+    }
+
+    .book-actions {
+      padding: $padding/2 $padding;
+      background-color: rgba(0, 0, 0, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      button {
+        text-transform: uppercase;
+      }
+
+      .price {
+        color: primary-color();
+        font-weight: bold;
+        flex: 1;
+        font-size: 1.33em;
+      }
+    }
+  }
+}
+
+@include mobile {
+  :host {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+}

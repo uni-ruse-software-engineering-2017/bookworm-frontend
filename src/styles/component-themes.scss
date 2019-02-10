@@ -1,0 +1,11 @@
+@import "./../app/shared/book-list-item/book-list-item.theme.scss";
+
+@mixin component-themes() {
+  @include angular-material-theme($light-theme);
+  @include book-list-item-theme($light-theme);
+
+  .dark-theme {
+    @include angular-material-theme($dark-theme);
+    @include book-list-item-theme($dark-theme);
+  }
+}

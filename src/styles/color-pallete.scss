@@ -1,0 +1,42 @@
+@import "~@angular/material/theming";
+
+$color-pallete: (
+  50: #e8eaf6,
+  100: #c5cbe9,
+  200: #9fa8da,
+  300: #7985cb,
+  400: #5c6bc0,
+  500: #3f51b5,
+  600: #394aae,
+  700: #3140a5,
+  800: #29379d,
+  900: #1b278d,
+  A100: #ffff8d,
+  A200: #ffffbf,
+  A400: #cacc5d,
+  A700: #ffeb3b,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #000000
+  )
+);
+
+@function primary-color() {
+  @return mat-color($color-pallete, 500);
+}
+
+@function accent-color() {
+  @return mat-color($color-pallete, A700);
+}

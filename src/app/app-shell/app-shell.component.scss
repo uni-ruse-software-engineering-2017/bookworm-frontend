@@ -1,0 +1,63 @@
+:host {
+  display: block;
+}
+
+mat-drawer-content {
+  height: 100vh;
+}
+
+mat-drawer {
+  display: block;
+  width: 75%;
+  max-width: 420px;
+  height: 100%;
+
+  a[mat-list-item] mat-icon,
+  mat-list-item mat-icon {
+    margin-right: 16px;
+  }
+
+  a[mat-list-item].active,
+  mat-list-item.active {
+    font-weight: bold;
+  }
+}
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  transition: 0.33s ease-in-out;
+  will-change: transform;
+  transform: translateY(0);
+}
+
+.toolbar.hidden {
+  transform: translateY(-64px);
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  margin-right: 24px;
+}
+
+mat-toolbar {
+  a:not(:last-of-type) {
+    margin-right: 8px;
+  }
+}
+
+.hamburger {
+  margin-right: 12px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.content {
+  padding: 8px 16px;
+}

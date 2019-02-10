@@ -20,13 +20,13 @@
             "outputPath": "dist/bookworm-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            },
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles/main.scss"],
             "scripts": [],
             "es5BrowserSupport": true
           },
@@ -81,10 +81,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles/main.scss"],
             "scripts": [],
             "assets": ["src/favicon.ico", "src/assets"]
           }

@@ -1,0 +1,6 @@
+@import "./light-theme.scss";
+@import "./dark-theme.scss";
+@import "./component-themes.scss";
+@include mat-core();
+
+@include component-themes();

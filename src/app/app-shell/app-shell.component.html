@@ -1,0 +1,98 @@
+<mat-drawer-container>
+  <mat-drawer #drawer [mode]="drawerMode" class="mat-elevation-z8">
+    <mat-nav-list>
+      <mat-list-item
+        [routerLink]="['/']"
+        routerLinkActive="active"
+        mat-button
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon>dashboard</mat-icon>
+        <span>Home</span>
+      </mat-list-item>
+      <mat-list-item
+        mat-list-item
+        [routerLink]="['/categories']"
+        routerLinkActive="active"
+        mat-button
+      >
+        <mat-icon>bookmarks</mat-icon>
+        <span>Categories</span>
+      </mat-list-item>
+      <mat-list-item
+        mat-list-item
+        [routerLink]="['/books']"
+        routerLinkActive="active"
+        mat-button
+      >
+        <mat-icon>local_library</mat-icon>
+        <span>Books</span>
+      </mat-list-item>
+      <mat-list-item
+        mat-list-item
+        [routerLink]="['/authors']"
+        routerLinkActive="active"
+        mat-button
+      >
+        <mat-icon>school</mat-icon>
+        <span>Authors</span>
+      </mat-list-item>
+      <mat-list-item
+        mat-list-item
+        [routerLink]="['/orders']"
+        routerLinkActive="active"
+        mat-button
+      >
+        <mat-icon>description</mat-icon>
+        <span>My Orders</span>
+      </mat-list-item>
+      <a mat-list-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span translate>Logout</span>
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="toolbar">
+      <mat-toolbar color="primary" class="mat-elevation-z4">
+        <button
+          class="hamburger"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isMobile()"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h1>Bookworm</h1>
+        <span *ngIf="!isMobile()">
+          <a [routerLink]="['/']" routerLinkActive="active" mat-button>Home</a>
+          <a [routerLink]="['/categories']" routerLinkActive="active" mat-button
+            >Categories</a
+          >
+          <a [routerLink]="['/books']" routerLinkActive="active" mat-button
+            >Books</a
+          >
+          <a [routerLink]="['/authors']" routerLinkActive="active" mat-button
+            >Authors</a
+          >
+          <a [routerLink]="['/orders']" routerLinkActive="active" mat-button
+            >My Orders</a
+          >
+        </span>
+        <span class="spacer"></span>
+        <button mat-icon-button>
+          <mat-icon matBadge="3" matBadgeColor="accent">shopping_cart</mat-icon>
+        </button>
+      </mat-toolbar>
+      <mat-progress-bar
+        mode="indeterminate"
+        [ngClass]="{ hidden: !isLoading }"
+      ></mat-progress-bar>
+    </div>
+    <section class="content">
+      <div class="route-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
+  </mat-drawer-content>
+</mat-drawer-container>

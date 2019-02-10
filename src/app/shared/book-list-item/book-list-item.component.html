@@ -1,0 +1,13 @@
+<div class="book">
+  <img [src]="book.coverImage" [alt]="book.title" />
+  <div class="book-content">
+    <div class="book-header">
+      <h2 class="mat-headline">{{ book.title }}</h2>
+      <h3 class="mat-subheading-2">{{ book.author.name }}</h3>
+    </div>
+    <div class="book-actions">
+      <span class="price">{{ book.price | currency }}</span>
+      <button mat-raised-button color="accent">Buy</button>
+    </div>
+  </div>
+</div>

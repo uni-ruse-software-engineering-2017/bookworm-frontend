@@ -1,0 +1,7 @@
+@mixin book-list-item-theme($theme) {
+  $background: map-get($theme, background);
+
+  .book {
+    background: mat-color($background, card);
+  }
+}
