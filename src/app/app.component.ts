@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { BookService } from "./core/services/book.service";
+import { LoadingService } from "./core/loading.service";
 
 @Component({
   selector: "bw-root",
@@ -7,7 +7,5 @@ import { BookService } from "./core/services/book.service";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  constructor(private bookService: BookService) {}
-
-  title = "bookworm-frontend";
+  constructor(public loading: LoadingService) {}
 }

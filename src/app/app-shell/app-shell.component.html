@@ -46,7 +46,7 @@
         <mat-icon>description</mat-icon>
         <span>My Orders</span>
       </mat-list-item>
-      <a mat-list-item (click)="logout()">
+      <a mat-list-item (click)="onLogoutClicked()">
         <mat-icon>exit_to_app</mat-icon>
         <span translate>Logout</span>
       </a>
@@ -59,13 +59,15 @@
           class="hamburger"
           mat-icon-button
           (click)="drawer.toggle()"
-          *ngIf="isMobile()"
+          [ngClass]="{ hidden: !shouldRenderDrawer }"
         >
           <mat-icon>menu</mat-icon>
         </button>
         <h1>Bookworm</h1>
-        <span *ngIf="!isMobile()">
-          <a [routerLink]="['/']" routerLinkActive="active" mat-button>Home</a>
+        <span *ngIf="!shouldRenderDrawer">
+          <a [routerLink]="['/home/']" routerLinkActive="active" mat-button
+            >Home</a
+          >
           <a [routerLink]="['/categories']" routerLinkActive="active" mat-button
             >Categories</a
           >
@@ -86,7 +88,7 @@
       </mat-toolbar>
       <mat-progress-bar
         mode="indeterminate"
-        [ngClass]="{ hidden: !isLoading }"
+        *ngIf="isLoading"
       ></mat-progress-bar>
     </div>
     <section class="content">

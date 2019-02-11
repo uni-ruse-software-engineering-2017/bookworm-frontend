@@ -10,7 +10,7 @@ import { HomeComponent } from "./home/home.component";
 
 const routes: Routes = [
   {
-    path: "",
+    path: "home",
     component: HomeComponent
   },
   {
@@ -36,6 +36,11 @@ const routes: Routes = [
   {
     path: "not-found",
     component: NotFoundComponent
+  },
+  {
+    path: "",
+    redirectTo: "/home",
+    pathMatch: "full"
   },
   {
     path: "**",

@@ -1,13 +1,11 @@
-import { MediaMatcher } from "@angular/cdk/layout";
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  OnChanges,
-  OnDestroy,
+  Input,
   OnInit,
   Output,
-  SimpleChanges,
   ViewChild
 } from "@angular/core";
 import { MatDrawer } from "@angular/material";
@@ -20,7 +18,8 @@ import { LoadingService } from "../core/loading.service";
   templateUrl: "./app-shell.component.html",
   styleUrls: ["./app-shell.component.scss"]
 })
-export class AppShellComponent implements OnInit, OnChanges, OnDestroy {
+export class AppShellComponent implements OnInit {
+  @Input() isLoading = false;
   @Output()
   logoutClicked = new EventEmitter();
 
@@ -29,63 +28,39 @@ export class AppShellComponent implements OnInit, OnChanges, OnDestroy {
 
   shouldRenderDrawer: boolean;
   drawerMode: string;
-  isLoading = false;
   breadcrumb = "";
-
-  private mobileQuery: MediaQueryList;
-  private mobileQueryListener: () => void;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher,
+    public breakpointObserver: BreakpointObserver,
     public loading: LoadingService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.mobileQuery = media.matchMedia("(max-width: 1024px)");
-    this.mobileQueryListener = () => {
-      this.drawerMode = this.isMobile() ? "over" : "side";
-      this.shouldRenderDrawer = !this.isMobile();
-      this.changeDetectorRef.detectChanges();
-    };
-    this.mobileQuery.addListener(this.mobileQueryListener);
+    this.breakpointObserver
+      .observe([Breakpoints.XSmall, Breakpoints.Large])
+      .subscribe(state => {
+        if (state.breakpoints[Breakpoints.XSmall]) {
+          this.drawerMode = "over";
+          this.shouldRenderDrawer = true;
+        } else if (state.breakpoints[Breakpoints.Large]) {
+          this.drawerMode = "side";
+          this.shouldRenderDrawer = false;
+        }
+      });
   }
 
   ngOnInit() {
     // close the side drawer on navigation completed
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd && this.isMobile()))
+      .pipe(
+        filter(
+          event => event instanceof NavigationEnd && this.shouldRenderDrawer
+        )
+      )
       .subscribe(() => {
         this.drawer.close();
       });
-
-    // listen for route changes in order to update the breadcrumbs
-    // this.router.events
-    //   .pipe(
-    //     filter(event => event instanceof NavigationEnd),
-    //     switchMap(() => this.route.firstChild && this.route.firstChild.data)
-    //   )
-    //   .subscribe(data => {
-    //     this.breadcrumb = data.breadcrumb || "";
-    //   });
-
-    this.loading.loading$.subscribe(isLoading => {
-      this.isLoading = isLoading;
-      this.changeDetectorRef.detectChanges();
-    });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.drawerMode = this.isMobile() ? "over" : "side";
-    this.shouldRenderDrawer = !this.isMobile();
-  }
-
-  ngOnDestroy() {
-    this.mobileQuery.removeListener(this.mobileQueryListener);
-  }
-
-  isMobile() {
-    return this.mobileQuery.matches;
   }
 
   onLogoutClicked() {
