@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CategoryService } from "src/app/core/services/category.service";
-import { ICategory } from "src/app/core/types/catalog.contracts";
+import { ICategory } from "src/app/core/types/catalog";
 
 @Component({
   selector: "bw-categories",

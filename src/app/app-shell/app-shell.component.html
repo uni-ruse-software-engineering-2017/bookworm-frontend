@@ -42,14 +42,11 @@
         [routerLink]="['/orders']"
         routerLinkActive="active"
         mat-button
+        *ngIf="user"
       >
         <mat-icon>description</mat-icon>
         <span>My Orders</span>
       </mat-list-item>
-      <a mat-list-item (click)="onLogoutClicked()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span translate>Logout</span>
-      </a>
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
@@ -82,9 +79,26 @@
           >
         </span>
         <span class="spacer"></span>
-        <button mat-icon-button>
+        <button mat-icon-button style="margin-right: 4px">
           <mat-icon matBadge="3" matBadgeColor="accent">shopping_cart</mat-icon>
         </button>
+        <button mat-icon-button [matMenuTriggerFor]="accountMenu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #accountMenu="matMenu">
+          <a [routerLink]="['/login']" mat-menu-item *ngIf="!user">
+            <mat-icon>input</mat-icon>
+            <span>Sign in</span>
+          </a>
+          <a [routerLink]="['/profile']" mat-menu-item *ngIf="user">
+            <mat-icon>account_box</mat-icon>
+            <span>Profile</span>
+          </a>
+          <button mat-menu-item (click)="onLogoutClicked()" *ngIf="user">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Sign out</span>
+          </button>
+        </mat-menu>
       </mat-toolbar>
       <mat-progress-bar
         mode="indeterminate"

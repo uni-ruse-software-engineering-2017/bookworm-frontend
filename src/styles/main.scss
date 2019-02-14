@@ -1,5 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-
 html,
 body {
   height: 100%;
@@ -15,3 +13,66 @@ body {
 }
 
 @import "./themes.scss";
+@import "./layout.scss";
+
+/** Material Overrides */
+button[mat-button],
+a[mat-button],
+button[mat-raised-button],
+a[mat-raised-button] {
+  text-transform: uppercase;
+}
+
+/** Material Card Overrides */
+.mat-card-header .mat-card-title {
+  font-size: 21px;
+}
+
+.mat-card-header .mat-card-subtitle {
+  font-size: 16px;
+}
+
+.mat-card-header-text {
+  flex: 1;
+  width: 100%;
+}
+
+/** Display only the first error when there are multiple errors **/
+mat-error {
+  margin-bottom: 8px;
+}
+
+mat-error.mat-error {
+  display: none;
+}
+
+mat-error.mat-error:first-of-type {
+  display: block;
+}
+
+mat-icon {
+  user-select: none;
+}
+
+mat-form-field mat-icon {
+  margin-right: 10px;
+  position: relative;
+  top: 2px;
+}
+
+.mat-icon.mat-icon-inline {
+  width: 1em !important;
+  height: 1em !important;
+}
+
+.mobile-only {
+  @media only screen and (min-width: $tablet-width) {
+    display: none !important;
+  }
+}
+
+.desktop-only {
+  @media only screen and (max-width: $tablet-width) {
+    display: none !important;
+  }
+}

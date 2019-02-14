@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { BookService } from "src/app/core/services/book.service";
-import { IBookListItem } from "src/app/core/types/catalog.contracts";
+import { IBookListItem } from "src/app/core/types/catalog";
 
 @Component({
   selector: "bw-books",

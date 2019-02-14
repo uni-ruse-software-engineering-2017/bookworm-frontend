@@ -12,6 +12,7 @@ import { MatDrawer } from "@angular/material";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs/operators";
 import { LoadingService } from "../core/loading.service";
+import { IUserProfile } from "../core/types/user";
 
 @Component({
   selector: "bw-app-shell",
@@ -19,6 +20,7 @@ import { LoadingService } from "../core/loading.service";
   styleUrls: ["./app-shell.component.scss"]
 })
 export class AppShellComponent implements OnInit {
+  @Input() user: IUserProfile = null;
   @Input() isLoading = false;
   @Output()
   logoutClicked = new EventEmitter();

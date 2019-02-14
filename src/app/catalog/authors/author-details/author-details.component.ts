@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { flatMap } from "rxjs/operators";
 import { AuthorService } from "src/app/core/services/author.service";
-import { IAuthor } from "src/app/core/types/catalog.contracts";
+import { IAuthor } from "src/app/core/types/catalog";
 
 @Component({
   selector: "bw-author-details",

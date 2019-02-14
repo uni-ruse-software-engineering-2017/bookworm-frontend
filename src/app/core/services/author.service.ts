@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { IPaginatedResource } from "../types";
-import { IAuthor, IAuthorListItem } from "../types/catalog.contracts";
+import { IAuthor, IAuthorListItem } from "../types/catalog";
 
 @Injectable()
 export class AuthorService {

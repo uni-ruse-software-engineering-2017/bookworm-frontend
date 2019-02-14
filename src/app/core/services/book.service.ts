@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { IPaginatedResource } from "../types";
-import { IBookDetailed, IBookListItem } from "../types/catalog.contracts";
+import { IBookDetailed, IBookListItem } from "../types/catalog";
 
 @Injectable()
 export class BookService {

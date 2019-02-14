@@ -1,1 +1,5 @@
-<bw-app-shell [isLoading]="loading.loading$ | async"></bw-app-shell>
+<bw-app-shell
+  [isLoading]="loading.loading$ | async"
+  [user]="authService.user$ | async"
+  (logoutClicked)="logout()"
+></bw-app-shell>

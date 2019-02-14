@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { flatMap } from "rxjs/operators";
 import { BookService } from "src/app/core/services/book.service";
-import { IBookDetailed } from "src/app/core/types/catalog.contracts";
+import { IBookDetailed } from "src/app/core/types/catalog";
 
 @Component({
   selector: "bw-book-details",

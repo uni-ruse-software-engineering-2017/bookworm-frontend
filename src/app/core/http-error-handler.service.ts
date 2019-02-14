@@ -12,6 +12,14 @@ export class HttpErrorHandlerService {
    * @param error - HTTP error
    */
   handle(error: HttpErrorResponse | Error) {
+    if (
+      error instanceof HttpErrorResponse &&
+      error.error &&
+      error.error.message
+    ) {
+      return this._showSnack(error.error.message);
+    }
+
     if (error instanceof Error) {
       switch (error.message) {
         case "INVALID_CREDENTIALS":

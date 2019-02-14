@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { IPaginatedResource } from "../types";
-import { ICategory } from "../types/catalog.contracts";
+import { ICategory } from "../types/catalog";
 
 @Injectable()
 export class CategoryService {

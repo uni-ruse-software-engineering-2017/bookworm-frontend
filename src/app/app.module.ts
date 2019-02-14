@@ -12,7 +12,9 @@ import { LoadingInterceptor } from "./core/loading-interceptor";
 import { LoadingService } from "./core/loading.service";
 import { BookService } from "./core/services/book.service";
 import { CategoryService } from "./core/services/category.service";
+import { WithCredentialsInterceptor } from "./core/with-credentials-interceptor";
 import { NotFoundComponent } from "./not-found/not-found.component";
+import { PublicModule } from "./public/public.module";
 import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
@@ -26,10 +28,16 @@ import { SharedModule } from "./shared/shared.module";
     AppShellModule,
     BrowserAnimationsModule,
     RouterModule,
+    PublicModule,
     CatalogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WithCredentialsInterceptor,
+      multi: true
+    },
     LoadingService,
     BookService,
     CategoryService

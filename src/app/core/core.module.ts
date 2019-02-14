@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { HttpErrorHandlerService } from "./http-error-handler.service";
+import { NoSessionGuard } from "./route-guards/no-session.guard";
 import { ApiService } from "./services/api.service";
 import { AuthorService } from "./services/author.service";
 import { BookService } from "./services/book.service";
@@ -14,7 +15,8 @@ import { CategoryService } from "./services/category.service";
     ApiService,
     BookService,
     CategoryService,
-    AuthorService
+    AuthorService,
+    NoSessionGuard
   ]
 })
 export class CoreModule {}

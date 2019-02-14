@@ -1,0 +1,74 @@
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Sign up</mat-card-title>
+      <mat-card-subtitle>Create a new user account </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <input
+          type="email"
+          matInput
+          autocomplete="username email"
+          placeholder="Email Address"
+          formControlName="email"
+          required
+        />
+        <mat-error *ngIf="signUpForm.controls['email'].errors?.required">
+          The email address is a required field
+        </mat-error>
+        <mat-error *ngIf="signUpForm.controls['email'].errors?.email">
+          Invalid email address
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="First Name"
+          formControlName="firstName"
+          required
+        />
+        <mat-error *ngIf="signUpForm.controls['firstName'].errors?.required">
+          You must provide your first name.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Last Name"
+          formControlName="lastName"
+          required
+        />
+        <mat-error *ngIf="signUpForm.controls['lastName'].errors?.required">
+          You must provide your last name.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="password"
+          matInput
+          placeholder="Password"
+          autocomplete="new-password"
+          formControlName="password"
+          required
+        />
+        <mat-error *ngIf="signUpForm.controls['password'].errors?.required">
+          You must enter a password
+        </mat-error>
+        <mat-error *ngIf="signUpForm.controls['password'].errors?.minlength">
+          Your password must be at least 8 characters long
+        </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="right">
+      <a [routerLink]="'/login'" mat-button type="button">
+        Back
+      </a>
+      <button type="submit" mat-raised-button color="primary">
+        Sign up
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

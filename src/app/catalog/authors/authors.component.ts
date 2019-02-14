@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthorService } from "src/app/core/services/author.service";
-import { IAuthorListItem } from "src/app/core/types/catalog.contracts";
+import { IAuthorListItem } from "src/app/core/types/catalog";
 
 @Component({
   selector: "bw-authors",
