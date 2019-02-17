@@ -8,10 +8,11 @@ import {
   Output,
   ViewChild
 } from "@angular/core";
-import { MatDrawer } from "@angular/material";
+import { MatDrawer, MatSidenav } from "@angular/material";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs/operators";
 import { LoadingService } from "../core/loading.service";
+import { ShoppingCartService } from "../core/services/shopping-cart.service";
 import { IUserProfile } from "../core/types/user";
 
 @Component({
@@ -28,6 +29,9 @@ export class AppShellComponent implements OnInit {
   @ViewChild("drawer")
   drawer: MatDrawer;
 
+  @ViewChild("cartSideNav")
+  cartSideNav: MatSidenav;
+
   shouldRenderDrawer: boolean;
   drawerMode: string;
   breadcrumb = "";
@@ -36,6 +40,7 @@ export class AppShellComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     public breakpointObserver: BreakpointObserver,
     public loading: LoadingService,
+    public cart: ShoppingCartService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -55,13 +60,10 @@ export class AppShellComponent implements OnInit {
   ngOnInit() {
     // close the side drawer on navigation completed
     this.router.events
-      .pipe(
-        filter(
-          event => event instanceof NavigationEnd && this.shouldRenderDrawer
-        )
-      )
+      .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         this.drawer.close();
+        this.cartSideNav.close();
       });
   }
 

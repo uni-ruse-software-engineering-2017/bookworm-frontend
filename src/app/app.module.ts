@@ -7,6 +7,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppShellModule } from "./app-shell/app-shell.module";
 import { AppComponent } from "./app.component";
 import { CatalogModule } from "./catalog/catalog.module";
+import { CommerceModule } from "./commerce/commerce.module";
 import { CoreModule } from "./core/core.module";
 import { LoadingInterceptor } from "./core/loading-interceptor";
 import { LoadingService } from "./core/loading.service";
@@ -29,6 +30,7 @@ import { SharedModule } from "./shared/shared.module";
     BrowserAnimationsModule,
     RouterModule,
     PublicModule,
+    CommerceModule,
     CatalogModule
   ],
   providers: [

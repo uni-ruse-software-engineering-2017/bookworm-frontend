@@ -2,5 +2,6 @@
   <bw-book-list-item
     *ngFor="let book of books; trackBy: book?.id"
     [book]="book"
+    (buyPressed)="onBuyPressed(book)"
   ></bw-book-list-item>
 </div>

@@ -2,11 +2,11 @@
   display: block;
 }
 
-mat-drawer-content {
+mat-sidenav-content {
   height: 100vh;
 }
 
-mat-drawer {
+mat-sidenav {
   display: block;
   width: 75%;
   max-width: 420px;
@@ -60,4 +60,31 @@ mat-toolbar {
 
 .content {
   padding: 8px 16px;
+}
+
+.shopping-cart {
+  &-header {
+    margin: 16px;
+  }
+
+  &-content {
+    padding: 12px;
+  }
+
+  &-actions {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    a:not(:last-child),
+    button:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+
+  .price {
+    font-weight: bold;
+    font-size: 1.125em;
+  }
 }
