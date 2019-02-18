@@ -1,42 +1,57 @@
-<section class="mat-typography">
-  <h1>Shopping cart</h1>
+<mat-card class="shopping-cart mat-typography">
+  <mat-card-header>
+    <mat-card-title>Shopping Cart</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="empty-cart-message" *ngIf="cart.items.length === 0">
+      There are no items added to the cart yet.
+    </p>
+    <mat-list>
+      <mat-list-item *ngFor="let cartLine of cart.items; trackBy: cartLine?.id">
+        <img
+          [src]="cartLine.coverImage"
+          matListAvatar
+          [alt]="cartLine.title"
+          class="mat-elevation-z1"
+        />
+        <h3 matLine>
+          {{ cartLine.title }}
+        </h3>
+        <h4 matLine>
+          {{ cartLine.author.name }}
+        </h4>
+        <span class="price">
+          {{ cartLine.price | currency }}
+        </span>
+        <button mat-icon-button (click)="removeItem(cartLine)">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
 
-  <p *ngIf="cart.items.length === 0">
-    There are no items added to the cart yet.
-  </p>
-
-  <mat-list>
-    <mat-list-item *ngFor="let cartLine of cart.items; trackBy: cartLine?.id">
-      <img
-        [src]="cartLine.coverImage"
-        matListAvatar
-        [alt]="cartLine.title"
-        height="48px"
-      />
-      <h3 matLine>
-        {{ cartLine.title }}
-      </h3>
-      <h4 matLine>
-        {{ cartLine.author.name }}
-      </h4>
-      <span class="price">
-        {{ cartLine.price | currency }}
-      </span>
-      <button mat-icon-button (click)="removeItem(cartLine)">
-        <mat-icon>clear</mat-icon>
-      </button>
-    </mat-list-item>
-  </mat-list>
-
-  <h3 style="text-align: right">Total: {{ cart.total | currency }}</h3>
-
-  <button
-    mat-button
-    color="warn"
-    (click)="clearCart()"
-    [disabled]="!cart.items.length"
-  >
-    Clear
-  </button>
-  <button mat-raised-button color="primary">Checkout</button>
-</section>
+<mat-card class="summary mat-typography">
+  <mat-card-header>
+    <mat-card-title>
+      Summary
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="total">
+      <h1>{{ cart.total | currency }}</h1>
+      <h3>Total</h3>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button
+      mat-button
+      color="warn"
+      (click)="clearCart()"
+      [disabled]="!cart.items.length"
+    >
+      Clear
+    </button>
+    <button mat-raised-button color="primary">Checkout</button>
+  </mat-card-actions>
+</mat-card>

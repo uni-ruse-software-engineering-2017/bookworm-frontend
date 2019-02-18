@@ -69,6 +69,14 @@ mat-toolbar {
 
   &-content {
     padding: 12px;
+
+    .mat-list-base {
+      padding-top: 0;
+    }
+
+    .empty-cart {
+      margin-top: 12px;
+    }
   }
 
   &-actions {
@@ -84,7 +92,18 @@ mat-toolbar {
   }
 
   .price {
-    font-weight: bold;
+    text-align: right;
+    font-weight: 500;
     font-size: 1.125em;
+  }
+
+  .shopping-cart-total {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .shopping-cart-actions {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }

@@ -5,7 +5,7 @@
     </div>
     <mat-divider></mat-divider>
     <div class="shopping-cart-content">
-      <p *ngIf="(cart.content$ | async).items.length === 0">
+      <p class="empty-cart" *ngIf="(cart.content$ | async).items.length === 0">
         Your shopping cart is empty.
       </p>
       <mat-list>
@@ -18,12 +18,23 @@
           </span>
         </mat-list-item>
       </mat-list>
-      <div class="shopping-cart-actions">
-        <a [routerLink]="['/shopping-cart']" mat-button color="primary"
-          >To cart</a
-        >
-        <button mat-raised-button color="primary">Checkout</button>
-      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="shopping-cart-total">
+      <mat-list>
+        <mat-list-item>
+          <p matLine>Total</p>
+          <span class="price">
+            {{ (cart.content$ | async).total | currency }}
+          </span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="shopping-cart-actions">
+      <a [routerLink]="['/shopping-cart']" mat-button color="primary"
+        >To cart</a
+      >
+      <button mat-raised-button color="primary">Checkout</button>
     </div>
   </mat-sidenav>
   <mat-sidenav #drawer [mode]="drawerMode" class="mat-elevation-z8">
