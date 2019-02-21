@@ -6,6 +6,7 @@ import { AuthorsComponent } from "./authors/authors.component";
 import { BookDetailsComponent } from "./books/book-details/book-details.component";
 import { BooksComponent } from "./books/books.component";
 import { CategoriesComponent } from "./categories/categories.component";
+import { CategoryDetailsComponent } from "./categories/category-details/category-details.component";
 import { HomeComponent } from "./home/home.component";
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: "categories",
     component: CategoriesComponent
+  },
+  {
+    path: "categories/:categoryId",
+    component: CategoryDetailsComponent
   },
   {
     path: "not-found",

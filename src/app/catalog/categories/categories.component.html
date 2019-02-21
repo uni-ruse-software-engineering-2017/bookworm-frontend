@@ -1,5 +1,7 @@
 <ul>
   <li *ngFor="let category of categories">
-    {{ category.name }}
+    <a [routerLink]="['/categories', category.id]">
+      {{ category.name }}
+    </a>
   </li>
 </ul>
