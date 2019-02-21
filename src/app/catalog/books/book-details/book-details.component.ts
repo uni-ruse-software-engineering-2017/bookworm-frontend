@@ -14,10 +14,12 @@ import { IBookDetailed } from "src/app/core/types/catalog";
 export class BookDetailsComponent implements OnInit {
   book: IBookDetailed;
 
+  isBookAlreadyAddedInCart = false;
+
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
-    private cartService: ShoppingCartService,
+    public cartService: ShoppingCartService,
     public snacks: MatSnackBar,
     public router: Router
   ) {}
@@ -33,6 +35,13 @@ export class BookDetailsComponent implements OnInit {
       )
       .subscribe(book => {
         this.book = book;
+
+        // check if the book is already in the cart
+        this.cartService.content$.subscribe(cart => {
+          this.isBookAlreadyAddedInCart = !!cart.items.find(
+            i => i.bookId === this.book.id
+          );
+        });
       });
   }
 

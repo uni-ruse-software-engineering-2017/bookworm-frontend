@@ -9,7 +9,12 @@
     </a>
     <div class="book-actions">
       <span class="price">{{ book.price | currency }}</span>
-      <button mat-raised-button color="accent" (click)="onBuyPressed()">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="onBuyPressed()"
+        [disabled]="!canAddToCart"
+      >
         Add
       </button>
     </div>

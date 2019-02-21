@@ -26,7 +26,12 @@
     </div>
   </div>
   <mat-card-actions align="end">
-    <button mat-raised-button color="primary" (click)="addToCart(book)">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="addToCart(book)"
+      [disabled]="isBookAlreadyAddedInCart"
+    >
       Add to cart
     </button>
   </mat-card-actions>

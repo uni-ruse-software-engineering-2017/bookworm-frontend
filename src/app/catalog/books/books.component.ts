@@ -12,6 +12,7 @@ import { IBookListItem } from "src/app/core/types/catalog";
 })
 export class BooksComponent implements OnInit {
   books: IBookListItem[];
+  booksInCartHash: { [bookId: string]: boolean } = {};
 
   constructor(
     public bookService: BookService,
@@ -23,6 +24,16 @@ export class BooksComponent implements OnInit {
   ngOnInit() {
     this.bookService.getAll().subscribe(books => {
       this.books = books.items;
+    });
+
+    this.cartService.content$.subscribe(cart => {
+      // checks which books are already in the cart
+      // so that the "add to cart" button will get disabled
+      this.booksInCartHash = cart.items.reduce((prev, curr) => {
+        prev[curr.bookId] = true;
+
+        return prev;
+      }, {});
     });
   }
 

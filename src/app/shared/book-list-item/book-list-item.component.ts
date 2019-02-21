@@ -8,6 +8,8 @@ import { IBookListItem } from "src/app/core/types/catalog";
 })
 export class BookListItemComponent implements OnInit {
   @Input() book: IBookListItem;
+  @Input() canAddToCart = true;
+
   @Output() buyPressed = new EventEmitter();
 
   constructor() {}

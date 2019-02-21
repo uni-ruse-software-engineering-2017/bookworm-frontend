@@ -3,5 +3,6 @@
     *ngFor="let book of books; trackBy: book?.id"
     [book]="book"
     (buyPressed)="onBuyPressed(book)"
+    [canAddToCart]="!booksInCartHash[book.id]"
   ></bw-book-list-item>
 </div>
