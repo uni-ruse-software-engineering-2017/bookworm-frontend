@@ -84,4 +84,9 @@ export class ShoppingCartService {
       })
     );
   }
+
+  clearLocal() {
+    this.content$.next(INITIAL_STATE);
+    return INITIAL_STATE;
+  }
 }

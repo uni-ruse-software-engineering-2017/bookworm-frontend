@@ -4,6 +4,7 @@ import { ReplaySubject } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { ILoginCredentials, ISignUpData, IUserProfile } from "../types/user";
+import { ShoppingCartService } from "./shopping-cart.service";
 
 const apiUrl = `${environment.api}`;
 
@@ -11,7 +12,10 @@ const apiUrl = `${environment.api}`;
 export class AuthenticationService {
   public user$ = new ReplaySubject<IUserProfile>(null);
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private shoppingCart: ShoppingCartService
+  ) {
     this.getProfile().subscribe(
       profile => {
         this.user$.next(profile);
@@ -26,6 +30,10 @@ export class AuthenticationService {
       .pipe(
         map((response: { token: string }) => {
           const { token } = response;
+
+          // refresh the cart on login
+          this.shoppingCart.getAll().subscribe();
+
           return this.getProfile();
         }),
         map(profile$ => {
@@ -52,6 +60,7 @@ export class AuthenticationService {
     return this.httpClient.post(`${apiUrl}/logout`, {}).pipe(
       map((response: { success: boolean }) => {
         this.user$.next(null);
+        this.shoppingCart.clearLocal();
         return response.success;
       })
     );
