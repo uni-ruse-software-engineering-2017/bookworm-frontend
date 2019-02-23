@@ -41,6 +41,10 @@ export class AuthorService {
       .pipe(map(response => response as IAuthor));
   }
 
+  delete(authorId: string) {
+    return this.httpClient.delete(`${this.apiUrl}/${authorId}`);
+  }
+
   searchInGoodReadsByName(authorName: string) {
     const api = `${environment.api}/catalog/goodreads`;
 

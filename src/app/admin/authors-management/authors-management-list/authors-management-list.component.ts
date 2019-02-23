@@ -9,6 +9,7 @@ import { IAuthorListItem } from "src/app/core/types/catalog";
 export class AuthorsManagementListComponent implements OnInit {
   @Input() authors: IAuthorListItem[] = [];
   @Output() editClick = new EventEmitter();
+  @Output() deleteClick = new EventEmitter();
 
   constructor() {}
 
@@ -16,5 +17,9 @@ export class AuthorsManagementListComponent implements OnInit {
 
   editClicked(authorId: string) {
     this.editClick.emit(authorId);
+  }
+
+  deleteClicked(authorId: string) {
+    this.deleteClick.emit(authorId);
   }
 }
