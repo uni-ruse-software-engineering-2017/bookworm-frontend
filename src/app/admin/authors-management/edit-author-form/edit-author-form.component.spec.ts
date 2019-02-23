@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { EditAuthorFormComponent } from './edit-author-form.component';
+import { EditAuthorFormComponent } from "./edit-author-form.component";
 
-describe('EditAuthorFormComponent', () => {
+describe("EditAuthorFormComponent", () => {
   let component: EditAuthorFormComponent;
   let fixture: ComponentFixture<EditAuthorFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditAuthorFormComponent ]
-    })
-    .compileComponents();
+      declarations: [EditAuthorFormComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('EditAuthorFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
