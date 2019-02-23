@@ -1,0 +1,6 @@
+{
+  "hooks": {
+    "pre-commit": "npm run prettier && npm run lint",
+    "post-merge": "npm install"
+  }
+}
