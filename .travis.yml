@@ -1,0 +1,17 @@
+dist: trusty
+sudo: false
+
+addons:
+  chrome: stable
+
+language: node_js
+
+node_js:
+  - "lts/*"
+
+cache:
+  directories:
+    - "node_modules"
+
+script:
+  - npm run ci
