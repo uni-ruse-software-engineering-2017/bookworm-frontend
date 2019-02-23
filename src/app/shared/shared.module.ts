@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { BookListItemComponent } from "./book-list-item/book-list-item.component";
 import { MaterialComponentsModule } from "./material-components.module";
@@ -16,6 +16,7 @@ import { MaterialComponentsModule } from "./material-components.module";
   exports: [
     CommonModule,
     MaterialComponentsModule,
+    FormsModule,
     ReactiveFormsModule,
     BookListItemComponent
   ]

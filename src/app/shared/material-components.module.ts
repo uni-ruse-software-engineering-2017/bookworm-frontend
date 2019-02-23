@@ -5,6 +5,7 @@ import {
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatIconModule,
   MatInputModule,
@@ -36,7 +37,8 @@ const materialModules = [
   MatDialogModule,
   MatNativeDateModule,
   MatSelectModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatDatepickerModule
 ];
 
 /**

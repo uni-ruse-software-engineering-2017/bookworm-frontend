@@ -3,9 +3,7 @@
     <img mat-card-avatar [src]="author.imageUrl" />
     <mat-card-title>{{ author.name }}</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
-    {{ author.biography }}
-  </mat-card-content>
+  <mat-card-content [innerHTML]="author.biography"> </mat-card-content>
   <mat-divider></mat-divider>
   <mat-card-content class="books mat-typography">
     <h3>Books</h3>
@@ -19,5 +17,8 @@
         <h3 matLine>{{ book.title }}</h3>
       </a>
     </mat-nav-list>
+    <p *ngIf="author?.books.length === 0">
+      This authors has no books uploaded here yet.
+    </p>
   </mat-card-content>
 </mat-card>

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ReplaySubject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class LoadingService {
   private pendingRequests = 0;
 

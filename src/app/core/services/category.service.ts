@@ -5,7 +5,7 @@ import { environment } from "src/environments/environment";
 import { IPaginatedResource } from "../types";
 import { ICategory } from "../types/catalog";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class CategoryService {
   apiUrl = `${environment.api}/catalog/categories`;
 
@@ -21,5 +21,22 @@ export class CategoryService {
     return this.httpClient.get(`${this.apiUrl}/${categoryId}`) as Observable<
       ICategory
     >;
+  }
+
+  create(categoryData: ICategory) {
+    return this.httpClient.post(`${this.apiUrl}`, categoryData) as Observable<
+      ICategory
+    >;
+  }
+
+  edit(categoryId: string, categoryData: Partial<ICategory>) {
+    return this.httpClient.patch(
+      `${this.apiUrl}/${categoryId}`,
+      categoryData
+    ) as Observable<ICategory>;
+  }
+
+  remove(categoryId: string) {
+    return this.httpClient.delete(`${this.apiUrl}/${categoryId}`);
   }
 }

@@ -8,7 +8,7 @@ import { BooksComponent } from "./books/books.component";
 import { CatalogRoutingModule } from "./catalog-routing.module";
 import { CategoriesComponent } from "./categories/categories.component";
 import { HomeComponent } from "./home/home.component";
-import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
+import { CategoryDetailsComponent } from "./categories/category-details/category-details.component";
 
 @NgModule({
   declarations: [

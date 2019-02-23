@@ -1,0 +1,19 @@
+<mat-list>
+  <mat-list-item
+    *ngFor="let author of authors; trackBy: author?.id"
+    mat-list-item
+  >
+    <img matListAvatar [src]="author.imageUrl" [alt]="author.name" />
+    <h3 matLine>{{ author.name }}</h3>
+    <a
+      mat-icon-button
+      [routerLink]="['/authors', author.id, 'details']"
+      title="View Details"
+    >
+      <mat-icon>more_horiz</mat-icon>
+    </a>
+    <button mat-icon-button title="Edit">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>

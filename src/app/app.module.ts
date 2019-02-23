@@ -10,9 +10,6 @@ import { CatalogModule } from "./catalog/catalog.module";
 import { CommerceModule } from "./commerce/commerce.module";
 import { CoreModule } from "./core/core.module";
 import { LoadingInterceptor } from "./core/loading-interceptor";
-import { LoadingService } from "./core/loading.service";
-import { BookService } from "./core/services/book.service";
-import { CategoryService } from "./core/services/category.service";
 import { WithCredentialsInterceptor } from "./core/with-credentials-interceptor";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { PublicModule } from "./public/public.module";
@@ -39,10 +36,7 @@ import { SharedModule } from "./shared/shared.module";
       provide: HTTP_INTERCEPTORS,
       useClass: WithCredentialsInterceptor,
       multi: true
-    },
-    LoadingService,
-    BookService,
-    CategoryService
+    }
   ],
   bootstrap: [AppComponent]
 })

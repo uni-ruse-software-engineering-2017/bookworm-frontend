@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Authors</mat-card-title>
+    <mat-card-subtitle>Create and edit authors</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <bw-authors-management-list
+      [authors]="authors"
+    ></bw-authors-management-list>
+  </mat-card-content>
+</mat-card>
+
+<button mat-fab (click)="openAddAuthorModal()">
+  <mat-icon>add</mat-icon>
+</button>

@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+[mat-fab] {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2;
+}
