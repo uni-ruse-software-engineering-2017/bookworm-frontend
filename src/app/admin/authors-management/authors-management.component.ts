@@ -4,6 +4,7 @@ import { filter } from "rxjs/operators";
 import { AuthorService } from "src/app/core/services/author.service";
 import { IAuthorListItem } from "src/app/core/types/catalog";
 import { CreateAuthorFormComponent } from "./create-author-form/create-author-form.component";
+import { EditAuthorFormComponent } from "./edit-author-form/edit-author-form.component";
 
 @Component({
   selector: "bw-authors-management",
@@ -27,6 +28,19 @@ export class AuthorsManagementComponent implements OnInit {
 
   openAddAuthorModal() {
     const modalRef = this.dialog.open(CreateAuthorFormComponent);
+
+    return modalRef
+      .afterClosed()
+      .pipe(filter((result: boolean) => result))
+      .subscribe(() => {
+        this.getAuthors();
+      });
+  }
+
+  openEditAuthorModal(authorId: string) {
+    const modalRef = this.dialog.open(EditAuthorFormComponent, {
+      data: authorId
+    });
 
     return modalRef
       .afterClosed()

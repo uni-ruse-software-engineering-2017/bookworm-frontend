@@ -6,6 +6,7 @@
   <mat-card-content>
     <bw-authors-management-list
       [authors]="authors"
+      (editClick)="openEditAuthorModal($event)"
     ></bw-authors-management-list>
   </mat-card-content>
 </mat-card>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { IAuthorListItem } from "src/app/core/types/catalog";
 
 @Component({
@@ -8,8 +8,13 @@ import { IAuthorListItem } from "src/app/core/types/catalog";
 })
 export class AuthorsManagementListComponent implements OnInit {
   @Input() authors: IAuthorListItem[] = [];
+  @Output() editClick = new EventEmitter();
 
   constructor() {}
 
   ngOnInit() {}
+
+  editClicked(authorId: string) {
+    this.editClick.emit(authorId);
+  }
 }

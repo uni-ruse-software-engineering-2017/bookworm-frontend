@@ -1,0 +1,59 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2 class="mat-title">Edit author</h2>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Name" formControlName="name" />
+    <mat-error *ngIf="form.controls['name'].errors?.required">
+      The author name is required.
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea
+      type="text"
+      matInput
+      placeholder="Biography"
+      formControlName="biography"
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      type="url"
+      matInput
+      placeholder="Image URL"
+      formControlName="imageUrl"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Date of Birth"
+      formControlName="bornAt"
+      [matDatepicker]="bornDatePicker"
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="bornDatePicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #bornDatePicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Died At"
+      formControlName="diedAt"
+      [matDatepicker]="diedDatePicker"
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="diedDatePicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #diedDatePicker></mat-datepicker>
+  </mat-form-field>
+  <div class="actions">
+    <button type="button" mat-button (click)="modalRef.close()">
+      <span>Cancel</span>
+    </button>
+    <button type="submit" mat-raised-button color="primary">
+      <span>Save</span>
+    </button>
+  </div>
+</form>
