@@ -1,3 +1,18 @@
-<p>
-  books-management works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Books Management</mat-card-title>
+    <mat-card-subtitle>Add, edit and delete books</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <bw-books-management-list
+      [books]="books?.items"
+      (removeBook)="openConfirmDeleteModal($event)"
+    >
+    </bw-books-management-list>
+  </mat-card-content>
+  <mat-card-actions> </mat-card-actions>
+</mat-card>
+
+<a mat-fab [routerLink]="['./create']" routerLinkActive="router-link-active">
+  <mat-icon>add</mat-icon>
+</a>

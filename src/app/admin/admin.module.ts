@@ -9,6 +9,8 @@ import { CreateAuthorFormComponent } from "./authors-management/create-author-fo
 import { EditAuthorFormComponent } from "./authors-management/edit-author-form/edit-author-form.component";
 import { BooksManagementComponent } from "./books-management/books-management.component";
 import { CategoryManagementComponent } from "./category-management/category-management.component";
+import { CreateBookFormComponent } from "./books-management/create-book-form/create-book-form.component";
+import { BooksManagementListComponent } from "./books-management/books-management-list/books-management-list.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CategoryManagementComponent } from "./category-management/category-mana
     CategoryManagementComponent,
     AuthorsManagementListComponent,
     CreateAuthorFormComponent,
-    EditAuthorFormComponent
+    EditAuthorFormComponent,
+    CreateBookFormComponent,
+    BooksManagementListComponent
   ],
   entryComponents: [CreateAuthorFormComponent, EditAuthorFormComponent],
   imports: [CommonModule, SharedModule, AdminRoutingModule]

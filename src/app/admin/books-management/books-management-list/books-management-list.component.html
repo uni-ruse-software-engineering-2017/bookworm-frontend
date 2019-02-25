@@ -1,0 +1,28 @@
+<section class="mat-typography">
+  <mat-list>
+    <mat-list-item *ngFor="let book of books; trackBy: book?.id">
+      <mat-divider></mat-divider>
+      <img
+        [src]="book.coverImage"
+        matListAvatar
+        [alt]="book.title"
+        class="mat-elevation-z1"
+      />
+      <h3 matLine>
+        {{ book.title }}
+      </h3>
+      <h4 matLine>
+        {{ book.author.name }}
+      </h4>
+      <span class="price">
+        {{ book.price | currency }}
+      </span>
+      <button mat-icon-button (click)="removeBookClicked(book)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="removeBookClicked(book)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</section>

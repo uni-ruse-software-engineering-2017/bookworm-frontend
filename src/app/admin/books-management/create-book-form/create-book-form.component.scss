@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+mat-form-field {
+  display: block;
+}
+
+mat-slide-toggle:not(:last-of-type) {
+  margin-right: 12px;
+}

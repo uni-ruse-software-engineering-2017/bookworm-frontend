@@ -4,7 +4,12 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { IPaginatedResource } from "../types";
-import { IBook, IBookDetailed, IBookListItem } from "../types/catalog";
+import {
+  IBookDetailed,
+  IBookListItem,
+  IEditBook,
+  INewBook
+} from "../types/catalog";
 
 @Injectable({ providedIn: "root" })
 export class BookService {
@@ -28,15 +33,21 @@ export class BookService {
       .pipe(map(response => response as IBookDetailed));
   }
 
-  create(bookData: IBook) {
+  create(bookData: INewBook) {
     return this.httpClient
       .post(`${this.apiUrl}`, bookData)
       .pipe(map(response => response as IBookDetailed));
   }
 
-  edit(bookId: string, bookData: IBook) {
+  edit(bookId: string, bookData: IEditBook) {
     return this.httpClient
       .patch(`${this.apiUrl}/${bookId}`, bookData)
       .pipe(map(response => response as IBookDetailed));
+  }
+
+  delete(bookId: string) {
+    return this.httpClient
+      .delete(`${this.apiUrl}/${bookId}`)
+      .pipe(map(response => response as null));
   }
 }

@@ -21,14 +21,25 @@ export interface IBookListItem {
   coverImage: string;
   available: boolean;
   featured: boolean;
-  author: IAuthorListItem;
-  category: ICategory;
+  author?: IAuthorListItem;
+  category?: ICategory;
 }
 
 export interface IBookDetailed extends IBook {
   author: IAuthorListItem;
   category: ICategory;
 }
+
+export interface INewBook
+  extends Exclude<
+    IBook,
+    { id: string; author: IAuthorListItem; category: ICategory }
+  > {
+  authorId: string;
+  categoryId: string;
+}
+
+export type IEditBook = Partial<INewBook>;
 
 export interface IAuthor {
   readonly id?: string;
