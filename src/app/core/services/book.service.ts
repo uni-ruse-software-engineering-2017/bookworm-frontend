@@ -50,4 +50,11 @@ export class BookService {
       .delete(`${this.apiUrl}/${bookId}`)
       .pipe(map(response => response as null));
   }
+
+  searchByISBN(isbn: string) {
+    const api = environment.api;
+    return this.httpClient
+      .get(`${api}/catalog/goodreads/books/${isbn}`)
+      .pipe(map(response => response as IBookDetailed));
+  }
 }

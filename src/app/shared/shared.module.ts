@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { BookListItemComponent } from "./book-list-item/book-list-item.component";
 import { ConfirmationModalComponent } from "./confirmation-modal/confirmation-modal.component";
+import { ImgFallbackDirective } from "./image-fallback.directive";
 import { MaterialComponentsModule } from "./material-components.module";
 
 @NgModule({
@@ -13,7 +14,11 @@ import { MaterialComponentsModule } from "./material-components.module";
     MaterialComponentsModule,
     ReactiveFormsModule
   ],
-  declarations: [BookListItemComponent, ConfirmationModalComponent],
+  declarations: [
+    BookListItemComponent,
+    ConfirmationModalComponent,
+    ImgFallbackDirective
+  ],
   entryComponents: [ConfirmationModalComponent],
   exports: [
     CommonModule,
@@ -21,7 +26,8 @@ import { MaterialComponentsModule } from "./material-components.module";
     FormsModule,
     ReactiveFormsModule,
     BookListItemComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    ImgFallbackDirective
   ]
 })
 export class SharedModule {}

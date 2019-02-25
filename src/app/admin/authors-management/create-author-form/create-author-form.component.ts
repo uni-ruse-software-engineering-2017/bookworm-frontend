@@ -9,6 +9,7 @@ import {
 import { MatDialogRef } from "@angular/material";
 import { finalize } from "rxjs/operators";
 import { AuthorService } from "src/app/core/services/author.service";
+import { toggleFormDisabledState } from "src/app/util/ng";
 
 interface ICreateAuthorModel {
   name: string;
@@ -26,7 +27,6 @@ interface ICreateAuthorModel {
 export class CreateAuthorFormComponent implements OnInit {
   form: FormGroup;
   searchInput: FormControl;
-  isLoading = false;
   searchError = false;
 
   constructor(
@@ -61,16 +61,14 @@ export class CreateAuthorFormComponent implements OnInit {
 
   searchAuthor() {
     // disable all fields while loading
-    this.isLoading = true;
     this.searchError = false;
-    this.toggleFormDisabledState(this.isLoading);
+    toggleFormDisabledState(this.form, true);
 
     this.authorService
       .searchInGoodReadsByName(this.searchInput.value)
       .pipe(
         finalize(() => {
-          this.isLoading = false;
-          this.toggleFormDisabledState(this.isLoading);
+          toggleFormDisabledState(this.form, false);
         })
       )
       .subscribe(
@@ -81,15 +79,5 @@ export class CreateAuthorFormComponent implements OnInit {
           this.searchError = true;
         }
       );
-  }
-
-  toggleFormDisabledState(state: boolean) {
-    Object.keys(this.form.controls).forEach(name => {
-      if (state) {
-        this.form.get(name).disable();
-      } else {
-        this.form.get(name).enable();
-      }
-    });
   }
 }

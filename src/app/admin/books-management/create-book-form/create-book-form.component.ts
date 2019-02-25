@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { Observable, of } from "rxjs";
-import { map, startWith } from "rxjs/operators";
+import { finalize, map, startWith } from "rxjs/operators";
 import { AuthorService } from "src/app/core/services/author.service";
 import { BookService } from "src/app/core/services/book.service";
 import { CategoryService } from "src/app/core/services/category.service";
@@ -14,6 +14,7 @@ import {
   INewBook
 } from "src/app/core/types/catalog";
 import emptyResource from "src/app/util/empty-resource";
+import { toggleFormDisabledState } from "src/app/util/ng";
 
 @Component({
   selector: "bw-create-book-form",
@@ -89,28 +90,14 @@ export class CreateBookFormComponent implements OnInit {
     );
   }
 
-  private _filterAuthors(name: string): IAuthorListItem[] {
-    const filterValue = name.toLowerCase();
-
-    if (!this.authors) {
-      return [];
-    }
-
-    return this.authors.items.filter(
-      option => option.name.toLowerCase().indexOf(filterValue) >= 0
-    );
-  }
-
-  private _filterCategories(name: string): ICategory[] {
-    const filterValue = name.toLowerCase();
-
-    if (!this.categories) {
-      return [];
-    }
-
-    return this.categories.items.filter(
-      option => option.name.toLowerCase().indexOf(filterValue) >= 0
-    );
+  searchByISBN() {
+    toggleFormDisabledState(this.form, true);
+    this.bookService
+      .searchByISBN(this.form.get("isbn").value)
+      .pipe(finalize(() => toggleFormDisabledState(this.form, false)))
+      .subscribe(result => {
+        this.form.setValue({ ...result, author: null, category: null });
+      });
   }
 
   onSubmit() {
@@ -144,5 +131,29 @@ export class CreateBookFormComponent implements OnInit {
 
   displayCategoryFn(category?: ICategory) {
     return category ? category.name : undefined;
+  }
+
+  private _filterAuthors(name: string): IAuthorListItem[] {
+    const filterValue = name.toLowerCase();
+
+    if (!this.authors) {
+      return [];
+    }
+
+    return this.authors.items.filter(
+      option => option.name.toLowerCase().indexOf(filterValue) >= 0
+    );
+  }
+
+  private _filterCategories(name: string): ICategory[] {
+    const filterValue = name.toLowerCase();
+
+    if (!this.categories) {
+      return [];
+    }
+
+    return this.categories.items.filter(
+      option => option.name.toLowerCase().indexOf(filterValue) >= 0
+    );
   }
 }

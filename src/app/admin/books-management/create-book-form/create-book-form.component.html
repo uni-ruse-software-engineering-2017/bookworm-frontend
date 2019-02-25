@@ -4,8 +4,20 @@
       <mat-card-title>Create new book</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>ISBN</mat-label>
         <input type="text" matInput placeholder="ISBN" formControlName="isbn" />
+        <span matSuffix>
+          <button
+            type="button"
+            matSuffix
+            mat-icon-button
+            title="Search by ISBN"
+            (click)="searchByISBN()"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+        </span>
         <mat-error *ngIf="form.controls['isbn'].errors?.required">
           The ISBN is required.
         </mat-error>
@@ -48,17 +60,24 @@
           The pages count must be a number between 1 and 2000.
         </mat-error>
       </mat-form-field>
-      <mat-form-field>
-        <input
-          type="url"
-          matInput
-          placeholder="Cover Image URL"
-          formControlName="coverImage"
+      <div class="cover-image-field">
+        <mat-form-field class="flex-1">
+          <input
+            type="url"
+            matInput
+            placeholder="Cover Image URL"
+            formControlName="coverImage"
+          />
+          <mat-error *ngIf="form.controls['coverImage'].errors?.required">
+            The cover image URL is required.
+          </mat-error>
+        </mat-form-field>
+        <img
+          [src]="form.get('coverImage').value"
+          height="40px"
+          src-fallback="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/nophoto/book/111x148._SX50_.png"
         />
-        <mat-error *ngIf="form.controls['coverImage'].errors?.required">
-          The cover image URL is required.
-        </mat-error>
-      </mat-form-field>
+      </div>
       <mat-form-field>
         <textarea
           type="text"

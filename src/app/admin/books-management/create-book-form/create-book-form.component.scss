@@ -9,3 +9,11 @@ mat-form-field {
 mat-slide-toggle:not(:last-of-type) {
   margin-right: 12px;
 }
+
+.cover-image-field {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1 !important;
+}
