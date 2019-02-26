@@ -6,6 +6,7 @@ import { BookService } from "src/app/core/services/book.service";
 import { CategoryService } from "src/app/core/services/category.service";
 import { IPaginatedResource } from "src/app/core/types";
 import { IBookListItem, ICategory } from "src/app/core/types/catalog";
+import { defaultPaginationQuery } from "src/app/util/pagination";
 
 @Component({
   selector: "bw-category-details",
@@ -33,7 +34,7 @@ export class CategoryDetailsComponent implements OnInit {
               .getById(categoryId)
               .pipe(map(category => (this.category = category))),
             this.bookService
-              .getAll({ categoryId })
+              .getAll({ ...defaultPaginationQuery(), categoryId })
               .pipe(map(books => (this.books = books)))
           );
         })

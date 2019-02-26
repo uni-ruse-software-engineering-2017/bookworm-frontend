@@ -2,6 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import {
+  buildQueryParamsFromPagination,
+  IPaginationQuery
+} from "src/app/util/pagination";
 import { environment } from "src/environments/environment";
 import { IPaginatedResource } from "../types";
 import {
@@ -17,13 +21,20 @@ export class BookService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAll(query?: { categoryId?: string }) {
-    const q = query || {};
+  getAll(
+    query?: IPaginationQuery & {
+      categoryId?: string;
+    }
+  ) {
+    const queryParams = buildQueryParamsFromPagination(query);
+    const categoryQuery = query ? query.categoryId : null;
+
+    if (categoryQuery) {
+      queryParams.category_id = categoryQuery;
+    }
 
     return this.httpClient.get(`${this.apiUrl}`, {
-      params: {
-        [q.categoryId ? "category_id" : undefined]: q.categoryId
-      }
+      params: queryParams
     }) as Observable<IPaginatedResource<IBookListItem>>;
   }
 

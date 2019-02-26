@@ -13,8 +13,8 @@ import {
   ICategory,
   INewBook
 } from "src/app/core/types/catalog";
-import emptyResource from "src/app/util/empty-resource";
 import { toggleFormDisabledState } from "src/app/util/ng";
+import { emptyResource } from "src/app/util/pagination";
 
 @Component({
   selector: "bw-create-book-form",

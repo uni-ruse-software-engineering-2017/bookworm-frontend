@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material";
+import { MatDialog, PageEvent } from "@angular/material";
 import { filter, flatMap } from "rxjs/operators";
 import { BookService } from "src/app/core/services/book.service";
 import { IPaginatedResource } from "src/app/core/types";
@@ -8,6 +8,7 @@ import {
   ConfirmationModalComponent,
   IConfirmationModalComponentData
 } from "src/app/shared/confirmation-modal/confirmation-modal.component";
+import { emptyResource, IPaginationQuery } from "src/app/util/pagination";
 
 @Component({
   selector: "bw-books-management",
@@ -15,16 +16,17 @@ import {
   styleUrls: ["./books-management.component.scss"]
 })
 export class BooksManagementComponent implements OnInit {
-  books: IPaginatedResource<IBookListItem>;
+  books: IPaginatedResource<IBookListItem> = emptyResource();
+
   constructor(private bookService: BookService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.getBooks();
   }
 
-  getBooks() {
+  getBooks(query?: IPaginationQuery) {
     this.bookService
-      .getAll()
+      .getAll(query)
       .subscribe(booksResponse => (this.books = booksResponse));
   }
 
@@ -46,5 +48,9 @@ export class BooksManagementComponent implements OnInit {
       .subscribe(x => {
         this.getBooks();
       });
+  }
+
+  onPaginate(event: PageEvent) {
+    this.getBooks({ page: event.pageIndex + 1, pageSize: event.pageSize });
   }
 }

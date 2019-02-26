@@ -1,12 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material";
+import { MatDialog, PageEvent } from "@angular/material";
 import { filter, flatMap } from "rxjs/operators";
 import { AuthorService } from "src/app/core/services/author.service";
+import { IPaginatedResource } from "src/app/core/types";
 import { IAuthorListItem } from "src/app/core/types/catalog";
 import {
   ConfirmationModalComponent,
   IConfirmationModalComponentData
 } from "src/app/shared/confirmation-modal/confirmation-modal.component";
+import { emptyResource, IPaginationQuery } from "src/app/util/pagination";
 import { CreateAuthorFormComponent } from "./create-author-form/create-author-form.component";
 import { EditAuthorFormComponent } from "./edit-author-form/edit-author-form.component";
 
@@ -16,7 +18,7 @@ import { EditAuthorFormComponent } from "./edit-author-form/edit-author-form.com
   styleUrls: ["./authors-management.component.scss"]
 })
 export class AuthorsManagementComponent implements OnInit {
-  authors: IAuthorListItem[];
+  authors: IPaginatedResource<IAuthorListItem> = emptyResource();
 
   constructor(public authorService: AuthorService, private dialog: MatDialog) {}
 
@@ -24,9 +26,9 @@ export class AuthorsManagementComponent implements OnInit {
     this.getAuthors();
   }
 
-  getAuthors() {
+  getAuthors(query?: IPaginationQuery) {
     this.authorService.getAll().subscribe(authors => {
-      this.authors = authors.items;
+      this.authors = authors;
     });
   }
 
@@ -72,5 +74,9 @@ export class AuthorsManagementComponent implements OnInit {
       .subscribe(x => {
         this.getAuthors();
       });
+  }
+
+  onPaginate(event: PageEvent) {
+    this.getAuthors({ page: event.pageIndex + 1, pageSize: event.pageSize });
   }
 }

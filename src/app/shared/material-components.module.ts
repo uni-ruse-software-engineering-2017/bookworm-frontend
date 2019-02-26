@@ -1,4 +1,3 @@
-// tslint:max-line-length
 import { NgModule } from "@angular/core";
 import {
   MatAutocompleteModule,
@@ -13,6 +12,7 @@ import {
   MatListModule,
   MatMenuModule,
   MatNativeDateModule,
+  MatPaginatorModule,
   MatProgressBarModule,
   MatSelectModule,
   MatSidenavModule,
@@ -41,7 +41,8 @@ const materialModules = [
   MatSelectModule,
   MatBadgeModule,
   MatDatepickerModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatPaginatorModule
 ];
 
 /**

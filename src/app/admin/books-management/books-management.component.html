@@ -10,7 +10,15 @@
     >
     </bw-books-management-list>
   </mat-card-content>
-  <mat-card-actions> </mat-card-actions>
+  <mat-card-actions>
+    <mat-paginator
+      [length]="books.total"
+      [pageSize]="books.pageSize"
+      [pageSizeOptions]="[10, 25, 50]"
+      (page)="onPaginate($event)"
+    >
+    </mat-paginator>
+  </mat-card-actions>
 </mat-card>
 
 <a mat-fab [routerLink]="['./create']" routerLinkActive="router-link-active">
