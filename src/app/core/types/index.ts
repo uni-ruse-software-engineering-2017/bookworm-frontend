@@ -11,3 +11,10 @@ export interface IPaginationQuery {
   page?: number;
   pageSize?: number;
 }
+
+export type ITree<T> = ITreeNode<T>[];
+
+export interface ITreeNode<T> {
+  value: T;
+  children: ITreeNode<T>[];
+}

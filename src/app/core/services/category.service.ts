@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { IPaginatedResource } from "../types";
+import { IPaginatedResource, ITree } from "../types";
 import { ICategory } from "../types/catalog";
 
 @Injectable({ providedIn: "root" })
@@ -14,6 +14,12 @@ export class CategoryService {
   getAll() {
     return this.httpClient.get(`${this.apiUrl}`) as Observable<
       IPaginatedResource<ICategory>
+    >;
+  }
+
+  getCategoryTree() {
+    return this.httpClient.get(`${this.apiUrl}/tree`) as Observable<
+      ITree<ICategory>
     >;
   }
 

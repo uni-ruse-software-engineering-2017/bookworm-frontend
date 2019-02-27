@@ -19,7 +19,8 @@ import {
   MatSlideToggleModule,
   MatSnackBarModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatTreeModule
 } from "@angular/material";
 
 const materialModules = [
@@ -42,7 +43,8 @@ const materialModules = [
   MatBadgeModule,
   MatDatepickerModule,
   MatSlideToggleModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatTreeModule
 ];
 
 /**
