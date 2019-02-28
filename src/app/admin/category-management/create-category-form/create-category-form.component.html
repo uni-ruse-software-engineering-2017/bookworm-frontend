@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2 class="mat-title" *ngIf="mode === 'create'">Add new category</h2>
+  <h2 class="mat-title" *ngIf="mode === 'edit'">Edit category</h2>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Name" formControlName="name" />
+    <mat-error *ngIf="form.controls['name'].errors?.required">
+      The category name is required.
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      type="text"
+      placeholder="Parent Category (optional)"
+      aria-label="Parent Category"
+      matInput
+      formControlName="parentId"
+      [matAutocomplete]="parentCategoryAutocomplete"
+    />
+    <mat-autocomplete
+      #parentCategoryAutocomplete="matAutocomplete"
+      [displayWith]="displayCategoryFn"
+    >
+      <mat-option
+        *ngFor="let option of (filteredCategories | async)"
+        [value]="option"
+      >
+        {{ option.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <div class="actions">
+    <button type="button" mat-button (click)="modalRef.close()">
+      <span>Cancel</span>
+    </button>
+    <button type="submit" mat-raised-button color="primary">
+      <span>Save</span>
+    </button>
+  </div>
+</form>

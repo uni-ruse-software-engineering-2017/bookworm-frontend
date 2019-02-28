@@ -1,4 +1,3 @@
-// tslint:disable:max-line-length
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared/shared.module";
@@ -7,10 +6,11 @@ import { AuthorsManagementListComponent } from "./authors-management/authors-man
 import { AuthorsManagementComponent } from "./authors-management/authors-management.component";
 import { CreateAuthorFormComponent } from "./authors-management/create-author-form/create-author-form.component";
 import { EditAuthorFormComponent } from "./authors-management/edit-author-form/edit-author-form.component";
-import { BooksManagementComponent } from "./books-management/books-management.component";
-import { CategoryManagementComponent } from "./category-management/category-management.component";
-import { CreateBookFormComponent } from "./books-management/create-book-form/create-book-form.component";
 import { BooksManagementListComponent } from "./books-management/books-management-list/books-management-list.component";
+import { BooksManagementComponent } from "./books-management/books-management.component";
+import { CreateBookFormComponent } from "./books-management/create-book-form/create-book-form.component";
+import { CategoryManagementComponent } from "./category-management/category-management.component";
+import { CreateCategoryFormComponent } from "./category-management/create-category-form/create-category-form.component";
 
 @NgModule({
   declarations: [
@@ -21,9 +21,14 @@ import { BooksManagementListComponent } from "./books-management/books-managemen
     CreateAuthorFormComponent,
     EditAuthorFormComponent,
     CreateBookFormComponent,
-    BooksManagementListComponent
+    BooksManagementListComponent,
+    CreateCategoryFormComponent
   ],
-  entryComponents: [CreateAuthorFormComponent, EditAuthorFormComponent],
+  entryComponents: [
+    CreateAuthorFormComponent,
+    EditAuthorFormComponent,
+    CreateCategoryFormComponent
+  ],
   imports: [CommonModule, SharedModule, AdminRoutingModule]
 })
 export class AdminModule {}

@@ -1,0 +1,25 @@
+.category-tree-invisible {
+  display: none;
+}
+
+.category-tree ul,
+.category-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+.edit-button {
+  margin-left: 24px;
+}
+
+mat-card {
+  margin-bottom: 96px;
+}
+
+[mat-fab] {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2;
+}
