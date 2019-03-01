@@ -9,6 +9,7 @@ import { AppComponent } from "./app.component";
 import { CatalogModule } from "./catalog/catalog.module";
 import { CommerceModule } from "./commerce/commerce.module";
 import { CoreModule } from "./core/core.module";
+import { HttpErrorInterceptor } from "./core/http-error-interceptor";
 import { LoadingInterceptor } from "./core/loading-interceptor";
 import { WithCredentialsInterceptor } from "./core/with-credentials-interceptor";
 import { NotFoundComponent } from "./not-found/not-found.component";
@@ -35,6 +36,11 @@ import { SharedModule } from "./shared/shared.module";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: WithCredentialsInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true
     }
   ],
