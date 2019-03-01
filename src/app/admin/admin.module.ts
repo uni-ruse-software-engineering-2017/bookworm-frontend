@@ -1,6 +1,8 @@
+// tslint:disable:max-line-length
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared/shared.module";
+import { AdminDashboardComponent } from "./admin-dashboard/admin-dashboard.component";
 import { AdminRoutingModule } from "./admin-routing.module";
 import { AuthorsManagementListComponent } from "./authors-management/authors-management-list/authors-management-list.component";
 import { AuthorsManagementComponent } from "./authors-management/authors-management.component";
@@ -22,7 +24,8 @@ import { CreateCategoryFormComponent } from "./category-management/create-catego
     EditAuthorFormComponent,
     CreateBookFormComponent,
     BooksManagementListComponent,
-    CreateCategoryFormComponent
+    CreateCategoryFormComponent,
+    AdminDashboardComponent
   ],
   entryComponents: [
     CreateAuthorFormComponent,

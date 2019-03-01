@@ -80,7 +80,7 @@
         [routerLink]="['/shopping-cart']"
         routerLinkActive="active"
         mat-button
-        *ngIf="user"
+        *ngIf="user && user.role === 'customer'"
       >
         <mat-icon>shopping_cart</mat-icon>
         <span>Shopping Cart</span>
@@ -90,10 +90,20 @@
         [routerLink]="['/orders']"
         routerLinkActive="active"
         mat-button
-        *ngIf="user"
+        *ngIf="user && user.role === 'customer'"
       >
         <mat-icon>description</mat-icon>
         <span>My Orders</span>
+      </mat-list-item>
+      <mat-list-item
+        mat-list-item
+        [routerLink]="['/admin']"
+        routerLinkActive="active"
+        mat-button
+        *ngIf="user && user.role === 'admin'"
+      >
+        <mat-icon>description</mat-icon>
+        <span>Administration</span>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
@@ -122,12 +132,27 @@
           <a [routerLink]="['/authors']" routerLinkActive="active" mat-button
             >Authors</a
           >
-          <a [routerLink]="['/orders']" routerLinkActive="active" mat-button
+          <a
+            [routerLink]="['/orders']"
+            routerLinkActive="active"
+            mat-button
+            *ngIf="user && user.role === 'customer'"
             >My Orders</a
+          >
+          <a
+            [routerLink]="['/admin']"
+            routerLinkActive="active"
+            mat-button
+            *ngIf="user && user.role === 'admin'"
+            >Administration</a
           >
         </span>
         <span class="spacer"></span>
-        <button mat-icon-button style="margin-right: 4px">
+        <button
+          mat-icon-button
+          style="margin-right: 4px"
+          *ngIf="user && user.role === 'customer'"
+        >
           <mat-icon
             [matBadge]="(cart.content$ | async).items.length"
             matBadgeColor="accent"
@@ -139,18 +164,23 @@
           <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #accountMenu="matMenu">
+          <div *ngIf="user">
+            <div class="account-menu-header mat-typography">
+              <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+            </div>
+            <a [routerLink]="['/profile']" mat-menu-item>
+              <mat-icon>account_box</mat-icon>
+              <span>Profile</span>
+            </a>
+            <button mat-menu-item (click)="onLogoutClicked()">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>Sign out</span>
+            </button>
+          </div>
           <a [routerLink]="['/login']" mat-menu-item *ngIf="!user">
             <mat-icon>input</mat-icon>
             <span>Sign in</span>
           </a>
-          <a [routerLink]="['/profile']" mat-menu-item *ngIf="user">
-            <mat-icon>account_box</mat-icon>
-            <span>Profile</span>
-          </a>
-          <button mat-menu-item (click)="onLogoutClicked()" *ngIf="user">
-            <mat-icon>exit_to_app</mat-icon>
-            <span>Sign out</span>
-          </button>
         </mat-menu>
       </mat-toolbar>
       <mat-progress-bar
