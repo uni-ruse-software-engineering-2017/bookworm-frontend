@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { BookListItemComponent } from "./book-list-item/book-list-item.component";
+import { CategoriesTreeComponent } from "./categories-tree/categories-tree.component";
 import { ConfirmationModalComponent } from "./confirmation-modal/confirmation-modal.component";
 import { ImgFallbackDirective } from "./image-fallback.directive";
 import { MaterialComponentsModule } from "./material-components.module";
@@ -17,7 +18,8 @@ import { MaterialComponentsModule } from "./material-components.module";
   declarations: [
     BookListItemComponent,
     ConfirmationModalComponent,
-    ImgFallbackDirective
+    ImgFallbackDirective,
+    CategoriesTreeComponent
   ],
   entryComponents: [ConfirmationModalComponent],
   exports: [
@@ -27,7 +29,8 @@ import { MaterialComponentsModule } from "./material-components.module";
     ReactiveFormsModule,
     BookListItemComponent,
     ConfirmationModalComponent,
-    ImgFallbackDirective
+    ImgFallbackDirective,
+    CategoriesTreeComponent
   ]
 })
 export class SharedModule {}

@@ -1,5 +1,27 @@
+@import "layout.scss";
+
+:host {
+  display: flex;
+}
+
+bw-categories-tree {
+  flex-basis: fit-content;
+  max-width: 360px;
+}
+
 .books-list {
+  flex: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+@include mobile() {
+  :host {
+    display: block;
+  }
+
+  bw-categories-tree {
+    margin: 0 auto;
+  }
 }

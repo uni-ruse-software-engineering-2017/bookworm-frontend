@@ -1,3 +1,8 @@
+<bw-categories-tree
+  class="mat-elevation-z1"
+  [data]="categoryTree"
+  *ngIf="categoryTree"
+></bw-categories-tree>
 <div class="books-list">
   <bw-book-list-item
     *ngFor="let book of books; trackBy: book?.id"

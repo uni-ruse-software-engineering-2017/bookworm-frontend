@@ -1,3 +1,5 @@
+@import "layout.scss";
+
 :host {
   display: block;
 }
@@ -58,10 +60,6 @@ mat-toolbar {
   flex: 1 1 auto;
 }
 
-.content {
-  padding: 8px 16px;
-}
-
 .shopping-cart {
   &-header {
     margin: 16px;
@@ -112,5 +110,22 @@ mat-toolbar {
   padding: 8px 16px 16px 16px;
   h3 {
     margin: 0;
+  }
+}
+
+.content {
+  padding: 24px 16px;
+  margin: 0 auto;
+
+  @include desktop() {
+    max-width: 1280px;
+  }
+
+  @include tablet() {
+    max-width: 960px;
+  }
+
+  @include mobile() {
+    padding: 12px 8px;
   }
 }
