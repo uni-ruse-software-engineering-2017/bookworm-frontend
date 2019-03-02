@@ -139,12 +139,12 @@
         <button
           mat-icon-button
           style="margin-right: 4px"
+          (click)="cartSideNav.open()"
           *ngIf="user && user.role === 'customer'"
         >
           <mat-icon
             [matBadge]="(cart.content$ | async).items.length"
             matBadgeColor="accent"
-            (click)="cartSideNav.open()"
             >shopping_cart</mat-icon
           >
         </button>
