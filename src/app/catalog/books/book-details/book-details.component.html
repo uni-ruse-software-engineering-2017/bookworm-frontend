@@ -17,6 +17,7 @@
         <p>Date published: {{ book.datePublished | date }}</p>
         <p>Pages: {{ book.pages }}</p>
         <p>Category: {{ book.category.name }}</p>
+        <p *ngIf="formats.length > 0">Formats: {{ formats }}</p>
       </div>
     </div>
     <div class="book-summary">

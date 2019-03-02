@@ -16,7 +16,8 @@ export class BookDetailsComponent implements OnInit {
   book: IBookDetailed;
 
   isBookAlreadyAddedInCart = false;
-  bookFiles: IBookFile[];
+  bookFiles: IBookFile[] = [];
+  formats = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +42,7 @@ export class BookDetailsComponent implements OnInit {
       .subscribe(([book, bookFiles]) => {
         this.book = book;
         this.bookFiles = bookFiles;
+        this.formats = bookFiles.map(bf => bf.extension).join(", ");
 
         // check if the book is already in the cart
         this.cartService.content$.subscribe(cart => {
