@@ -107,3 +107,13 @@ export interface IGoodreadsAuthorResponse {
   died_at: string;
   goodreads_author: string;
 }
+
+export interface IBookFile {
+  id: string;
+  name: string;
+  url: string;
+  extension: string;
+  sizeInBytes: number;
+  isPreview: boolean;
+  bookId: string;
+}

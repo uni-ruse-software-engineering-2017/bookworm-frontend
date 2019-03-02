@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
+import { forkJoin } from "rxjs";
 import { flatMap } from "rxjs/operators";
 import { BookService } from "src/app/core/services/book.service";
 import { ShoppingCartService } from "src/app/core/services/shopping-cart.service";
-import { IBookDetailed } from "src/app/core/types/catalog";
+import { IBookDetailed, IBookFile } from "src/app/core/types/catalog";
 
 @Component({
   selector: "bw-book-details",
@@ -15,6 +16,7 @@ export class BookDetailsComponent implements OnInit {
   book: IBookDetailed;
 
   isBookAlreadyAddedInCart = false;
+  bookFiles: IBookFile[];
 
   constructor(
     private route: ActivatedRoute,
@@ -30,11 +32,15 @@ export class BookDetailsComponent implements OnInit {
         flatMap((params: ParamMap) => {
           const bookId = params.get("bookId");
 
-          return this.bookService.getById(bookId);
+          return forkJoin(
+            this.bookService.getById(bookId),
+            this.bookService.getBookFiles(bookId)
+          );
         })
       )
-      .subscribe(book => {
+      .subscribe(([book, bookFiles]) => {
         this.book = book;
+        this.bookFiles = bookFiles;
 
         // check if the book is already in the cart
         this.cartService.content$.subscribe(cart => {

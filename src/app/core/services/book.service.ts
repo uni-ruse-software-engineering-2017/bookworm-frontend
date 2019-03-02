@@ -1,7 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 import {
   buildQueryParamsFromPagination,
   IPaginationQuery
@@ -10,6 +8,7 @@ import { environment } from "src/environments/environment";
 import { IPaginatedResource } from "../types";
 import {
   IBookDetailed,
+  IBookFile,
   IBookListItem,
   IEditBook,
   INewBook
@@ -33,39 +32,41 @@ export class BookService {
       queryParams.category_id = categoryQuery;
     }
 
-    return this.httpClient.get(`${this.apiUrl}`, {
-      params: queryParams
-    }) as Observable<IPaginatedResource<IBookListItem>>;
+    return this.httpClient.get<IPaginatedResource<IBookListItem>>(
+      `${this.apiUrl}`,
+      {
+        params: queryParams
+      }
+    );
   }
 
   getById(bookId: string) {
-    return this.httpClient
-      .get(`${this.apiUrl}/${bookId}`)
-      .pipe(map(response => response as IBookDetailed));
+    return this.httpClient.get<IBookDetailed>(`${this.apiUrl}/${bookId}`);
   }
 
   create(bookData: INewBook) {
-    return this.httpClient
-      .post(`${this.apiUrl}`, bookData)
-      .pipe(map(response => response as IBookDetailed));
+    return this.httpClient.post<IBookDetailed>(`${this.apiUrl}`, bookData);
   }
 
   edit(bookId: string, bookData: IEditBook) {
-    return this.httpClient
-      .patch(`${this.apiUrl}/${bookId}`, bookData)
-      .pipe(map(response => response as IBookDetailed));
+    return this.httpClient.patch<IBookDetailed>(
+      `${this.apiUrl}/${bookId}`,
+      bookData
+    );
   }
 
   delete(bookId: string) {
-    return this.httpClient
-      .delete(`${this.apiUrl}/${bookId}`)
-      .pipe(map(response => response as null));
+    return this.httpClient.delete<null>(`${this.apiUrl}/${bookId}`);
   }
 
   searchByISBN(isbn: string) {
     const api = environment.api;
-    return this.httpClient
-      .get(`${api}/catalog/goodreads/books/${isbn}`)
-      .pipe(map(response => response as IBookDetailed));
+    return this.httpClient.get<IBookDetailed | null>(
+      `${api}/catalog/goodreads/books/${isbn}`
+    );
+  }
+
+  getBookFiles(bookId: string) {
+    return this.httpClient.get<IBookFile[]>(`${this.apiUrl}/${bookId}/files`);
   }
 }
