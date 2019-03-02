@@ -1,6 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import {
+  buildQueryParamsFromPagination,
+  IPaginationQuery
+} from "src/app/util/pagination";
 import { environment } from "src/environments/environment";
 import { IPaginatedResource, ITree } from "../types";
 import { ICategory } from "../types/catalog";
@@ -11,38 +14,37 @@ export class CategoryService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAll() {
-    return this.httpClient.get(`${this.apiUrl}`) as Observable<
-      IPaginatedResource<ICategory>
-    >;
+  getAll(query?: IPaginationQuery) {
+    const queryParams = buildQueryParamsFromPagination(query);
+
+    return this.httpClient.get<IPaginatedResource<ICategory>>(
+      `${this.apiUrl}`,
+      {
+        params: queryParams
+      }
+    );
   }
 
   getCategoryTree() {
-    return this.httpClient.get(`${this.apiUrl}/tree`) as Observable<
-      ITree<ICategory>
-    >;
+    return this.httpClient.get<ITree<ICategory>>(`${this.apiUrl}/tree`);
   }
 
   getById(categoryId: string) {
-    return this.httpClient.get(`${this.apiUrl}/${categoryId}`) as Observable<
-      ICategory
-    >;
+    return this.httpClient.get<ICategory>(`${this.apiUrl}/${categoryId}`);
   }
 
   create(categoryData: ICategory) {
-    return this.httpClient.post(`${this.apiUrl}`, categoryData) as Observable<
-      ICategory
-    >;
+    return this.httpClient.post<ICategory>(`${this.apiUrl}`, categoryData);
   }
 
   edit(categoryId: string, categoryData: Partial<ICategory>) {
-    return this.httpClient.patch(
+    return this.httpClient.patch<ICategory>(
       `${this.apiUrl}/${categoryId}`,
       categoryData
-    ) as Observable<ICategory>;
+    );
   }
 
   remove(categoryId: string) {
-    return this.httpClient.delete(`${this.apiUrl}/${categoryId}`);
+    return this.httpClient.delete<null>(`${this.apiUrl}/${categoryId}`);
   }
 }

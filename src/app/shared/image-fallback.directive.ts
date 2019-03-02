@@ -11,10 +11,10 @@ import {
 } from "@angular/core";
 
 @Directive({
-  selector: "[src-fallback]"
+  selector: "[bwSrcFallback]"
 })
 export class ImgFallbackDirective implements OnDestroy {
-  @Input("src-fallback") imgSrc: string;
+  @Input() srcFallback: string;
   @Output() loaded = new EventEmitter<boolean>();
   private nativeElement: HTMLElement;
   private isApplied = false;
@@ -37,9 +37,9 @@ export class ImgFallbackDirective implements OnDestroy {
   }
 
   private onError() {
-    if (this.nativeElement.getAttribute("src") !== this.imgSrc) {
+    if (this.nativeElement.getAttribute("src") !== this.srcFallback) {
       this.isApplied = true;
-      this.renderer.setAttribute(this.nativeElement, "src", this.imgSrc);
+      this.renderer.setAttribute(this.nativeElement, "src", this.srcFallback);
     } else {
       this.removeOnLoadEvent();
     }

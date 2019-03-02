@@ -7,11 +7,6 @@ export interface IPaginatedResource<T> {
   total: number;
 }
 
-export interface IPaginationQuery {
-  page?: number;
-  pageSize?: number;
-}
-
 export type ITree<T> = ITreeNode<T>[];
 
 export interface ITreeNode<T> {

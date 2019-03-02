@@ -23,7 +23,7 @@ import { emptyResource } from "src/app/util/pagination";
 })
 export class CreateBookFormComponent implements OnInit {
   form: FormGroup;
-  authors: IPaginatedResource<IAuthorListItem> = emptyResource();
+  authors: IAuthorListItem[] = [];
   categories: IPaginatedResource<ICategory> = emptyResource();
 
   filteredAuthors: Observable<IAuthorListItem[]> = of([]);
@@ -63,21 +63,13 @@ export class CreateBookFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authorService.getAll().subscribe(authors => {
-      this.authors = authors;
-    });
-
-    this.categoryService.getAll().subscribe(categories => {
-      this.categories = categories;
-    });
+    this.getAllAuthors().subscribe(authors => (this.authors = authors));
 
     this.filteredAuthors = this.form.get("author").valueChanges.pipe(
       startWith<string | IAuthorListItem>(""),
       map(value => value || ""),
       map(value => (typeof value === "string" ? value : value.name)),
-      map(name =>
-        name ? this._filterAuthors(name) : this.authors.items.slice()
-      )
+      map(name => (name ? this._filterAuthors(name) : this.authors.slice()))
     );
 
     this.filteredCategories = this.form.get("category").valueChanges.pipe(
@@ -96,7 +88,16 @@ export class CreateBookFormComponent implements OnInit {
       .searchByISBN(this.form.get("isbn").value)
       .pipe(finalize(() => toggleFormDisabledState(this.form, false)))
       .subscribe(result => {
-        this.form.setValue({ ...result, author: null, category: null });
+        // refresh the authors list
+        this.getAllAuthors().subscribe(authors => {
+          this.authors = authors;
+
+          const author = result.author
+            ? this.authors.find(a => result.author.id === a.id)
+            : null;
+
+          this.form.setValue({ ...result, author, category: null });
+        });
       });
   }
 
@@ -140,7 +141,7 @@ export class CreateBookFormComponent implements OnInit {
       return [];
     }
 
-    return this.authors.items.filter(
+    return this.authors.filter(
       option => option.name.toLowerCase().indexOf(filterValue) >= 0
     );
   }
@@ -155,5 +156,21 @@ export class CreateBookFormComponent implements OnInit {
     return this.categories.items.filter(
       option => option.name.toLowerCase().indexOf(filterValue) >= 0
     );
+  }
+
+  private getAllAuthors() {
+    return this.authorService.getAll({ pageSize: -1, page: 1 }).pipe(
+      map(response => {
+        return response.items;
+      })
+    );
+  }
+
+  private getAllCategories() {
+    this.categoryService
+      .getAll({ pageSize: -1, page: 1 })
+      .subscribe(categories => {
+        this.categories = categories;
+      });
   }
 }

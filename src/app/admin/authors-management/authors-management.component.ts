@@ -27,7 +27,7 @@ export class AuthorsManagementComponent implements OnInit {
   }
 
   getAuthors(query?: IPaginationQuery) {
-    this.authorService.getAll().subscribe(authors => {
+    this.authorService.getAll(query).subscribe(authors => {
       this.authors = authors;
     });
   }
