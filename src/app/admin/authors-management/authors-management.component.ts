@@ -1,6 +1,14 @@
 import { Component, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
 import { MatDialog, PageEvent } from "@angular/material";
-import { filter, flatMap } from "rxjs/operators";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  flatMap,
+  map,
+  startWith
+} from "rxjs/operators";
 import { AuthorService } from "src/app/core/services/author.service";
 import { IPaginatedResource } from "src/app/core/types";
 import { IAuthorListItem } from "src/app/core/types/catalog";
@@ -19,11 +27,35 @@ import { EditAuthorFormComponent } from "./edit-author-form/edit-author-form.com
 })
 export class AuthorsManagementComponent implements OnInit {
   authors: IPaginatedResource<IAuthorListItem> = emptyResource();
+  searchToggled = false;
+  searchInput = new FormControl();
 
   constructor(public authorService: AuthorService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.getAuthors();
+
+    this.searchInput.valueChanges
+      .pipe(
+        startWith(""),
+        debounceTime(600),
+        filter((sn: string) => sn && sn.length >= 2),
+        distinctUntilChanged(),
+        map((searchString: string) =>
+          this.getAuthors({ page: 1, pageSize: 10, search: searchString })
+        )
+      )
+      .subscribe();
+
+    // if an user deletes the search string,
+    // load the initial list of authors
+    this.searchInput.valueChanges.subscribe((val: string) => {
+      if (val !== "") {
+        return;
+      }
+
+      this.getAuthors();
+    });
   }
 
   getAuthors(query?: IPaginationQuery) {
@@ -78,5 +110,13 @@ export class AuthorsManagementComponent implements OnInit {
 
   onPaginate(event: PageEvent) {
     this.getAuthors({ page: event.pageIndex + 1, pageSize: event.pageSize });
+  }
+
+  toggleSearch(state: boolean) {
+    this.searchToggled = state;
+
+    if (!state) {
+      this.searchInput.setValue("");
+    }
   }
 }

@@ -76,3 +76,13 @@ mat-form-field mat-icon {
     display: none !important;
   }
 }
+
+.search-box {
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+
+  mat-form-field {
+    flex: 1;
+  }
+}

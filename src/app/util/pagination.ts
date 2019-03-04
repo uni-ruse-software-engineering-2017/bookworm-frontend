@@ -16,7 +16,8 @@ export function emptyResource<T>() {
 export function defaultPaginationQuery(): IPaginationQuery {
   return {
     pageSize: 10,
-    page: 1
+    page: 1,
+    search: ""
   };
 }
 
@@ -24,13 +25,20 @@ export function buildQueryParamsFromPagination(
   pagination: IPaginationQuery
 ): { [key: string]: any } {
   const p = pagination || defaultPaginationQuery();
-  return {
+  const result: { [key: string]: any } = {
     page_size: p.pageSize,
     page: p.page
   };
+
+  if (p.search) {
+    result.q = p.search;
+  }
+
+  return result;
 }
 
 export interface IPaginationQuery {
   pageSize: number;
   page: number;
+  search?: string;
 }

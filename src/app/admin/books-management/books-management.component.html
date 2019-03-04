@@ -1,8 +1,24 @@
 <mat-card>
-  <mat-card-header>
+  <mat-card-header *ngIf="!searchToggled">
     <mat-card-title>Books Management</mat-card-title>
     <mat-card-subtitle>Add, edit and delete books</mat-card-subtitle>
+    <button mat-icon-button title="Search..." (click)="toggleSearch(true)">
+      <mat-icon>search</mat-icon>
+    </button>
   </mat-card-header>
+  <div *ngIf="searchToggled" class="search-box">
+    <mat-form-field>
+      <input
+        type="search"
+        matInput
+        placeholder="Search..."
+        [formControl]="searchInput"
+      />
+    </mat-form-field>
+    <button mat-icon-button title="Close Search" (click)="toggleSearch(false)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
   <mat-card-content>
     <bw-books-management-list
       [books]="books?.items"

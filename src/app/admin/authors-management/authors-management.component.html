@@ -1,8 +1,24 @@
 <mat-card>
-  <mat-card-header>
+  <mat-card-header *ngIf="!searchToggled">
     <mat-card-title>Authors</mat-card-title>
     <mat-card-subtitle>Create and edit authors</mat-card-subtitle>
+    <button mat-icon-button title="Search..." (click)="toggleSearch(true)">
+      <mat-icon>search</mat-icon>
+    </button>
   </mat-card-header>
+  <div *ngIf="searchToggled" class="search-box">
+    <mat-form-field>
+      <input
+        type="search"
+        matInput
+        placeholder="Search..."
+        [formControl]="searchInput"
+      />
+    </mat-form-field>
+    <button mat-icon-button title="Close Search" (click)="toggleSearch(false)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
   <mat-card-content>
     <bw-authors-management-list
       [authors]="authors.items"

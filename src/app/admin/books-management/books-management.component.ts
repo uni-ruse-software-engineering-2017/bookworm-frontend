@@ -1,6 +1,14 @@
 import { Component, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
 import { MatDialog, PageEvent } from "@angular/material";
-import { filter, flatMap } from "rxjs/operators";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  flatMap,
+  map,
+  startWith
+} from "rxjs/operators";
 import { BookService } from "src/app/core/services/book.service";
 import { IPaginatedResource } from "src/app/core/types";
 import { IBookListItem } from "src/app/core/types/catalog";
@@ -17,11 +25,35 @@ import { emptyResource, IPaginationQuery } from "src/app/util/pagination";
 })
 export class BooksManagementComponent implements OnInit {
   books: IPaginatedResource<IBookListItem> = emptyResource();
+  searchToggled = false;
+  searchInput = new FormControl();
 
   constructor(private bookService: BookService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.getBooks();
+
+    this.searchInput.valueChanges
+      .pipe(
+        startWith(""),
+        debounceTime(600),
+        filter((sn: string) => sn && sn.length >= 2),
+        distinctUntilChanged(),
+        map((searchString: string) =>
+          this.getBooks({ page: 1, pageSize: 10, search: searchString })
+        )
+      )
+      .subscribe();
+
+    // if an user deletes the search string,
+    // load the initial list of books
+    this.searchInput.valueChanges.subscribe((val: string) => {
+      if (val !== "") {
+        return;
+      }
+
+      this.getBooks();
+    });
   }
 
   getBooks(query?: IPaginationQuery) {
@@ -52,5 +84,13 @@ export class BooksManagementComponent implements OnInit {
 
   onPaginate(event: PageEvent) {
     this.getBooks({ page: event.pageIndex + 1, pageSize: event.pageSize });
+  }
+
+  toggleSearch(state: boolean) {
+    this.searchToggled = state;
+
+    if (!state) {
+      this.searchInput.setValue("");
+    }
   }
 }
