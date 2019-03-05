@@ -14,7 +14,7 @@ import {
   selector: "[bwSrcFallback]"
 })
 export class ImgFallbackDirective implements OnDestroy {
-  @Input() srcFallback: string;
+  @Input() bwSrcFallback: string;
   @Output() loaded = new EventEmitter<boolean>();
   private nativeElement: HTMLElement;
   private isApplied = false;
@@ -37,9 +37,9 @@ export class ImgFallbackDirective implements OnDestroy {
   }
 
   private onError() {
-    if (this.nativeElement.getAttribute("src") !== this.srcFallback) {
+    if (this.nativeElement.getAttribute("src") !== this.bwSrcFallback) {
       this.isApplied = true;
-      this.renderer.setAttribute(this.nativeElement, "src", this.srcFallback);
+      this.renderer.setAttribute(this.nativeElement, "src", this.bwSrcFallback);
     } else {
       this.removeOnLoadEvent();
     }

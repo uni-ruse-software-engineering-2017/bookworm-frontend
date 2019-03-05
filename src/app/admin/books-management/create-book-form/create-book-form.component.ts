@@ -6,7 +6,6 @@ import { finalize, map, startWith } from "rxjs/operators";
 import { AuthorService } from "src/app/core/services/author.service";
 import { BookService } from "src/app/core/services/book.service";
 import { CategoryService } from "src/app/core/services/category.service";
-import { IPaginatedResource } from "src/app/core/types";
 import {
   IAuthorListItem,
   IBookDetailed,
@@ -14,7 +13,6 @@ import {
   INewBook
 } from "src/app/core/types/catalog";
 import { toggleFormDisabledState } from "src/app/util/ng";
-import { emptyResource } from "src/app/util/pagination";
 
 @Component({
   selector: "bw-create-book-form",
@@ -24,10 +22,14 @@ import { emptyResource } from "src/app/util/pagination";
 export class CreateBookFormComponent implements OnInit {
   form: FormGroup;
   authors: IAuthorListItem[] = [];
-  categories: IPaginatedResource<ICategory> = emptyResource();
+  categories: ICategory[] = [];
+  fallbackImgUrl =
+    "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/nophoto/book/111x148._SX50_.png";
 
   filteredAuthors: Observable<IAuthorListItem[]> = of([]);
   filteredCategories: Observable<ICategory[]> = of([]);
+
+  files: File[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -64,6 +66,9 @@ export class CreateBookFormComponent implements OnInit {
 
   ngOnInit() {
     this.getAllAuthors().subscribe(authors => (this.authors = authors));
+    this.getAllCategories().subscribe(
+      categories => (this.categories = categories)
+    );
 
     this.filteredAuthors = this.form.get("author").valueChanges.pipe(
       startWith<string | IAuthorListItem>(""),
@@ -77,7 +82,7 @@ export class CreateBookFormComponent implements OnInit {
       map(value => value || ""),
       map(value => (typeof value === "string" ? value : value.name)),
       map(name =>
-        name ? this._filterCategories(name) : this.categories.items.slice()
+        name ? this._filterCategories(name) : this.categories.slice()
       )
     );
   }
@@ -119,6 +124,7 @@ export class CreateBookFormComponent implements OnInit {
         duration: 3500
       });
 
+      console.log(this.files);
       this.form.reset();
       this.form.markAsPristine();
       this.form.markAsUntouched();
@@ -153,7 +159,7 @@ export class CreateBookFormComponent implements OnInit {
       return [];
     }
 
-    return this.categories.items.filter(
+    return this.categories.filter(
       option => option.name.toLowerCase().indexOf(filterValue) >= 0
     );
   }
@@ -167,10 +173,18 @@ export class CreateBookFormComponent implements OnInit {
   }
 
   private getAllCategories() {
-    this.categoryService
-      .getAll({ pageSize: -1, page: 1 })
-      .subscribe(categories => {
-        this.categories = categories;
-      });
+    return this.categoryService.getAll({ pageSize: -1, page: 1 }).pipe(
+      map(response => {
+        return response.items;
+      })
+    );
+  }
+
+  onFilesChanged(files: Set<File>) {
+    const filesList = [];
+    files.forEach(file => {
+      filesList.push(file);
+    });
+    this.files = filesList;
   }
 }

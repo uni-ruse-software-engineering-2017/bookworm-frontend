@@ -1,0 +1,45 @@
+<div class="input-container">
+  <span class="filename">
+    <span *ngIf="!files.size">
+      No files selected.
+    </span>
+    <span *ngIf="files.size">{{ files.size }} files selected.</span>
+  </span>
+  <input
+    id="file-input"
+    #fileInput
+    type="file"
+    [accept]="fileTypes"
+    (change)="onFilesAdded()"
+    multiple
+  />
+  <label
+    for="file-input"
+    class="mat-stroked-button mat-primary"
+    tabindex="0"
+    role="button"
+  >
+    <div class="label-wrapper">
+      <mat-icon>cloud_upload</mat-icon>
+      <span>Choose files...</span>
+    </div>
+  </label>
+</div>
+<mat-list>
+  <mat-list-item *ngFor="let file of files">
+    <h4 matLine>
+      {{ file.name }}
+    </h4>
+    <span class="file-size">
+      {{ getFileSize(file.size) }}
+    </span>
+    <button
+      mat-icon-button
+      type="button"
+      (click)="removeFile(file)"
+      title="Remove file"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>

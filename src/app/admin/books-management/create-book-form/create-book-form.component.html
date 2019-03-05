@@ -75,7 +75,7 @@
         <img
           [src]="form.get('coverImage').value"
           height="40px"
-          bwSrcFallback="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/nophoto/book/111x148._SX50_.png"
+          [bwSrcFallback]="fallbackImgUrl"
         />
       </div>
       <mat-form-field>
@@ -161,7 +161,7 @@
           You must choose a category for the book.
         </mat-error>
       </mat-form-field>
-      <div>
+      <section>
         <mat-slide-toggle formControlName="freeDownload"
           >Free Download</mat-slide-toggle
         >
@@ -169,7 +169,12 @@
           >Available For Sale</mat-slide-toggle
         >
         <mat-slide-toggle formControlName="featured">Featured</mat-slide-toggle>
-      </div>
+      </section>
+      <mat-divider></mat-divider>
+      <section class="uploads mat-typography">
+        <h3>Upload e-book files</h3>
+        <bw-file-upload (filesChange)="onFilesChanged($event)"></bw-file-upload>
+      </section>
     </mat-card-content>
     <mat-card-actions align="end">
       <a [routerLink]="['./../']" mat-button>

@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.filename {
+  flex: 1;
+  font-size: 1.125em;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label {
+  &:active,
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+
+  .label-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  mat-icon {
+    margin-right: 12px;
+  }
+}
+
+.file-size {
+  font-size: 0.875em;
+  opacity: 0.87;
+  margin-right: 8px;
+}
