@@ -1,5 +1,11 @@
-import { HttpClient } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpEventType,
+  HttpRequest,
+  HttpResponse
+} from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable, Subject } from "rxjs";
 import {
   buildQueryParamsFromPagination,
   IPaginationQuery
@@ -68,5 +74,38 @@ export class BookService {
 
   getBookFiles(bookId: string) {
     return this.httpClient.get<IBookFile[]>(`${this.apiUrl}/${bookId}/files`);
+  }
+
+  uploadBookFiles(bookId: string, files: Set<File>) {
+    const statuses: { [key: string]: { progress: Observable<number> } } = {};
+
+    files.forEach(file => {
+      const formData = new FormData();
+      formData.append("file", file, file.name);
+
+      const progress = new Subject<number>();
+
+      this.httpClient
+        .request(
+          new HttpRequest("POST", `${this.apiUrl}/${bookId}/files`, formData, {
+            reportProgress: true
+          })
+        )
+        .subscribe(event => {
+          if (event.type === HttpEventType.UploadProgress) {
+            const percentDone = Math.round((100 * event.loaded) / event.total);
+            progress.next(percentDone);
+          } else if (event instanceof HttpResponse) {
+            progress.complete();
+          }
+        });
+
+      // Save every progress-observable in a map of all observables
+      statuses[file.name] = {
+        progress: progress.asObservable()
+      };
+    });
+
+    return statuses;
   }
 }

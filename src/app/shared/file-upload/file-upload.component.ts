@@ -6,6 +6,7 @@ import {
   Output,
   ViewChild
 } from "@angular/core";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "bw-file-upload",
@@ -14,6 +15,7 @@ import {
 })
 export class FileUploadComponent implements OnInit {
   @Input() fileTypes = ".epub, .mobi, .pdf, .fb2, .txt";
+  @Input() progress: { [key: string]: { progress: Observable<number> } } = null;
   @Output() filesChange = new EventEmitter();
 
   @ViewChild("fileInput") fileInput;
@@ -37,6 +39,11 @@ export class FileUploadComponent implements OnInit {
   removeFile(file: File) {
     this.files.delete(file);
 
+    this.filesChange.emit(this.files);
+  }
+
+  clearFiles() {
+    this.files.clear();
     this.filesChange.emit(this.files);
   }
 

@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
-import { Observable, of } from "rxjs";
+import { forkJoin, Observable, of, throwError } from "rxjs";
 import { finalize, map, startWith } from "rxjs/operators";
 import { AuthorService } from "src/app/core/services/author.service";
 import { BookService } from "src/app/core/services/book.service";
@@ -12,6 +12,7 @@ import {
   ICategory,
   INewBook
 } from "src/app/core/types/catalog";
+import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.component";
 import { toggleFormDisabledState } from "src/app/util/ng";
 
 @Component({
@@ -29,7 +30,10 @@ export class CreateBookFormComponent implements OnInit {
   filteredAuthors: Observable<IAuthorListItem[]> = of([]);
   filteredCategories: Observable<ICategory[]> = of([]);
 
-  files: File[] = [];
+  files: Set<File> = new Set();
+  uploadProgress: { [key: string]: { progress: Observable<number> } } = null;
+
+  @ViewChild(FileUploadComponent) fileUploadInput: FileUploadComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -38,30 +42,7 @@ export class CreateBookFormComponent implements OnInit {
     private bookService: BookService,
     private snackbar: MatSnackBar
   ) {
-    this.form = this.fb.group({
-      title: ["", [Validators.required]],
-      isbn: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(13)
-        ]
-      ],
-      pages: [
-        200,
-        [Validators.required, Validators.min(1), Validators.max(2000)]
-      ],
-      summary: [""],
-      datePublished: ["", [Validators.required]],
-      price: [0.0, [Validators.min(0)]],
-      coverImage: ["", [Validators.required]],
-      freeDownload: [false],
-      available: [true],
-      featured: [false],
-      author: [null, [Validators.required]],
-      category: [null, [Validators.required]]
-    });
+    this.form = this.initializeForm();
   }
 
   ngOnInit() {
@@ -119,16 +100,34 @@ export class CreateBookFormComponent implements OnInit {
       categoryId: formData.category.id
     };
 
-    return this.bookService.create(bookData).subscribe(() => {
-      this.snackbar.open(`${formData.title} was created.`, null, {
-        duration: 3500
-      });
+    return this.bookService.create(bookData).subscribe(createdBook => {
+      toggleFormDisabledState(this.form, true);
+      this.uploadProgress = this.bookService.uploadBookFiles(
+        createdBook.id,
+        this.files
+      );
 
-      console.log(this.files);
-      this.form.reset();
-      this.form.markAsPristine();
-      this.form.markAsUntouched();
-      this.form.updateValueAndValidity();
+      const allProgressObservables = Object.keys(this.uploadProgress).map(
+        key => this.uploadProgress[key].progress
+      );
+
+      forkJoin(allProgressObservables).subscribe(
+        end => {
+          toggleFormDisabledState(this.form, false);
+
+          this.snackbar.open(`${formData.title} was created.`, null, {
+            duration: 3500
+          });
+
+          this.form = this.initializeForm();
+          this.fileUploadInput.clearFiles();
+          this.uploadProgress = null;
+        },
+        error => {
+          toggleFormDisabledState(this.form, false);
+          return throwError(error);
+        }
+      );
     });
   }
 
@@ -181,10 +180,33 @@ export class CreateBookFormComponent implements OnInit {
   }
 
   onFilesChanged(files: Set<File>) {
-    const filesList = [];
-    files.forEach(file => {
-      filesList.push(file);
+    this.files = files;
+  }
+
+  private initializeForm() {
+    return this.fb.group({
+      title: ["", [Validators.required]],
+      isbn: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]
+      ],
+      pages: [
+        200,
+        [Validators.required, Validators.min(1), Validators.max(2000)]
+      ],
+      summary: [""],
+      datePublished: ["", [Validators.required]],
+      price: [0.0, [Validators.min(0)]],
+      coverImage: ["", [Validators.required]],
+      freeDownload: [false],
+      available: [true],
+      featured: [false],
+      author: [null, [Validators.required]],
+      category: [null, [Validators.required]]
     });
-    this.files = filesList;
   }
 }

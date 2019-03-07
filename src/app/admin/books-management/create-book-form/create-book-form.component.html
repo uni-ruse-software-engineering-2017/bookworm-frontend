@@ -173,7 +173,11 @@
       <mat-divider></mat-divider>
       <section class="uploads mat-typography">
         <h3>Upload e-book files</h3>
-        <bw-file-upload (filesChange)="onFilesChanged($event)"></bw-file-upload>
+        <bw-file-upload
+          #fileUploadInput
+          (filesChange)="onFilesChanged($event)"
+          [progress]="uploadProgress"
+        ></bw-file-upload>
       </section>
     </mat-card-content>
     <mat-card-actions align="end">

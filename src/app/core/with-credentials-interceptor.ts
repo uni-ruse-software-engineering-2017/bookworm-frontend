@@ -15,7 +15,18 @@ export class WithCredentialsInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const headers = req.headers.set("Content-Type", "application/json");
+    let headers = req.headers;
+
+    // if we are uploading a file we should let the browser set the correct headers
+    // or if the content-type is explicitly set the by the user we should respect it
+    if (!req.reportProgress && !req.headers.has("Content-Type")) {
+      headers = headers.set("Content-Type", "application/json");
+    }
+
+    if (!req.headers.has("Accept")) {
+      headers = headers.set("Accept", "application/json");
+    }
+
     const authReq = req.clone({ headers, withCredentials: true });
     return next.handle(authReq);
   }

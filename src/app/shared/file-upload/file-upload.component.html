@@ -38,8 +38,14 @@
       type="button"
       (click)="removeFile(file)"
       title="Remove file"
+      [disabled]="!!progress"
     >
       <mat-icon>close</mat-icon>
     </button>
+    <mat-progress-bar
+      *ngIf="progress"
+      mode="determinate"
+      [value]="progress[file.name].progress | async"
+    ></mat-progress-bar>
   </mat-list-item>
 </mat-list>
