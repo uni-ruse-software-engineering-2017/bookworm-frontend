@@ -1,11 +1,27 @@
 <mat-card>
-  <mat-card-header>
+  <mat-card-header *ngIf="!searchToggled">
     <mat-card-title>Authors</mat-card-title>
+    <button mat-icon-button title="Search..." (click)="toggleSearch(true)">
+      <mat-icon>search</mat-icon>
+    </button>
   </mat-card-header>
+  <div *ngIf="searchToggled" class="search-box">
+    <mat-form-field>
+      <input
+        type="search"
+        matInput
+        placeholder="Search..."
+        [formControl]="searchInput"
+      />
+    </mat-form-field>
+    <button mat-icon-button title="Close Search" (click)="toggleSearch(false)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
   <mat-card-content>
     <mat-nav-list>
       <a
-        *ngFor="let author of authors; trackBy: author?.id"
+        *ngFor="let author of authors?.items; trackBy: author?.id"
         mat-list-item
         [routerLink]="['./', author.id, 'details']"
       >
@@ -14,5 +30,15 @@
       </a>
     </mat-nav-list>
   </mat-card-content>
-  <mat-card-actions> </mat-card-actions>
+  <mat-card-actions>
+    <mat-card-actions>
+      <mat-paginator
+        [length]="authors.total"
+        [pageSize]="authors.pageSize"
+        [pageSizeOptions]="[10, 25, 50]"
+        (page)="onPaginate($event)"
+      >
+      </mat-paginator>
+    </mat-card-actions>
+  </mat-card-actions>
 </mat-card>
