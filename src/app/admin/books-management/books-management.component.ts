@@ -1,14 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatDialog, PageEvent } from "@angular/material";
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  flatMap,
-  map,
-  startWith
-} from "rxjs/operators";
+import { filter, flatMap, map } from "rxjs/operators";
 import { BookService } from "src/app/core/services/book.service";
 import { IPaginatedResource } from "src/app/core/types";
 import { IBookListItem } from "src/app/core/types/catalog";
@@ -17,6 +10,7 @@ import {
   IConfirmationModalComponentData
 } from "src/app/shared/confirmation-modal/confirmation-modal.component";
 import { emptyResource, IPaginationQuery } from "src/app/util/pagination";
+import { searchOperator } from "src/app/util/search.operator";
 
 @Component({
   selector: "bw-books-management",
@@ -35,10 +29,7 @@ export class BooksManagementComponent implements OnInit {
 
     this.searchInput.valueChanges
       .pipe(
-        startWith(""),
-        debounceTime(600),
-        filter((sn: string) => sn && sn.length >= 2),
-        distinctUntilChanged(),
+        searchOperator,
         map((searchString: string) =>
           this.getBooks({ page: 1, pageSize: 10, search: searchString })
         )
