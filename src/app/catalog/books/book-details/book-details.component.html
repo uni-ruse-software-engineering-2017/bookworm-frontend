@@ -1,39 +1,88 @@
-<mat-card>
-  <div class="mat-typography" *ngIf="book">
-    <div class="book-container">
-      <div class="book-header">
-        <img [src]="book.coverImage" />
+<section>
+  <mat-card class="book-card">
+    <div class="mat-typography" *ngIf="book">
+      <div class="book-container">
+        <div class="book-header">
+          <div class="book-header-image">
+            <img class="book-cover" [src]="book.coverImage" />
+            <div class="book-metadata">
+              <dl>
+                <dt>Price</dt>
+                <dd>{{ book.price | currency }}</dd>
+                <dt>ISBN</dt>
+                <dd>{{ book.isbn }}</dd>
+                <dt>Pages</dt>
+                <dd>{{ book.pages }}</dd>
+                <dt>Published On</dt>
+                <dd>{{ book.datePublished | date }}</dd>
+                <dt>Category</dt>
+                <dd>{{ book.category.name }}</dd>
+                <dt>Formats</dt>
+                <dd>{{ formats || "None" }}</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="book-header-title">
+            <h1>{{ book.title }}</h1>
+            <a
+              class="link"
+              [routerLink]="['/authors', book.author.id, 'details']"
+            >
+              <h3>by {{ book.author.name }}</h3>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="book-metadata">
-        <h1>{{ book.title }}</h1>
+      <div class="book-summary" [innerHTML]="book.summary"></div>
+    </div>
+    <mat-card-actions align="end">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="addToCart(book)"
+        [disabled]="isBookAlreadyAddedInCart"
+      >
+        <mat-icon style="margin-right: 6px">
+          add_shopping_cart
+        </mat-icon>
+        <span>Add to cart</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 
-        <a class="link" [routerLink]="['/authors', book.author.id, 'details']">
-          <h3>
-            {{ book.author.name }}
-          </h3>
+  <mat-card *ngIf="author" class="author-card">
+    <mat-card-header>
+      <img mat-card-avatar [src]="author.imageUrl" />
+      <mat-card-title>{{ author.name }}</mat-card-title>
+      <a
+        [routerLink]="['/authors', book.author.id, 'details']"
+        mat-button
+        color="primary"
+        >View</a
+      >
+    </mat-card-header>
+    <mat-card-content class="books mat-typography" *ngIf="author?.books.length">
+      <h3>More from this author:</h3>
+      <mat-nav-list>
+        <a
+          *ngFor="let book of (author.books | slice: 0:5)"
+          mat-list-item
+          [routerLink]="['/books', book.id, 'details']"
+        >
+          <img matListAvatar [src]="book.coverImage" [alt]="book.title" />
+          <h3 matLine>{{ book.title }}</h3>
+          <span class="price">{{ book.price | currency }}</span>
         </a>
-        <p>Price: {{ book.price | currency }}</p>
-        <p>ISBN: {{ book.isbn }}</p>
-        <p>Date published: {{ book.datePublished | date }}</p>
-        <p>Pages: {{ book.pages }}</p>
-        <p>Category: {{ book.category.name }}</p>
-        <p *ngIf="formats.length > 0">Formats: {{ formats }}</p>
-      </div>
-    </div>
-    <div class="book-summary">
-      <p>
-        {{ book.summary }}
-      </p>
-    </div>
-  </div>
-  <mat-card-actions align="end">
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="addToCart(book)"
-      [disabled]="isBookAlreadyAddedInCart"
-    >
-      Add to cart
-    </button>
-  </mat-card-actions>
-</mat-card>
+      </mat-nav-list>
+    </mat-card-content>
+    <mat-card-actions *ngIf="author?.books.length > 5" align="end">
+      <a
+        [routerLink]="['/authors', book.author.id, 'details']"
+        mat-button
+        color="primary"
+      >
+        And {{ author.books.length - 5 }} more...
+      </a>
+    </mat-card-actions>
+  </mat-card>
+</section>

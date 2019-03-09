@@ -2,10 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { forkJoin } from "rxjs";
-import { flatMap } from "rxjs/operators";
+import { flatMap, map } from "rxjs/operators";
+import { AuthorService } from "src/app/core/services/author.service";
 import { BookService } from "src/app/core/services/book.service";
 import { ShoppingCartService } from "src/app/core/services/shopping-cart.service";
-import { IBookDetailed, IBookFile } from "src/app/core/types/catalog";
+import { IAuthor, IBookDetailed, IBookFile } from "src/app/core/types/catalog";
 
 @Component({
   selector: "bw-book-details",
@@ -14,7 +15,7 @@ import { IBookDetailed, IBookFile } from "src/app/core/types/catalog";
 })
 export class BookDetailsComponent implements OnInit {
   book: IBookDetailed;
-
+  author: IAuthor;
   isBookAlreadyAddedInCart = false;
   bookFiles: IBookFile[] = [];
   formats = "";
@@ -22,6 +23,7 @@ export class BookDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
+    private authorService: AuthorService,
     public cartService: ShoppingCartService,
     public snacks: MatSnackBar,
     public router: Router
@@ -44,6 +46,8 @@ export class BookDetailsComponent implements OnInit {
         this.bookFiles = bookFiles;
         this.formats = bookFiles.map(bf => bf.extension).join(", ");
 
+        this.getAuthorDetails(book.author.id);
+
         // check if the book is already in the cart
         this.cartService.content$.subscribe(cart => {
           this.isBookAlreadyAddedInCart = !!cart.items.find(
@@ -51,6 +55,24 @@ export class BookDetailsComponent implements OnInit {
           );
         });
       });
+  }
+
+  getAuthorDetails(authorId: string) {
+    this.authorService
+      .getById(authorId)
+      .pipe(
+        map(author => {
+          if (!author.books) {
+            return author;
+          }
+
+          // remove the current book from the list
+          author.books = author.books.filter(book => book.id !== this.book.id);
+
+          return author;
+        })
+      )
+      .subscribe(author => (this.author = author));
   }
 
   addToCart(book: IBookDetailed) {
