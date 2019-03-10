@@ -14,8 +14,12 @@
         color="accent"
         (click)="onBuyPressed()"
         [disabled]="!canAddToCart"
+        *ngIf="!isOwned"
       >
-        Add
+        <mat-icon>add_shopping_cart</mat-icon>
+        <span>
+          Add to cart
+        </span>
       </button>
     </div>
   </div>

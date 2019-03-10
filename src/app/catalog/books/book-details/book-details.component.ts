@@ -3,10 +3,12 @@ import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { forkJoin } from "rxjs";
 import { flatMap, map } from "rxjs/operators";
+import { AuthenticationService } from "src/app/core/services/authentication.service";
 import { AuthorService } from "src/app/core/services/author.service";
 import { BookService } from "src/app/core/services/book.service";
 import { ShoppingCartService } from "src/app/core/services/shopping-cart.service";
 import { IAuthor, IBookDetailed, IBookFile } from "src/app/core/types/catalog";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "bw-book-details",
@@ -17,13 +19,16 @@ export class BookDetailsComponent implements OnInit {
   book: IBookDetailed;
   author: IAuthor;
   isBookAlreadyAddedInCart = false;
+  isBookAlreadyOwnedByUser = false;
   bookFiles: IBookFile[] = [];
   formats = "";
+  FILES_URL = `${environment.host}/files/`;
 
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
     private authorService: AuthorService,
+    private auth: AuthenticationService,
     public cartService: ShoppingCartService,
     public snacks: MatSnackBar,
     public router: Router
@@ -52,6 +57,13 @@ export class BookDetailsComponent implements OnInit {
         this.cartService.content$.subscribe(cart => {
           this.isBookAlreadyAddedInCart = !!cart.items.find(
             i => i.bookId === this.book.id
+          );
+        });
+
+        // check if the book is already bought by the user
+        this.auth.user$.subscribe(user => {
+          this.isBookAlreadyOwnedByUser = !!user.ownedBooks.find(
+            ownedBookId => ownedBookId === book.id
           );
         });
       });

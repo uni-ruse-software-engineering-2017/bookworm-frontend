@@ -3,6 +3,7 @@ import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { forkJoin } from "rxjs";
 import { flatMap, map } from "rxjs/operators";
+import { AuthenticationService } from "src/app/core/services/authentication.service";
 import { BookService } from "src/app/core/services/book.service";
 import { CategoryService } from "src/app/core/services/category.service";
 import { ShoppingCartService } from "src/app/core/services/shopping-cart.service";
@@ -18,6 +19,7 @@ import { defaultPaginationQuery } from "src/app/util/pagination";
 export class BooksComponent implements OnInit {
   books: IBookListItem[];
   booksInCartHash: { [bookId: string]: boolean } = {};
+  booksOwnedHash: { [bookId: string]: boolean } = {};
   categoryTree: ITreeNode<ICategory>[];
   category: ICategory;
 
@@ -25,13 +27,14 @@ export class BooksComponent implements OnInit {
     public bookService: BookService,
     public cartService: ShoppingCartService,
     public categoryService: CategoryService,
+    public auth: AuthenticationService,
     public snacks: MatSnackBar,
     public router: Router,
     public route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.bookService.getAll().subscribe(books => {
+    this.bookService.getAll({ pageSize: -1, page: 1 }).subscribe(books => {
       this.books = books.items;
     });
 
@@ -40,6 +43,16 @@ export class BooksComponent implements OnInit {
       // so that the "add to cart" button will get disabled
       this.booksInCartHash = cart.items.reduce((prev, curr) => {
         prev[curr.bookId] = true;
+
+        return prev;
+      }, {});
+    });
+
+    this.auth.user$.subscribe(user => {
+      // checks which books are already owned by the user
+      // so that the "add to cart" button will be hidden
+      this.booksOwnedHash = user.ownedBooks.reduce((prev, curr) => {
+        prev[curr] = true;
 
         return prev;
       }, {});

@@ -35,10 +35,10 @@
       </div>
       <div class="book-summary" [innerHTML]="book.summary"></div>
     </div>
-    <mat-card-actions align="end">
+    <mat-card-actions align="end" *ngIf="!isBookAlreadyOwnedByUser">
       <button
         mat-raised-button
-        color="primary"
+        color="accent"
         (click)="addToCart(book)"
         [disabled]="isBookAlreadyAddedInCart"
       >
@@ -47,6 +47,21 @@
         </mat-icon>
         <span>Add to cart</span>
       </button>
+    </mat-card-actions>
+    <mat-card-actions align="end" *ngIf="isBookAlreadyOwnedByUser">
+      <a
+        mat-raised-button
+        *ngFor="let file of bookFiles"
+        color="primary"
+        [title]="file.name"
+        href="{{ FILES_URL + file.url }}"
+        download
+      >
+        <mat-icon style="margin-right: 6px">
+          cloud_download
+        </mat-icon>
+        <span>{{ file.extension }}</span>
+      </a>
     </mat-card-actions>
   </mat-card>
 

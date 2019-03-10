@@ -20,10 +20,12 @@ export interface IJwtData {
 export type UserRole = "customer" | "admin";
 
 export interface IUserProfile {
+  readonly id: string;
   email: string;
   firstName: string;
   lastName: string;
   role: UserRole;
+  ownedBooks: string[];
 }
 
 export interface IApplicationUserData {

@@ -9,5 +9,6 @@
     [book]="book"
     (buyPressed)="onBuyPressed(book)"
     [canAddToCart]="!booksInCartHash[book.id]"
+    [isOwned]="booksOwnedHash[book.id]"
   ></bw-book-list-item>
 </div>
