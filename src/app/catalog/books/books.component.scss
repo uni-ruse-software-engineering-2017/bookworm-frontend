@@ -1,6 +1,10 @@
 @import "layout.scss";
 
 :host {
+  display: block;
+}
+
+section {
   display: flex;
 }
 
@@ -16,8 +20,19 @@ bw-categories-tree {
   justify-content: center;
 }
 
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+
+  button {
+    width: 120px;
+  }
+}
+
 @include mobile() {
-  :host {
+  section {
     display: block;
   }
 

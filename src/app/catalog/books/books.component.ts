@@ -7,9 +7,9 @@ import { AuthenticationService } from "src/app/core/services/authentication.serv
 import { BookService } from "src/app/core/services/book.service";
 import { CategoryService } from "src/app/core/services/category.service";
 import { ShoppingCartService } from "src/app/core/services/shopping-cart.service";
-import { ITreeNode } from "src/app/core/types";
+import { IPaginatedResource, ITreeNode } from "src/app/core/types";
 import { IBookListItem, ICategory } from "src/app/core/types/catalog";
-import { defaultPaginationQuery } from "src/app/util/pagination";
+import { defaultPaginationQuery, emptyResource } from "src/app/util/pagination";
 
 @Component({
   selector: "bw-books",
@@ -17,11 +17,12 @@ import { defaultPaginationQuery } from "src/app/util/pagination";
   styleUrls: ["./books.component.scss"]
 })
 export class BooksComponent implements OnInit {
-  books: IBookListItem[];
+  books: IPaginatedResource<IBookListItem> = emptyResource();
   booksInCartHash: { [bookId: string]: boolean } = {};
   booksOwnedHash: { [bookId: string]: boolean } = {};
   categoryTree: ITreeNode<ICategory>[];
   category: ICategory;
+  hasNextPage = false;
 
   constructor(
     public bookService: BookService,
@@ -34,9 +35,7 @@ export class BooksComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.bookService.getAll({ pageSize: -1, page: 1 }).subscribe(books => {
-      this.books = books.items;
-    });
+    this.fetchBooks();
 
     this.cartService.content$.subscribe(cart => {
       // checks which books are already in the cart
@@ -91,10 +90,27 @@ export class BooksComponent implements OnInit {
               .pipe(map(category => (this.category = category))),
             this.bookService
               .getAll({ ...defaultPaginationQuery(), categoryId })
-              .pipe(map(books => (this.books = books.items)))
+              .pipe(map(books => (this.books = books)))
           );
         })
       )
       .subscribe();
+  }
+
+  loadNext() {
+    this.fetchBooks(this.books.page + 1);
+  }
+
+  loadPrev() {
+    this.fetchBooks(this.books.page - 1);
+  }
+
+  fetchBooks(page = 1) {
+    this.bookService
+      .getAll({ page: page || 1, pageSize: 10 })
+      .subscribe(books => {
+        this.books = books;
+        this.hasNextPage = books.page < books.pageCount;
+      });
   }
 }

@@ -1,14 +1,32 @@
-<bw-categories-tree
-  class="mat-elevation-z1"
-  [data]="categoryTree"
-  *ngIf="categoryTree"
-></bw-categories-tree>
-<div class="books-list">
-  <bw-book-list-item
-    *ngFor="let book of books; trackBy: book?.id"
-    [book]="book"
-    (buyPressed)="onBuyPressed(book)"
-    [canAddToCart]="!booksInCartHash[book.id]"
-    [isOwned]="booksOwnedHash[book.id]"
-  ></bw-book-list-item>
-</div>
+<section>
+  <bw-categories-tree
+    class="mat-elevation-z1"
+    [data]="categoryTree"
+    *ngIf="categoryTree"
+  ></bw-categories-tree>
+  <div>
+    <div class="books-list">
+      <bw-book-list-item
+        *ngFor="let book of books.items; trackBy: book?.id"
+        [book]="book"
+        (buyPressed)="onBuyPressed(book)"
+        [canAddToCart]="!booksInCartHash[book.id]"
+        [isOwned]="booksOwnedHash[book.id]"
+      ></bw-book-list-item>
+    </div>
+    <div class="paginator">
+      <button mat-button (click)="loadPrev()" [disabled]="books.page <= 1">
+        <mat-icon>chevron_left</mat-icon>
+        <span>
+          Previous
+        </span>
+      </button>
+      <button mat-button (click)="loadNext()" [disabled]="!hasNextPage">
+        <span>
+          Next
+        </span>
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</section>
