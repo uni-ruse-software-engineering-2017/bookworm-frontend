@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+table {
+  width: 100%;
+
+  .price {
+    font-weight: 500;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+}
