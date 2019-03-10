@@ -24,7 +24,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   fetchCart() {
-    this.cartService.getAll().subscribe();
+    this.cartService.fetchContents().subscribe();
   }
 
   removeItem(cartLine: ICartLine) {
@@ -33,5 +33,11 @@ export class ShoppingCartComponent implements OnInit {
 
   clearCart() {
     this.cartService.clear().subscribe();
+  }
+
+  checkout() {
+    this.cartService.checkout().subscribe(() => {
+      window.location.reload();
+    });
   }
 }

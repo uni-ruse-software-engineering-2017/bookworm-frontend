@@ -32,7 +32,7 @@ export class AuthenticationService {
           const { token } = response;
 
           // refresh the cart on login
-          this.shoppingCart.getAll().subscribe();
+          this.shoppingCart.fetchContents().subscribe();
 
           return this.getProfile();
         }),

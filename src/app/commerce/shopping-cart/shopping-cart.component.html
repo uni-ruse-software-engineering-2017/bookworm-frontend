@@ -52,6 +52,13 @@
     >
       Clear
     </button>
-    <button mat-raised-button color="primary">Checkout</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="checkout()"
+      [disabled]="!cart.items.length"
+    >
+      Checkout
+    </button>
   </mat-card-actions>
 </mat-card>

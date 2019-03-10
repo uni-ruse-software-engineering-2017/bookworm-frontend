@@ -17,10 +17,10 @@ export class ShoppingCartService {
   public content$ = new BehaviorSubject(INITIAL_STATE);
 
   constructor(private httpClient: HttpClient) {
-    this.getAll().subscribe();
+    this.fetchContents().subscribe();
   }
 
-  getAll() {
+  fetchContents() {
     return this.httpClient.get(this.apiUrl).pipe(
       map(response => {
         const cartContent = response as ICartContent;
@@ -88,5 +88,14 @@ export class ShoppingCartService {
   clearLocal() {
     this.content$.next(INITIAL_STATE);
     return INITIAL_STATE;
+  }
+
+  checkout() {
+    return this.httpClient.post(`${this.apiUrl}/checkout`, {}).pipe(
+      map(() => {
+        this.content$.next(INITIAL_STATE);
+        return INITIAL_STATE;
+      })
+    );
   }
 }
