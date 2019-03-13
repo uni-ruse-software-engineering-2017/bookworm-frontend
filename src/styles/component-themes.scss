@@ -1,11 +1,14 @@
 @import "./../app/shared/book-list-item/book-list-item.theme.scss";
+@import "./../app/shared/ebook-reader/ebook-reader.theme.scss";
 
 @mixin component-themes() {
   @include angular-material-theme($light-theme);
   @include book-list-item-theme($light-theme);
+  @include ebook-reader-theme($light-theme);
 
   .dark-theme {
     @include angular-material-theme($dark-theme);
     @include book-list-item-theme($dark-theme);
+    @include ebook-reader-theme($dark-theme);
   }
 }

@@ -101,3 +101,7 @@
     </mat-card-actions>
   </mat-card>
 </section>
+
+<mat-card class="book-reader" *ngIf="preview">
+  <bw-ebook-reader [epubUrl]="FILES_URL + preview.url"></bw-ebook-reader>
+</mat-card>

@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { BookListItemComponent } from "./book-list-item/book-list-item.component";
 import { CategoriesTreeComponent } from "./categories-tree/categories-tree.component";
 import { ConfirmationModalComponent } from "./confirmation-modal/confirmation-modal.component";
+import { EbookReaderComponent } from "./ebook-reader/ebook-reader.component";
 import { FileUploadComponent } from "./file-upload/file-upload.component";
 import { ImgFallbackDirective } from "./image-fallback.directive";
 import { MaterialComponentsModule } from "./material-components.module";
@@ -21,7 +22,8 @@ import { MaterialComponentsModule } from "./material-components.module";
     ConfirmationModalComponent,
     ImgFallbackDirective,
     CategoriesTreeComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    EbookReaderComponent
   ],
   entryComponents: [ConfirmationModalComponent],
   exports: [
@@ -33,7 +35,8 @@ import { MaterialComponentsModule } from "./material-components.module";
     ConfirmationModalComponent,
     ImgFallbackDirective,
     CategoriesTreeComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    EbookReaderComponent
   ]
 })
 export class SharedModule {}

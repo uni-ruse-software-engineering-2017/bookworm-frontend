@@ -23,6 +23,7 @@ export class BookDetailsComponent implements OnInit {
   bookFiles: IBookFile[] = [];
   formats = "";
   FILES_URL = `${environment.host}/files/`;
+  preview: IBookFile;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +50,9 @@ export class BookDetailsComponent implements OnInit {
       .subscribe(([book, bookFiles]) => {
         this.book = book;
         this.bookFiles = bookFiles;
+        this.preview = bookFiles.find(
+          bf => bf.extension === "epub" && bf.isPreview
+        );
         this.formats = bookFiles.map(bf => bf.extension).join(", ");
 
         this.getAuthorDetails(book.author.id);

@@ -1,0 +1,11 @@
+@mixin ebook-reader-theme($theme) {
+  $background: map-get($theme, background);
+
+  mat-sidenav-container {
+    background-color: mat-color($background, card);
+  }
+
+  mat-sidenav-content {
+    background-color: mat-color($background, card);
+  }
+}

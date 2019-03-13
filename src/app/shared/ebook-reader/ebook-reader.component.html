@@ -1,0 +1,60 @@
+<mat-sidenav-container>
+  <mat-sidenav #sideNav position="end">
+    <mat-toolbar>
+      <span>Table of Contents</span>
+      <button mat-icon-button title="Close" (click)="toggleTableOfContents()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-action-list>
+      <button
+        mat-button
+        type="button"
+        color="primary"
+        *ngFor="let link of navigation?.toc"
+        (click)="navigateTo(link)"
+      >
+        {{ link.label }}
+      </button>
+    </mat-action-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <article *ngIf="isLoaded">
+      <header>
+        <div class="title">
+          <h2 class="mat-title">
+            {{ bookTitle }}
+          </h2>
+          <h3 class="mat-subheading-2">by {{ bookAuthor }}</h3>
+        </div>
+        <button
+          mat-icon-button
+          title="{{
+            screenfull.isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'
+          }}"
+          (click)="toggleFullScreen()"
+        >
+          <mat-icon>{{
+            screenfull.isFullscreen ? "fullscreen_exit" : "fullscreen"
+          }}</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          title="Table of Contents"
+          (click)="toggleTableOfContents()"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+      </header>
+      <section class="content">
+        <button mat-icon-button (click)="goToPrevPage()" class="prev-button">
+          <mat-icon>arrow_left</mat-icon>
+        </button>
+        <div id="epub-container"></div>
+        <button mat-icon-button (click)="goToNextPage()" class="next-button">
+          <mat-icon>arrow_right</mat-icon>
+        </button>
+      </section>
+    </article>
+  </mat-sidenav-content>
+</mat-sidenav-container>
