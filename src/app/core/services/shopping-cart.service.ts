@@ -16,9 +16,7 @@ export class ShoppingCartService {
 
   public content$ = new BehaviorSubject(INITIAL_STATE);
 
-  constructor(private httpClient: HttpClient) {
-    this.fetchContents().subscribe();
-  }
+  constructor(private httpClient: HttpClient) {}
 
   fetchContents() {
     return this.httpClient.get(this.apiUrl).pipe(

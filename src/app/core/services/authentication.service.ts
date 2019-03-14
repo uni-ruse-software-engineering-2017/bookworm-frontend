@@ -1,8 +1,9 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ReplaySubject } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { HttpErrorInterceptorSkip } from "../http-error-interceptor";
 import { ILoginCredentials, ISignUpData, IUserProfile } from "../types/user";
 import { ShoppingCartService } from "./shopping-cart.service";
 
@@ -19,6 +20,7 @@ export class AuthenticationService {
     this.getProfile().subscribe(
       profile => {
         this.user$.next(profile);
+        this.shoppingCart.fetchContents().subscribe();
       },
       error => this.user$.next(null)
     );
@@ -67,8 +69,9 @@ export class AuthenticationService {
   }
 
   getProfile() {
+    const headers = new HttpHeaders().set(HttpErrorInterceptorSkip, "");
     return this.httpClient
-      .get(`${apiUrl}/user/profile`)
+      .get(`${apiUrl}/user/profile`, { headers, withCredentials: true })
       .pipe(map(res => res as IUserProfile));
   }
 }
