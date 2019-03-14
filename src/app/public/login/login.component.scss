@@ -1,11 +1,53 @@
+@import 'layout.scss';
+
 :host {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 112px);
 }
 
-form mat-form-field {
-  display: block;
+form {
+  max-width: 640px;
 }
 
-mat-form-field {
-  margin-bottom: 8px;
+.login-image{
+  width: 300px;
+}
+
+.mat-card-content {
+  display: flex;
+  align-items: center;
+}
+
+.inputs{
+  margin-right: 36px;
+  flex: 1;
+  mat-form-field{
+    display: block;
+  }
+}
+
+@include mobile() {
+  form {
+    width: 100%;
+  }
+
+  .mat-card-content {
+    flex-direction: column-reverse;
+  }
+
+  img {
+    margin-top: 12px;
+  }
+
+  .inputs{
+    margin-right: 0;
+    margin-top: 16px !important;
+
+    mat-form-field{
+      display: block;
+      width: 320px;
+    }
+  }
 }
