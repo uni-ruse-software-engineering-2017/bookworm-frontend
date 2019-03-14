@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { forkJoin } from "rxjs";
-import { flatMap, map } from "rxjs/operators";
+import { filter, flatMap, map } from "rxjs/operators";
 import { AuthenticationService } from "src/app/core/services/authentication.service";
 import { AuthorService } from "src/app/core/services/author.service";
 import { BookService } from "src/app/core/services/book.service";
@@ -65,7 +65,7 @@ export class BookDetailsComponent implements OnInit {
         });
 
         // check if the book is already bought by the user
-        this.auth.user$.subscribe(user => {
+        this.auth.user$.pipe(filter(user => !!user)).subscribe(user => {
           this.isBookAlreadyOwnedByUser = !!user.ownedBooks.find(
             ownedBookId => ownedBookId === book.id
           );
