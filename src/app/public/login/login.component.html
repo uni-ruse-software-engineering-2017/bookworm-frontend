@@ -4,47 +4,51 @@
       <mat-card-title>Sign in</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field [hideRequiredMarker]="true">
-        <input
-          type="text"
-          matInput
-          placeholder="{{ 'Email Address' }}"
-          formControlName="emailAddress"
-          autocomplete="username"
-          required
-        />
-        <span matPrefix>
-          <mat-icon [inline]="true">alternate_email</mat-icon>
-        </span>
-        <mat-error
-          *ngIf="loginForm.controls['emailAddress'].errors?.required"
-          translate
-        >
-          The email address is a required field
-        </mat-error>
-        <mat-error *ngIf="loginForm.controls['emailAddress'].errors?.email">
-          You must enter a valid email address
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field [hideRequiredMarker]="true">
-        <input
-          type="password"
-          matInput
-          placeholder="{{ 'Password' }}"
-          formControlName="password"
-          autocomplete="current-password"
-          required
-        />
-        <span matPrefix>
-          <mat-icon [inline]="true">lock</mat-icon>
-        </span>
-        <mat-error
-          *ngIf="loginForm.controls['password'].errors?.required"
-          translate
-        >
-          The password is a required field
-        </mat-error>
-      </mat-form-field>
+      <div class="inputs">
+        <mat-form-field [hideRequiredMarker]="true">
+          <input
+            type="text"
+            matInput
+            placeholder="{{ 'Email Address' }}"
+            formControlName="emailAddress"
+            autocomplete="username"
+            required
+          />
+          <span matPrefix>
+            <mat-icon [inline]="true">alternate_email</mat-icon>
+          </span>
+          <mat-error
+            *ngIf="loginForm.controls['emailAddress'].errors?.required"
+            translate
+          >
+            The email address is a required field
+          </mat-error>
+          <mat-error *ngIf="loginForm.controls['emailAddress'].errors?.email">
+            You must enter a valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field [hideRequiredMarker]="true">
+          <input
+            type="password"
+            matInput
+            placeholder="{{ 'Password' }}"
+            formControlName="password"
+            autocomplete="current-password"
+            required
+          />
+          <span matPrefix>
+            <mat-icon [inline]="true">lock</mat-icon>
+          </span>
+          <mat-error
+            *ngIf="loginForm.controls['password'].errors?.required"
+            translate
+          >
+            The password is a required field
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <img src="/assets/login.svg" class="login-image" alt="" />
     </mat-card-content>
     <mat-card-actions align="right">
       <a mat-button [routerLink]="['/sign-up']">Register</a>
