@@ -46,14 +46,4 @@ export class FileUploadComponent implements OnInit {
     this.files.clear();
     this.filesChange.emit(this.files);
   }
-
-  getFileSize(n: number) {
-    if (n < 1024) {
-      return n + "bytes";
-    } else if (n >= 1024 && n < 1048576) {
-      return (n / 1024).toFixed(1) + "KB";
-    } else if (n >= 1048576) {
-      return (n / 1048576).toFixed(1) + "MB";
-    }
-  }
 }

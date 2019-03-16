@@ -1,0 +1,209 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Edit Book</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Title"
+          formControlName="title"
+        />
+        <mat-error *ngIf="form.controls['title'].errors?.required">
+          The book title is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput placeholder="ISBN" formControlName="isbn" />
+        <mat-error *ngIf="form.controls['isbn'].errors?.required">
+          The ISBN is required.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.controls['isbn'].errors?.minLength ||
+            form.controls['isbn'].errors?.maxLength
+          "
+        >
+          The ISBN should be either 10 or 13 characters long.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          placeholder="Pages"
+          formControlName="pages"
+        />
+        <mat-error *ngIf="form.controls['pages'].errors?.required">
+          You must enter the book pages count.
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.controls['pages'].errors?.min ||
+            form.controls['pages'].errors?.max
+          "
+        >
+          The pages count must be a number between 1 and 2000.
+        </mat-error>
+      </mat-form-field>
+      <div class="cover-image-field">
+        <mat-form-field class="flex-1">
+          <input
+            type="url"
+            matInput
+            placeholder="Cover Image URL"
+            formControlName="coverImage"
+          />
+          <mat-error *ngIf="form.controls['coverImage'].errors?.required">
+            The cover image URL is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <textarea
+          type="text"
+          matInput
+          placeholder="Summary"
+          formControlName="summary"
+          rows="5"
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Date Published"
+          formControlName="datePublished"
+          [matDatepicker]="datePublishedPicker"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="datePublishedPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datePublishedPicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          step="0.1"
+          placeholder="Price"
+          formControlName="price"
+          min="0"
+        />
+        <mat-error *ngIf="form.controls['price'].errors?.min">
+          The minimum price must be 0.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="text"
+          placeholder="Author"
+          aria-label="Author"
+          matInput
+          formControlName="author"
+          [matAutocomplete]="authorAutocomplete"
+        />
+        <mat-autocomplete
+          #authorAutocomplete="matAutocomplete"
+          [displayWith]="displayAuthorFn"
+        >
+          <mat-option
+            *ngFor="let option of (filteredAuthors | async)"
+            [value]="option"
+          >
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.controls['author'].errors?.required">
+          You must specify the book author.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="text"
+          placeholder="Category"
+          aria-label="Category"
+          matInput
+          formControlName="category"
+          [matAutocomplete]="categoryAutocomplete"
+        />
+        <mat-autocomplete
+          #categoryAutocomplete="matAutocomplete"
+          [displayWith]="displayCategoryFn"
+        >
+          <mat-option
+            *ngFor="let option of (filteredCategories | async)"
+            [value]="option"
+          >
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.controls['category'].errors?.required">
+          You must choose a category for the book.
+        </mat-error>
+      </mat-form-field>
+      <section>
+        <mat-slide-toggle formControlName="freeDownload"
+          >Free Download</mat-slide-toggle
+        >
+        <mat-slide-toggle formControlName="available"
+          >Available For Sale</mat-slide-toggle
+        >
+        <mat-slide-toggle formControlName="featured">Featured</mat-slide-toggle>
+      </section>
+      <mat-divider></mat-divider>
+      <section class="uploads mat-typography">
+        <h3>E-book files</h3>
+        <mat-list>
+          <mat-list-item *ngFor="let file of bookFiles">
+            <h4 matLine>
+              {{ file.name }}
+            </h4>
+            <span class="file-size">
+              {{ file.sizeInBytes | fileSize }}
+            </span>
+            <a
+              mat-icon-button
+              [title]="file.name"
+              href="{{ FILES_URL + file.url }}"
+              target="_blank"
+            >
+              <mat-icon>file_download</mat-icon>
+            </a>
+            <button
+              mat-icon-button
+              type="button"
+              (click)="deleteFile(file)"
+              title="Delete File"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+          <p *ngIf="bookFiles.length === 0">
+            No e-book files uploaded yet.
+          </p>
+        </mat-list>
+      </section>
+      <mat-divider></mat-divider>
+      <section class="uploads mat-typography">
+        <h3>Upload new e-book files</h3>
+        <bw-file-upload
+          #fileUploadInput
+          (filesChange)="onFilesChanged($event)"
+          [progress]="uploadProgress"
+        ></bw-file-upload>
+      </section>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <a [routerLink]="['./../../']" mat-button>
+        Cancel
+      </a>
+      <button type="submit" mat-raised-button color="primary">
+        <mat-icon style="margin-right: 6px">save</mat-icon>
+        <span>Save</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

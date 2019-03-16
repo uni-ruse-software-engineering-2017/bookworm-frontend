@@ -17,9 +17,9 @@
       <span class="price">
         {{ book.price | currency }}
       </span>
-      <button mat-icon-button (click)="removeBookClicked(book)">
+      <a mat-icon-button [routerLink]="['./edit', book.id]">
         <mat-icon>edit</mat-icon>
-      </button>
+      </a>
       <button mat-icon-button (click)="removeBookClicked(book)">
         <mat-icon>delete</mat-icon>
       </button>

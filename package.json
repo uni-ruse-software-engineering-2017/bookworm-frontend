@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "prettier": "prettier --list-different --write \"**/*.{js,json,css,md,ts,html,component.html}\"",
+    "prettier": "prettier --list-different --write \"**/*.{js,json,css,scss,md,ts,html,component.html}\"",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",

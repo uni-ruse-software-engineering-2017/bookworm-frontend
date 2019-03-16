@@ -31,7 +31,7 @@
       {{ file.name }}
     </h4>
     <span class="file-size">
-      {{ getFileSize(file.size) }}
+      {{ file.size | fileSize }}
     </span>
     <button
       mat-icon-button

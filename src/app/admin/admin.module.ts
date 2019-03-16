@@ -11,6 +11,7 @@ import { EditAuthorFormComponent } from "./authors-management/edit-author-form/e
 import { BooksManagementListComponent } from "./books-management/books-management-list/books-management-list.component";
 import { BooksManagementComponent } from "./books-management/books-management.component";
 import { CreateBookFormComponent } from "./books-management/create-book-form/create-book-form.component";
+import { EditBookFormComponent } from "./books-management/edit-book-form/edit-book-form.component";
 import { CategoryManagementComponent } from "./category-management/category-management.component";
 import { CreateCategoryFormComponent } from "./category-management/create-category-form/create-category-form.component";
 
@@ -25,7 +26,8 @@ import { CreateCategoryFormComponent } from "./category-management/create-catego
     CreateBookFormComponent,
     BooksManagementListComponent,
     CreateCategoryFormComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    EditBookFormComponent
   ],
   entryComponents: [
     CreateAuthorFormComponent,

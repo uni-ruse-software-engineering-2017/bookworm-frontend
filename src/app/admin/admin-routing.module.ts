@@ -5,6 +5,7 @@ import { AdminDashboardComponent } from "./admin-dashboard/admin-dashboard.compo
 import { AuthorsManagementComponent } from "./authors-management/authors-management.component";
 import { BooksManagementComponent } from "./books-management/books-management.component";
 import { CreateBookFormComponent } from "./books-management/create-book-form/create-book-form.component";
+import { EditBookFormComponent } from "./books-management/edit-book-form/edit-book-form.component";
 import { CategoryManagementComponent } from "./category-management/category-management.component";
 
 const routes: Routes = [
@@ -22,6 +23,11 @@ const routes: Routes = [
   {
     path: "books-management/create",
     component: CreateBookFormComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: "books-management/edit/:bookId",
+    component: EditBookFormComponent,
     canActivate: [AdminGuard]
   },
   {

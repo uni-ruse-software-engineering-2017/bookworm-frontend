@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+mat-form-field {
+  display: block;
+}
+
+mat-slide-toggle:not(:last-of-type) {
+  margin-right: 12px;
+}
+
+.cover-image-field {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1 !important;
+}
+
+section {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
