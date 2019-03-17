@@ -35,18 +35,30 @@
       </div>
       <div class="book-summary" [innerHTML]="book.summary"></div>
     </div>
-    <mat-card-actions align="end" *ngIf="!isBookAlreadyOwnedByUser">
+    <mat-card-actions align="end">
       <button
         mat-raised-button
         color="accent"
         (click)="addToCart(book)"
         [disabled]="isBookAlreadyAddedInCart"
+        *ngIf="!isBookAlreadyOwnedByUser && !isAdmin"
       >
         <mat-icon style="margin-right: 6px">
           add_shopping_cart
         </mat-icon>
         <span>Add to cart</span>
       </button>
+      <a
+        mat-raised-button
+        color="accent"
+        [routerLink]="['/admin/books-management/edit', book.id]"
+        *ngIf="isAdmin"
+      >
+        <mat-icon>edit</mat-icon>
+        <span>
+          Edit
+        </span>
+      </a>
     </mat-card-actions>
     <mat-card-actions align="end" *ngIf="isBookAlreadyOwnedByUser">
       <a

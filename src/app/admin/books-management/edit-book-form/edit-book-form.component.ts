@@ -109,12 +109,11 @@ export class EditBookFormComponent implements OnInit {
 
         this.fetchBook();
 
-        // skip uploading
+        // skip uploading if there are no files
         if (this.files.size === 0) {
+          toggleFormDisabledState(this.form, false);
           return;
         }
-
-        toggleFormDisabledState(this.form, true);
 
         this.uploadProgress = this.bookService.uploadBookFiles(
           updatedBook.id,

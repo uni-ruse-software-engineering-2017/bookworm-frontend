@@ -20,6 +20,7 @@ export class BookDetailsComponent implements OnInit {
   author: IAuthor;
   isBookAlreadyAddedInCart = false;
   isBookAlreadyOwnedByUser = false;
+  isAdmin = false;
   bookFiles: IBookFile[] = [];
   formats = "";
   FILES_URL = `${environment.host}/files/`;
@@ -69,6 +70,8 @@ export class BookDetailsComponent implements OnInit {
           this.isBookAlreadyOwnedByUser = !!user.ownedBooks.find(
             ownedBookId => ownedBookId === book.id
           );
+
+          this.isAdmin = user.role === "admin";
         });
       });
   }

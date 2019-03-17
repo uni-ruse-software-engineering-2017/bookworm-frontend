@@ -10,6 +10,7 @@ export class BookListItemComponent implements OnInit {
   @Input() book: IBookListItem;
   @Input() canAddToCart = true;
   @Input() isOwned = false;
+  @Input() isAdmin = false;
 
   @Output() buyPressed = new EventEmitter();
 

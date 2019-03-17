@@ -14,13 +14,24 @@
         color="accent"
         (click)="onBuyPressed()"
         [disabled]="!canAddToCart"
-        *ngIf="!isOwned"
+        *ngIf="!isOwned && !isAdmin"
       >
         <mat-icon>add_shopping_cart</mat-icon>
         <span>
           Add to cart
         </span>
       </button>
+      <a
+        mat-raised-button
+        color="accent"
+        [routerLink]="['/admin/books-management/edit', book.id]"
+        *ngIf="isAdmin"
+      >
+        <mat-icon>edit</mat-icon>
+        <span>
+          Edit
+        </span>
+      </a>
     </div>
   </div>
 </div>
