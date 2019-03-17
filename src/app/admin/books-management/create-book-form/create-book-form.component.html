@@ -30,7 +30,8 @@
           The ISBN should be either 10 or 13 characters long.
         </mat-error>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Title</mat-label>
         <input
           type="text"
           matInput
@@ -41,13 +42,9 @@
           The book title is required.
         </mat-error>
       </mat-form-field>
-      <mat-form-field>
-        <input
-          type="number"
-          matInput
-          placeholder="Pages"
-          formControlName="pages"
-        />
+      <mat-form-field appearance="standard">
+        <mat-label>Pages</mat-label>
+        <input type="number" matInput formControlName="pages" />
         <mat-error *ngIf="form.controls['pages'].errors?.required">
           You must enter the book pages count.
         </mat-error>
@@ -61,11 +58,12 @@
         </mat-error>
       </mat-form-field>
       <div class="cover-image-field">
-        <mat-form-field class="flex-1">
+        <mat-form-field class="flex-1" appearance="standard">
+          <mat-label>Book Cover Image URL</mat-label>
           <input
             type="url"
             matInput
-            placeholder="Cover Image URL"
+            placeholder="https://example.com/book-cover.png"
             formControlName="coverImage"
           />
           <mat-error *ngIf="form.controls['coverImage'].errors?.required">
@@ -78,19 +76,19 @@
           [bwSrcFallback]="fallbackImgUrl"
         />
       </div>
-      <mat-form-field>
+      <mat-form-field apperance="standard">
+        <mat-label>Summary</mat-label>
         <textarea
           type="text"
           matInput
-          placeholder="Summary"
           formControlName="summary"
           rows="5"
         ></textarea>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Date Published</mat-label>
         <input
           matInput
-          placeholder="Date Published"
           formControlName="datePublished"
           [matDatepicker]="datePublishedPicker"
         />
@@ -100,24 +98,24 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #datePublishedPicker></mat-datepicker>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Price</mat-label>
         <input
           type="number"
           matInput
           step="0.1"
-          placeholder="Price"
           formControlName="price"
           min="0"
         />
+        <span matPrefix>$&nbsp;</span>
         <mat-error *ngIf="form.controls['price'].errors?.min">
           The minimum price must be 0.
         </mat-error>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Author</mat-label>
         <input
           type="text"
-          placeholder="Author"
-          aria-label="Author"
           matInput
           formControlName="author"
           [matAutocomplete]="authorAutocomplete"
@@ -137,11 +135,10 @@
           You must specify the book author.
         </mat-error>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Category</mat-label>
         <input
           type="text"
-          placeholder="Category"
-          aria-label="Category"
           matInput
           formControlName="category"
           [matAutocomplete]="categoryAutocomplete"
@@ -185,7 +182,8 @@
         Cancel
       </a>
       <button type="submit" mat-raised-button color="primary">
-        Save
+        <mat-icon style="margin-right: 6px">save</mat-icon>
+        <span>Save</span>
       </button>
     </mat-card-actions>
   </mat-card>

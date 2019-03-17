@@ -108,4 +108,10 @@ export class BookService {
 
     return statuses;
   }
+
+  deleteFile(file: IBookFile) {
+    return this.httpClient.delete(
+      `${this.apiUrl}/${file.bookId}/files/${file.id}`
+    );
+  }
 }

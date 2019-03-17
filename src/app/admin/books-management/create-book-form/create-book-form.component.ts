@@ -101,6 +101,17 @@ export class CreateBookFormComponent implements OnInit {
     };
 
     return this.bookService.create(bookData).subscribe(createdBook => {
+      this.snackbar.open(`${formData.title} was created.`, null, {
+        duration: 3500
+      });
+
+      if (!this.files.size) {
+        this.form = this.initializeForm();
+        this.fileUploadInput.clearFiles();
+        return;
+      }
+
+      // upload e-book files
       toggleFormDisabledState(this.form, true);
       this.uploadProgress = this.bookService.uploadBookFiles(
         createdBook.id,
@@ -114,10 +125,6 @@ export class CreateBookFormComponent implements OnInit {
       forkJoin(allProgressObservables).subscribe(
         end => {
           toggleFormDisabledState(this.form, false);
-
-          this.snackbar.open(`${formData.title} was created.`, null, {
-            duration: 3500
-          });
 
           this.form = this.initializeForm();
           this.fileUploadInput.clearFiles();

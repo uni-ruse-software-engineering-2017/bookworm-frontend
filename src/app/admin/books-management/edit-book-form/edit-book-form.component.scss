@@ -22,3 +22,14 @@ section {
   padding-top: 16px;
   padding-bottom: 16px;
 }
+
+mat-list-item {
+  .file-size {
+    font-size: 0.875em;
+    opacity: 0.87;
+    margin-right: 8px;
+  }
+  mat-icon {
+    opacity: 0.87;
+  }
+}

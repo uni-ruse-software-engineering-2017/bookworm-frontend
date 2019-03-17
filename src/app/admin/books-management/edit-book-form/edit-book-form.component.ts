@@ -78,7 +78,14 @@ export class EditBookFormComponent implements OnInit {
     );
   }
 
-  deleteFile(file: IBookFile) {}
+  deleteFile(file: IBookFile) {
+    this.bookService.deleteFile(file).subscribe(() => {
+      this.bookFiles = this.bookFiles.filter(f => f.id !== file.id);
+      this.snackbar.open(`${file.name} was deleted.`, null, {
+        duration: 3500
+      });
+    });
+  }
 
   onSubmit() {
     if (!this.form.valid) {
