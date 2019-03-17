@@ -36,6 +36,34 @@
       <div class="book-summary" [innerHTML]="book.summary"></div>
     </div>
     <mat-card-actions align="end">
+      <a
+        mat-stroked-button
+        color="primary"
+        title="Read online"
+        [routerLink]="['./online-reader']"
+        *ngIf="(isBookAlreadyOwnedByUser || isAdmin) && hasEpubFile"
+      >
+        <mat-icon>
+          chrome_reader_mode
+        </mat-icon>
+        <span>Read Online</span>
+      </a>
+
+      <ng-container *ngIf="isBookAlreadyOwnedByUser || isAdmin">
+        <a
+          mat-raised-button
+          *ngFor="let file of bookFiles"
+          color="primary"
+          [title]="file.name"
+          href="{{ FILES_URL + file.url }}"
+          target="_blank"
+        >
+          <mat-icon>
+            cloud_download
+          </mat-icon>
+          <span>{{ file.extension }}</span>
+        </a>
+      </ng-container>
       <button
         mat-raised-button
         color="accent"
@@ -43,7 +71,7 @@
         [disabled]="isBookAlreadyAddedInCart"
         *ngIf="!isBookAlreadyOwnedByUser && !isAdmin"
       >
-        <mat-icon style="margin-right: 6px">
+        <mat-icon>
           add_shopping_cart
         </mat-icon>
         <span>Add to cart</span>
@@ -58,21 +86,6 @@
         <span>
           Edit
         </span>
-      </a>
-    </mat-card-actions>
-    <mat-card-actions align="end" *ngIf="isBookAlreadyOwnedByUser">
-      <a
-        mat-raised-button
-        *ngFor="let file of bookFiles"
-        color="primary"
-        [title]="file.name"
-        href="{{ FILES_URL + file.url }}"
-        target="_blank"
-      >
-        <mat-icon style="margin-right: 6px">
-          cloud_download
-        </mat-icon>
-        <span>{{ file.extension }}</span>
       </a>
     </mat-card-actions>
   </mat-card>

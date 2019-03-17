@@ -5,6 +5,7 @@ import { AuthorDetailsComponent } from "./authors/author-details/author-details.
 import { AuthorsComponent } from "./authors/authors.component";
 import { BookDetailsComponent } from "./books/book-details/book-details.component";
 import { BooksComponent } from "./books/books.component";
+import { ReadBookOnlineComponent } from "./books/read-book-online/read-book-online.component";
 import { HomeComponent } from "./home/home.component";
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: "books/:bookId/details",
     component: BookDetailsComponent
+  },
+  {
+    path: "books/:bookId/details/online-reader",
+    component: ReadBookOnlineComponent
   },
   {
     path: "not-found",

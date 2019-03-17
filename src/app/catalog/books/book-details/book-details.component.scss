@@ -64,7 +64,7 @@ section {
           clear: right;
           float: right;
           line-height: 1;
-          font-style: italic;
+          font-weight: 500;
         }
       }
     }
@@ -85,6 +85,21 @@ section {
       }
     }
     margin-right: 12px;
+  }
+
+  .mat-card-actions {
+    [mat-stroked-button] {
+      margin-right: 8px;
+    }
+
+    flex-wrap: wrap;
+
+    button,
+    a {
+      mat-icon {
+        margin-right: 12px;
+      }
+    }
   }
 }
 
@@ -156,6 +171,13 @@ section {
           object-fit: contain;
           margin: 0;
         }
+      }
+    }
+
+    .mat-card-actions {
+      a,
+      button {
+        margin-top: 8px;
       }
     }
   }

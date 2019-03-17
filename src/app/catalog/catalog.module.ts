@@ -7,6 +7,7 @@ import { BookDetailsComponent } from "./books/book-details/book-details.componen
 import { BooksComponent } from "./books/books.component";
 import { CatalogRoutingModule } from "./catalog-routing.module";
 import { HomeComponent } from "./home/home.component";
+import { ReadBookOnlineComponent } from "./books/read-book-online/read-book-online.component";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { HomeComponent } from "./home/home.component";
     AuthorsComponent,
     BooksComponent,
     AuthorDetailsComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    ReadBookOnlineComponent
   ],
   imports: [CommonModule, CatalogRoutingModule, SharedModule]
 })

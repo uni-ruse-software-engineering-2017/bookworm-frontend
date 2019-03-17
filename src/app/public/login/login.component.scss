@@ -1,4 +1,4 @@
-@import 'layout.scss';
+@import "layout.scss";
 
 :host {
   display: flex;
@@ -11,7 +11,7 @@ form {
   max-width: 640px;
 }
 
-.login-image{
+.login-image {
   width: 300px;
 }
 
@@ -20,10 +20,10 @@ form {
   align-items: center;
 }
 
-.inputs{
+.inputs {
   margin-right: 36px;
   flex: 1;
-  mat-form-field{
+  mat-form-field {
     display: block;
   }
 }
@@ -41,11 +41,11 @@ form {
     margin-top: 12px;
   }
 
-  .inputs{
+  .inputs {
     margin-right: 0;
     margin-top: 16px !important;
 
-    mat-form-field{
+    mat-form-field {
       display: block;
       width: 320px;
     }

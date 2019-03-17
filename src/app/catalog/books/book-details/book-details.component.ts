@@ -20,6 +20,7 @@ export class BookDetailsComponent implements OnInit {
   author: IAuthor;
   isBookAlreadyAddedInCart = false;
   isBookAlreadyOwnedByUser = false;
+  hasEpubFile = false;
   isAdmin = false;
   bookFiles: IBookFile[] = [];
   formats = "";
@@ -51,9 +52,15 @@ export class BookDetailsComponent implements OnInit {
       .subscribe(([book, bookFiles]) => {
         this.book = book;
         this.bookFiles = bookFiles;
+
         this.preview = bookFiles.find(
           bf => bf.extension === "epub" && bf.isPreview
         );
+
+        this.hasEpubFile = !!bookFiles.find(
+          bf => bf.extension === "epub" && !bf.isPreview
+        );
+
         this.formats = bookFiles.map(bf => bf.extension).join(", ");
 
         this.getAuthorDetails(book.author.id);
