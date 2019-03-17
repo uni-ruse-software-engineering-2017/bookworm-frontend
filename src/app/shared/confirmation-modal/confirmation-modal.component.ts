@@ -14,22 +14,23 @@ export interface IConfirmationModalComponentData {
     <p>{{ message }}</p>
     <section class="actions">
       <button mat-button (click)="dialogRef.close(false)">
-        <span translate>Cancel</span>
+        <span>Cancel</span>
       </button>
       <button mat-raised-button [color]="color" (click)="dialogRef.close(true)">
-        <span translate>Confirm</span>
+        <span>Confirm</span>
       </button>
     </section>
   `,
   styles: [
     `
       .actions {
-        margin-top: 16px;
-        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
       }
-      button {
-        text-transform: uppercase;
-        margin-right: 16px;
+
+      [mat-button] {
+        margin-right: 12px;
       }
     `
   ]
