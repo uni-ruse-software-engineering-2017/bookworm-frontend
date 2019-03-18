@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { BookService } from "src/app/core/services/book.service";
+import { IBookListItem } from "src/app/core/types/catalog";
 
 @Component({
   selector: "bw-home",
@@ -6,7 +8,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  featuredBooks: IBookListItem[] = [];
 
-  ngOnInit() {}
+  constructor(private bookService: BookService) {}
+
+  ngOnInit() {
+    return this.bookService.getFeaturedBooks().subscribe(featuredBooks => {
+      this.featuredBooks = featuredBooks;
+    });
+  }
 }

@@ -1,4 +1,17 @@
 <section class="mat-typography">
-  <h1>Welcome to our e-books catalog!</h1>
-  <h3>You can browse through our large digital collection of titles.</h3>
+  <mat-card>
+    <mat-card-title>Featured Books</mat-card-title>
+    <mat-card-content>
+      <ul class="featured-list">
+        <li *ngFor="let featured of featuredBooks" class="featured-list-item">
+          <a [routerLink]="['/books', featured.id, 'details']">
+            <img [src]="featured.coverImage" [alt]="featured.title" />
+            <span class="price">
+              {{ featured.price > 0 ? (featured.price | currency) : "Free" }}
+            </span>
+          </a>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
 </section>

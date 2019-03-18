@@ -114,4 +114,8 @@ export class BookService {
       `${this.apiUrl}/${file.bookId}/files/${file.id}`
     );
   }
+
+  getFeaturedBooks() {
+    return this.httpClient.get<IBookListItem[]>(`${this.apiUrl}/featured`);
+  }
 }

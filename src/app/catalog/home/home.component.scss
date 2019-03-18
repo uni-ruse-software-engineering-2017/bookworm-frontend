@@ -1,0 +1,51 @@
+@import "~@angular/material/theming";
+@import "color-pallete.scss";
+@import "layout.scss";
+
+mat-card {
+  margin-bottom: 8px;
+}
+
+.featured-list {
+  padding: 0;
+  margin-top: 16px !important;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .featured-list-item {
+    margin: 8px;
+    position: relative;
+
+    a {
+      color: unset;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 8px;
+      height: 320px;
+      width: 210px;
+    }
+
+    .price {
+      padding: 8px 16px;
+      letter-spacing: 0.125em;
+      text-transform: uppercase;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      background-color: accent-color();
+      border-bottom-left-radius: 4px;
+      border-top-right-radius: 8px;
+      font-weight: 500;
+      font-size: 1.25em;
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: 1px solid accent-color();
+      box-sizing: border-box;
+    }
+  }
+}
