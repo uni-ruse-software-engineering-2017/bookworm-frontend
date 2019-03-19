@@ -3,7 +3,7 @@
     <img [src]="book.coverImage" [alt]="book.title" />
   </a>
   <div class="book-content">
-    <a [routerLink]="['./', book.id, 'details']" class="book-header link">
+    <a [routerLink]="['/books', book.id, 'details']" class="book-header link">
       <h2 class="mat-headline">{{ book.title }}</h2>
       <h3 class="mat-subheading-2">{{ book.author.name }}</h3>
     </a>

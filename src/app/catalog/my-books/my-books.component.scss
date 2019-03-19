@@ -1,0 +1,22 @@
+mat-card {
+  .books-list {
+    display: block;
+
+    .book-list-item-wrapper {
+      &:not(:last-of-type) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.17);
+      }
+    }
+  }
+}
+
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+
+  button {
+    width: 120px;
+  }
+}

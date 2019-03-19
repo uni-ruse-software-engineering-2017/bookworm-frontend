@@ -88,6 +88,17 @@
       </mat-list-item>
       <mat-list-item
         mat-list-item
+        [routerLink]="['/my-books']"
+        routerLinkActive="active"
+        mat-button
+        *ngIf="user && user.role === 'customer'"
+      >
+        <mat-icon>library_books</mat-icon>
+        <span>My Books</span>
+      </mat-list-item>
+
+      <mat-list-item
+        mat-list-item
         [routerLink]="['/admin']"
         routerLinkActive="active"
         mat-button
@@ -119,6 +130,13 @@
           >
           <a [routerLink]="['/authors']" routerLinkActive="active" mat-button
             >Authors</a
+          >
+          <a
+            [routerLink]="['/my-books']"
+            routerLinkActive="active"
+            mat-button
+            *ngIf="user && user.role === 'customer'"
+            >My Books</a
           >
           <a
             [routerLink]="['/orders']"

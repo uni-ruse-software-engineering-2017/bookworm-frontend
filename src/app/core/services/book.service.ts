@@ -46,6 +46,16 @@ export class BookService {
     );
   }
 
+  getUserBooks(query?: IPaginationQuery) {
+    const queryParams = buildQueryParamsFromPagination(query);
+    return this.httpClient.get<IPaginatedResource<IBookListItem>>(
+      `${this.apiUrl}/purchased`,
+      {
+        params: queryParams
+      }
+    );
+  }
+
   getById(bookId: string) {
     return this.httpClient.get<IBookDetailed>(`${this.apiUrl}/${bookId}`);
   }
