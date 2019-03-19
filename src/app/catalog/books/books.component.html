@@ -4,16 +4,20 @@
     [data]="categoryTree"
     *ngIf="categoryTree"
   ></bw-categories-tree>
-  <div>
+  <mat-card>
     <div class="books-list">
-      <bw-book-list-item
+      <div
+        class="book-list-item-wrapper"
         *ngFor="let book of books.items; trackBy: book?.id"
-        [book]="book"
-        (buyPressed)="onBuyPressed(book)"
-        [canAddToCart]="!booksInCartHash[book.id]"
-        [isOwned]="booksOwnedHash[book.id]"
-        [isAdmin]="(this.auth.user$ | async)?.role === 'admin'"
-      ></bw-book-list-item>
+      >
+        <bw-book-list-item
+          [book]="book"
+          (buyPressed)="onBuyPressed(book)"
+          [canAddToCart]="!booksInCartHash[book.id]"
+          [isOwned]="booksOwnedHash[book.id]"
+          [isAdmin]="(this.auth.user$ | async)?.role === 'admin'"
+        ></bw-book-list-item>
+      </div>
     </div>
     <div class="paginator">
       <button mat-button (click)="loadPrev()" [disabled]="books.page <= 1">
@@ -29,5 +33,5 @@
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>
-  </div>
+  </mat-card>
 </section>

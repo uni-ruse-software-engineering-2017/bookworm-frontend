@@ -10,6 +10,11 @@ body {
 .link {
   color: unset;
   text-decoration: none;
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
 }
 
 @import "./themes.scss";

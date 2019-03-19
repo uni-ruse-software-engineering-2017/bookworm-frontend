@@ -13,11 +13,17 @@ bw-categories-tree {
   max-width: 360px;
 }
 
-.books-list {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+mat-card {
+  margin-left: 12px;
+  .books-list {
+    display: block;
+
+    .book-list-item-wrapper {
+      &:not(:last-of-type) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.17);
+      }
+    }
+  }
 }
 
 .paginator {
@@ -36,7 +42,14 @@ bw-categories-tree {
     display: block;
   }
 
+  mat-card {
+    margin-left: 0;
+    margin-top: 12px;
+  }
+
   bw-categories-tree {
     margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
   }
 }

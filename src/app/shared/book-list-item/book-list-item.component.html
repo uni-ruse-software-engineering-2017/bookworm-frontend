@@ -7,19 +7,23 @@
       <h2 class="mat-headline">{{ book.title }}</h2>
       <h3 class="mat-subheading-2">{{ book.author.name }}</h3>
     </a>
-    <div class="book-actions">
-      <span class="price">{{ book.price | currency }}</span>
+    <div class="action">
       <button
         mat-raised-button
         color="accent"
         (click)="onBuyPressed()"
         [disabled]="!canAddToCart"
         *ngIf="!isOwned && !isAdmin"
+        title="Add to cart"
       >
-        <mat-icon>add_shopping_cart</mat-icon>
-        <span>
-          Add to cart
-        </span>
+        <ng-container *ngIf="canAddToCart">
+          <mat-icon>add_shopping_cart</mat-icon>
+          <span>{{ book.price > 0 ? (book.price | currency) : "Free" }}</span>
+        </ng-container>
+        <ng-container *ngIf="!canAddToCart">
+          <mat-icon>done</mat-icon>
+          <span>In cart</span>
+        </ng-container>
       </button>
       <a
         mat-raised-button
