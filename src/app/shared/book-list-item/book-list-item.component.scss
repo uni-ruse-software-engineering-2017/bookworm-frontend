@@ -46,6 +46,21 @@
       }
     }
 
+    .owned-badge {
+      margin-left: 16px;
+      margin-right: 8px;
+      user-select: none;
+      align-self: flex-start;
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      padding: 4px 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      border-radius: 6px;
+      background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    }
+
     .action {
       align-self: flex-end;
       padding-right: 8px;
@@ -76,6 +91,10 @@
     height: 100%;
     .book-content {
       flex-direction: column !important;
+
+      .owned-badge {
+        align-self: flex-end;
+      }
 
       .book-header {
         h2 {

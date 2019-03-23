@@ -8,7 +8,16 @@
             <div class="book-metadata">
               <dl>
                 <dt>Price</dt>
-                <dd>{{ book.price | currency }}</dd>
+                <dd>
+                  <ng-container *ngIf="book.price > 0">
+                    {{ book.price | currency }}
+                  </ng-container>
+                  <ng-container *ngIf="book.price == 0">
+                    <span class="free-badge">
+                      FREE
+                    </span>
+                  </ng-container>
+                </dd>
                 <dt>ISBN</dt>
                 <dd>{{ book.isbn }}</dd>
                 <dt>Pages</dt>
@@ -69,12 +78,18 @@
         color="accent"
         (click)="addToCart(book)"
         [disabled]="isBookAlreadyAddedInCart"
-        *ngIf="!isBookAlreadyOwnedByUser && !isAdmin"
+        *ngIf="!isAdmin && !isBookAlreadyOwnedByUser"
       >
-        <mat-icon>
-          add_shopping_cart
-        </mat-icon>
-        <span>Add to cart</span>
+        <ng-container *ngIf="!isBookAlreadyAddedInCart">
+          <mat-icon>
+            add_shopping_cart
+          </mat-icon>
+          <span>Add to cart</span>
+        </ng-container>
+        <ng-container *ngIf="isBookAlreadyAddedInCart">
+          <mat-icon>done</mat-icon>
+          <span>In cart</span>
+        </ng-container>
       </button>
       <a
         mat-raised-button

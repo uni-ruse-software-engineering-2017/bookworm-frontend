@@ -11,6 +11,7 @@ export class BookListItemComponent implements OnInit {
   @Input() canAddToCart = true;
   @Input() isOwned = false;
   @Input() isAdmin = false;
+  @Input() showPurchasedBadge = true;
 
   @Output() buyPressed = new EventEmitter();
 

@@ -51,6 +51,14 @@ section {
           font-size: 1.125em;
         }
 
+        .free-badge {
+          padding: 4px 12px;
+          color: white;
+          background: linear-gradient(to right, #a8e063, #56ab2f);
+          border-radius: 6px;
+          letter-spacing: 4px;
+        }
+
         dt {
           text-align: right;
           clear: left;

@@ -4,10 +4,13 @@
   </a>
   <div class="book-content">
     <a [routerLink]="['/books', book.id, 'details']" class="book-header link">
-      <h2 class="mat-headline">{{ book.title }}</h2>
+      <h2 class="mat-headline">
+        {{ book.title }}
+      </h2>
       <h3 class="mat-subheading-2">{{ book.author.name }}</h3>
     </a>
-    <div class="action">
+    <span class="owned-badge" *ngIf="isOwned">Purchased</span>
+    <div class="action" *ngIf="!isOwned">
       <button
         mat-raised-button
         color="accent"

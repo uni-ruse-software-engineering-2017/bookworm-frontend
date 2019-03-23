@@ -21,7 +21,7 @@ export class MyBooksComponent implements OnInit {
 
   fetchBooks(page = 1) {
     this.bookService
-      .getAll({ page: page || 1, pageSize: 10 })
+      .getUserBooks({ page: page || 1, pageSize: 10 })
       .subscribe(books => {
         this.books = books;
         this.hasNextPage = books.page < books.pageCount;
