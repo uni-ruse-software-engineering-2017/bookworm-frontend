@@ -1,8 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
-import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { forkJoin } from "rxjs";
-import { flatMap, map } from "rxjs/operators";
+import { ActivatedRoute, Router } from "@angular/router";
+import { map } from "rxjs/operators";
 import { AuthenticationService } from "src/app/core/services/authentication.service";
 import { BookService } from "src/app/core/services/book.service";
 import { CategoryService } from "src/app/core/services/category.service";
@@ -17,6 +16,8 @@ import { defaultPaginationQuery, emptyResource } from "src/app/util/pagination";
   styleUrls: ["./books.component.scss"]
 })
 export class BooksComponent implements OnInit {
+  @ViewChild("booksList") booksList: ElementRef<HTMLElement>;
+
   books: IPaginatedResource<IBookListItem> = emptyResource();
   booksInCartHash: { [bookId: string]: boolean } = {};
   booksOwnedHash: { [bookId: string]: boolean } = {};
@@ -78,20 +79,18 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  onCategorySelected() {
-    this.route.paramMap
-      .pipe(
-        flatMap((params: ParamMap) => {
-          const categoryId = params.get("categoryId");
+  onCategorySelected(categorySelected: ICategory | null) {
+    this.category = categorySelected;
 
-          return forkJoin(
-            this.categoryService
-              .getById(categoryId)
-              .pipe(map(category => (this.category = category))),
-            this.bookService
-              .getAll({ ...defaultPaginationQuery(), categoryId })
-              .pipe(map(books => (this.books = books)))
-          );
+    this.bookService
+      .getAll({
+        ...defaultPaginationQuery(),
+        categoryId: this.category ? this.category.id : undefined
+      })
+      .pipe(
+        map(books => {
+          this.books = books;
+          this.scrollToBooks();
         })
       )
       .subscribe();
@@ -107,10 +106,25 @@ export class BooksComponent implements OnInit {
 
   fetchBooks(page = 1) {
     this.bookService
-      .getAll({ page: page || 1, pageSize: 10 })
+      .getAll({
+        page: page || 1,
+        pageSize: 10,
+        categoryId: this.category ? this.category.id : undefined
+      })
       .subscribe(books => {
         this.books = books;
         this.hasNextPage = books.page < books.pageCount;
+        this.scrollToBooks();
       });
+  }
+
+  private scrollToBooks() {
+    if (!this.booksList) {
+      return;
+    }
+
+    this.booksList.nativeElement.scrollTo({
+      behavior: "smooth"
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { NestedTreeControl } from "@angular/cdk/tree";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material";
 import { ITreeNode } from "src/app/core/types";
 import { ICategory } from "src/app/core/types/catalog";
@@ -10,7 +10,10 @@ import { ICategory } from "src/app/core/types/catalog";
   styleUrls: ["./categories-tree.component.scss"]
 })
 export class CategoriesTreeComponent implements OnInit {
+  selected: ICategory = null;
+
   @Input() data: ITreeNode<ICategory>[];
+  @Output() categorySelected = new EventEmitter<ICategory>();
 
   treeControl = new NestedTreeControl<ITreeNode<ICategory>>(
     node => node.children
@@ -25,5 +28,10 @@ export class CategoriesTreeComponent implements OnInit {
 
   hasChild(_: number, node: ITreeNode<ICategory>) {
     return !!node.children && node.children.length > 0;
+  }
+
+  selectCategory(category: ICategory | null) {
+    this.selected = category;
+    this.categorySelected.emit(category);
   }
 }

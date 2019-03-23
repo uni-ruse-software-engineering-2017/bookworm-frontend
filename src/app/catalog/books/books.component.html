@@ -2,10 +2,21 @@
   <bw-categories-tree
     class="mat-elevation-z1"
     [data]="categoryTree"
+    (categorySelected)="onCategorySelected($event)"
     *ngIf="categoryTree"
   ></bw-categories-tree>
-  <mat-card>
-    <div class="books-list">
+  <mat-card class="books-wrapper">
+    <mat-card-header *ngIf="category">
+      <mat-card-title>
+        Books in category
+        <i class="category-chosen">{{ category.name }}</i>
+      </mat-card-title>
+      <mat-card-subtitle
+        >{{ books.total > 0 ? books.total : "No" }} results
+        found.</mat-card-subtitle
+      >
+    </mat-card-header>
+    <div class="books-list" #booksList>
       <div
         class="book-list-item-wrapper"
         *ngFor="let book of books.items; trackBy: book?.id"
@@ -18,8 +29,12 @@
           [isAdmin]="(this.auth.user$ | async)?.role === 'admin'"
         ></bw-book-list-item>
       </div>
+      <div class="empty-list" *ngIf="books.total === 0">
+        <img src="assets/empty-list-books.svg" alt="No books found" />
+        <p>There are no books matching your criteria.</p>
+      </div>
     </div>
-    <div class="paginator">
+    <div class="paginator" *ngIf="books.total > 0">
       <button mat-button (click)="loadPrev()" [disabled]="books.page <= 1">
         <mat-icon>chevron_left</mat-icon>
         <span>
