@@ -1,0 +1,72 @@
+@import "color-pallete.scss";
+@import "layout.scss";
+
+:host {
+  display: block;
+}
+
+nav {
+  background-color: primary-color();
+}
+
+.crumbs-wrapper {
+  margin: 0 auto;
+
+  padding: 12px;
+
+  display: flex;
+  align-items: center;
+  @include desktop() {
+    max-width: 1280px;
+  }
+
+  @include tablet() {
+    max-width: 960px;
+  }
+
+  @include mobile() {
+    padding: 8px 12px;
+  }
+
+  [mat-icon-button] {
+    margin-right: 12px;
+  }
+
+  mat-icon {
+    color: white;
+  }
+}
+
+ol {
+  flex: 1;
+  padding-left: 0;
+
+  li {
+    list-style: none;
+    display: inline-block;
+    color: white;
+    user-select: none;
+
+    a {
+      color: white;
+      text-decoration: none;
+
+      &:visited {
+        color: white;
+      }
+
+      &:active,
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+
+    &:not(:last-of-type)::after {
+      content: "/";
+      color: rgba(255, 255, 255, 0.57);
+      margin-left: 6px;
+      margin-right: 6px;
+    }
+  }
+}

@@ -96,10 +96,9 @@
         <mat-icon>library_books</mat-icon>
         <span>My Books</span>
       </mat-list-item>
-
       <mat-list-item
         mat-list-item
-        [routerLink]="['/admin']"
+        [routerLink]="['/admin/management']"
         routerLinkActive="active"
         mat-button
         *ngIf="user && user.role === 'admin'"
@@ -146,7 +145,7 @@
             >My Orders</a
           >
           <a
-            [routerLink]="['/admin']"
+            [routerLink]="['/admin/management']"
             routerLinkActive="active"
             mat-button
             *ngIf="user && user.role === 'admin'"
@@ -192,6 +191,7 @@
       <mat-progress-bar mode="indeterminate" [ngClass]="{ hidden: !isLoading }">
       </mat-progress-bar>
     </div>
+    <bw-breadcrumbs></bw-breadcrumbs>
     <section class="content">
       <div class="route-wrapper">
         <router-outlet></router-outlet>

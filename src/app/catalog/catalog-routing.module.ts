@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AuthorResolver } from "../core/resolvers/author.resolver";
+import { BookResolver } from "../core/resolvers/book.resolver";
 import { CustomerGuard } from "../core/route-guards/customer.guard";
 import { NotFoundComponent } from "../not-found/not-found.component";
 import { AuthorDetailsComponent } from "./authors/author-details/author-details.component";
@@ -13,32 +15,74 @@ import { MyBooksComponent } from "./my-books/my-books.component";
 const routes: Routes = [
   {
     path: "home",
-    component: HomeComponent
+    component: HomeComponent,
+    data: {
+      breadcrumbs: "Home"
+    }
   },
   {
     path: "authors",
-    component: AuthorsComponent
-  },
-  {
-    path: "authors/:authorId/details",
-    component: AuthorDetailsComponent
+    data: {
+      breadcrumbs: "Authors"
+    },
+    children: [
+      {
+        path: "",
+        component: AuthorsComponent
+      },
+      {
+        path: ":authorId/details",
+        component: AuthorDetailsComponent,
+        data: {
+          breadcrumbs: "{{ author.name }}"
+        },
+        resolve: {
+          author: AuthorResolver
+        }
+      }
+    ]
   },
   {
     path: "books",
-    component: BooksComponent
+    data: {
+      breadcrumbs: "Catalog"
+    },
+    children: [
+      {
+        path: "",
+        component: BooksComponent
+      },
+      {
+        path: ":bookId/details",
+        data: {
+          breadcrumbs: "{{ book.title }}"
+        },
+        resolve: {
+          book: BookResolver
+        },
+        children: [
+          {
+            path: "",
+            component: BookDetailsComponent
+          },
+          {
+            path: "online-reader",
+            component: ReadBookOnlineComponent,
+            data: {
+              breadcrumbs: "Online Reader"
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     path: "my-books",
     component: MyBooksComponent,
-    canActivate: [CustomerGuard]
-  },
-  {
-    path: "books/:bookId/details",
-    component: BookDetailsComponent
-  },
-  {
-    path: "books/:bookId/details/online-reader",
-    component: ReadBookOnlineComponent
+    canActivate: [CustomerGuard],
+    data: {
+      breadcrumbs: "My Books"
+    }
   },
   {
     path: "not-found",

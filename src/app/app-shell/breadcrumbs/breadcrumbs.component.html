@@ -1,0 +1,26 @@
+<ng-container *ngIf="(breadcrumbService.crumbs$ | async) as crumbs">
+  <nav *ngIf="crumbs.length > 0">
+    <div class="crumbs-wrapper">
+      <a
+        mat-icon-button
+        title="Go Back"
+        [routerLink]="[crumbs[crumbs.length - 2].path]"
+        *ngIf="crumbs.length > 1"
+      >
+        <mat-icon>arrow_back</mat-icon>
+      </a>
+      <ol *ngIf="crumbs.length">
+        <li *ngFor="let item of crumbs; let last = last">
+          <ng-container *ngIf="!last; else current">
+            <a [routerLink]="[item.path]">
+              {{ item.text }}
+            </a>
+          </ng-container>
+          <ng-template #current>
+            <span>{{ item.text }}</span>
+          </ng-template>
+        </li>
+      </ol>
+    </div>
+  </nav>
+</ng-container>
