@@ -110,6 +110,11 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="toolbar">
+      <mat-progress-bar
+        mode="query"
+        color="accent"
+        [ngClass]="{ hidden: !isLoading }"
+      ></mat-progress-bar>
       <mat-toolbar color="primary" class="mat-elevation-z4">
         <button
           class="hamburger"
@@ -188,8 +193,6 @@
           </a>
         </mat-menu>
       </mat-toolbar>
-      <mat-progress-bar mode="indeterminate" [ngClass]="{ hidden: !isLoading }">
-      </mat-progress-bar>
     </div>
     <bw-breadcrumbs></bw-breadcrumbs>
     <section class="content">

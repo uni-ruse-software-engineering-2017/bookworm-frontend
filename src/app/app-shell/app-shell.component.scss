@@ -38,8 +38,13 @@ mat-sidenav {
   transform: translateY(-64px);
 }
 
+mat-progress-bar {
+  position: absolute;
+  top: 0;
+}
+
 .hidden {
-  display: none;
+  visibility: hidden;
 }
 
 h1 {

@@ -1,4 +1,3 @@
-import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { BreadcrumbsService } from "@exalif/ngx-breadcrumbs";
 
@@ -8,14 +7,7 @@ import { BreadcrumbsService } from "@exalif/ngx-breadcrumbs";
   styleUrls: ["./breadcrumbs.component.scss"]
 })
 export class BreadcrumbsComponent implements OnInit {
-  constructor(
-    public breadcrumbService: BreadcrumbsService,
-    private location: Location
-  ) {}
+  constructor(public breadcrumbService: BreadcrumbsService) {}
 
   ngOnInit() {}
-
-  goBack() {
-    this.location.back();
-  }
 }

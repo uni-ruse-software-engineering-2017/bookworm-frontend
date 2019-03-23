@@ -12,7 +12,7 @@ nav {
 .crumbs-wrapper {
   margin: 0 auto;
 
-  padding: 12px;
+  padding: 8px 12px;
 
   display: flex;
   align-items: center;
@@ -25,7 +25,7 @@ nav {
   }
 
   @include mobile() {
-    padding: 8px 12px;
+    padding: 4px 10px;
   }
 
   [mat-icon-button] {
