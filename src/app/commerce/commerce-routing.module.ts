@@ -7,12 +7,18 @@ import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
 const routes: Routes = [
   {
     path: "shopping-cart",
-    component: ShoppingCartComponent
+    component: ShoppingCartComponent,
+    data: {
+      breadcrumbs: "Shopping Cart"
+    }
   },
   {
     path: "orders",
     component: OrdersComponent,
-    canActivate: [CustomerGuard]
+    canActivate: [CustomerGuard],
+    data: {
+      breadcrumbs: "My Orders"
+    }
   }
 ];
 

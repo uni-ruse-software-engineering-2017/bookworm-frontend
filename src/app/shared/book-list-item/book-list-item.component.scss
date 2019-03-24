@@ -47,11 +47,17 @@
     }
 
     .owned-badge {
+      display: flex;
+      align-items: center;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+
       margin-left: 16px;
       margin-right: 8px;
       user-select: none;
       align-self: flex-start;
-      display: inline-block;
       color: white;
       text-decoration: none;
       padding: 4px 12px;

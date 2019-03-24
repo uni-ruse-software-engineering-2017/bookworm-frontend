@@ -1,6 +1,11 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>My Books</mat-card-title>
+    <mat-card-subtitle>
+      <span *ngIf="books.total > 0"
+        >You have purchased {{ books.total }} books</span
+      >
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div class="books-list">
