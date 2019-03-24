@@ -90,6 +90,7 @@ export class BooksComponent implements OnInit {
       .pipe(
         map(books => {
           this.books = books;
+          this.hasNextPage = books.page < books.pageCount;
           this.scrollToBooks();
         })
       )

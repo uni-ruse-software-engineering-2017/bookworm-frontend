@@ -9,7 +9,9 @@
       </h2>
       <h3 class="mat-subheading-2">{{ book.author.name }}</h3>
     </a>
-    <span class="owned-badge" *ngIf="isOwned">Purchased</span>
+    <span class="owned-badge" *ngIf="isOwned && showPurchasedBadge"
+      >Purchased</span
+    >
     <div class="action" *ngIf="!isOwned">
       <button
         mat-raised-button
