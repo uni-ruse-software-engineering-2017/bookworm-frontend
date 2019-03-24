@@ -6,6 +6,21 @@
     *ngIf="categoryTree"
   ></bw-categories-tree>
   <mat-card class="books-wrapper">
+    <header class="search-box">
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input type="search" matInput [formControl]="searchInput" />
+        <button
+          mat-icon-button
+          matSuffix
+          title="Clear Search"
+          (click)="clearSearch()"
+          *ngIf="searchInput.value"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </header>
     <mat-card-header *ngIf="category">
       <mat-card-title>
         Books in category

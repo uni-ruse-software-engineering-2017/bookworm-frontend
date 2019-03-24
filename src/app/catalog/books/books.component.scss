@@ -25,6 +25,18 @@ mat-card {
     color: primary-color();
   }
 
+  .search-box {
+    padding-left: 0;
+
+    mat-form-field {
+      width: 100%;
+
+      mat-icon {
+        cursor: pointer;
+      }
+    }
+  }
+
   .books-list {
     flex: 1;
     display: block;
