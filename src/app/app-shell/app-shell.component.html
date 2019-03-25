@@ -88,6 +88,16 @@
       </mat-list-item>
       <mat-list-item
         mat-list-item
+        [routerLink]="['/subscribe']"
+        routerLinkActive="active"
+        mat-button
+        *ngIf="user && user.role === 'customer'"
+      >
+        <mat-icon>all_inclusive</mat-icon>
+        <span>Subscribe</span>
+      </mat-list-item>
+      <mat-list-item
+        mat-list-item
         [routerLink]="['/my-books']"
         routerLinkActive="active"
         mat-button
@@ -148,6 +158,13 @@
             mat-button
             *ngIf="user && user.role === 'customer'"
             >My Orders</a
+          >
+          <a
+            [routerLink]="['/subscribe']"
+            routerLinkActive="active"
+            mat-button
+            *ngIf="user && user.role === 'customer'"
+            >Subscribe</a
           >
           <a
             [routerLink]="['/admin/management']"

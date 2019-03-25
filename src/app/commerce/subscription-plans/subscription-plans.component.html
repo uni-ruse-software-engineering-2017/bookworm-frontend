@@ -1,0 +1,28 @@
+<section class="plans-container">
+  <mat-card *ngFor="let plan of (plans$ | async)">
+    <mat-card-header>
+      <mat-card-title>
+        {{ plan.name }}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        Read
+        <span class="bold color-primary">{{ plan.booksPerMonth }} books</span>
+        per month
+      </div>
+      <div class="row">Access all of our catalog</div>
+      <div class="row">
+        For
+        <span class="bold color-primary">{{
+          plan.pricePerMonth | currency
+        }}</span>
+        per month
+      </div>
+      <div class="row">Cancel any time</div>
+    </mat-card-content>
+    <div class="actions">
+      <button mat-raised-button color="accent">Subscribe</button>
+    </div>
+  </mat-card>
+</section>
