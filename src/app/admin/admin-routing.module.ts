@@ -8,6 +8,7 @@ import { BooksManagementComponent } from "./books-management/books-management.co
 import { CreateBookFormComponent } from "./books-management/create-book-form/create-book-form.component";
 import { EditBookFormComponent } from "./books-management/edit-book-form/edit-book-form.component";
 import { CategoryManagementComponent } from "./category-management/category-management.component";
+import { SubscriptionsManagementComponent } from "./subscriptions-management/subscriptions-management.component";
 
 const routes: Routes = [
   {
@@ -67,6 +68,14 @@ const routes: Routes = [
         canActivate: [AdminGuard],
         data: {
           breadcrumbs: "Categories"
+        }
+      },
+      {
+        path: "subscription-plans",
+        component: SubscriptionsManagementComponent,
+        canActivate: [AdminGuard],
+        data: {
+          breadcrumbs: "Subscription Plans"
         }
       }
     ]

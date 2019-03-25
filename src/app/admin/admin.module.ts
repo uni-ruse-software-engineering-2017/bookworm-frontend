@@ -14,6 +14,8 @@ import { CreateBookFormComponent } from "./books-management/create-book-form/cre
 import { EditBookFormComponent } from "./books-management/edit-book-form/edit-book-form.component";
 import { CategoryManagementComponent } from "./category-management/category-management.component";
 import { CreateCategoryFormComponent } from "./category-management/create-category-form/create-category-form.component";
+import { SubscriptionPlanFormComponent } from "./subscriptions-management/subscription-plan-form/subscription-plan-form.component";
+import { SubscriptionsManagementComponent } from "./subscriptions-management/subscriptions-management.component";
 
 @NgModule({
   declarations: [
@@ -27,12 +29,15 @@ import { CreateCategoryFormComponent } from "./category-management/create-catego
     BooksManagementListComponent,
     CreateCategoryFormComponent,
     AdminDashboardComponent,
-    EditBookFormComponent
+    EditBookFormComponent,
+    SubscriptionsManagementComponent,
+    SubscriptionPlanFormComponent
   ],
   entryComponents: [
     CreateAuthorFormComponent,
     EditAuthorFormComponent,
-    CreateCategoryFormComponent
+    CreateCategoryFormComponent,
+    SubscriptionPlanFormComponent
   ],
   imports: [CommonModule, SharedModule, AdminRoutingModule]
 })

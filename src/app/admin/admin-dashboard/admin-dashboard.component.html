@@ -5,15 +5,12 @@
     </mat-card-header>
     <mat-card-content>
       <mat-nav-list>
-        <a [routerLink]="['./category']" routerLinkActive="active" mat-button
-          >Categories</a
-        >
-        <a [routerLink]="['./books']" routerLinkActive="active" mat-button
-          >Books</a
-        >
-        <a [routerLink]="['./authors']" routerLinkActive="active" mat-button
-          >Authors</a
-        >
+        <a [routerLink]="['./category']" mat-button>Categories</a>
+        <a [routerLink]="['./books']" mat-button>Books</a>
+        <a [routerLink]="['./authors']" mat-button>Authors</a>
+        <a [routerLink]="['./subscription-plans']" mat-button>
+          Subscription Plans
+        </a>
       </mat-nav-list>
     </mat-card-content>
   </mat-card>

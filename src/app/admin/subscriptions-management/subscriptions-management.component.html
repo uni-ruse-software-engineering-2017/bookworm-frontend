@@ -1,0 +1,37 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Subscription plans</mat-card-title>
+    <mat-card-subtitle>Create, edit or delete plans</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content *ngIf="(plans$ | async) as plans">
+    <mat-list>
+      <mat-list-item *ngFor="let plan of plans; trackBy: plan?.id">
+        <mat-divider></mat-divider>
+        <h3 matLine>
+          <span class="color-primary plan-name">
+            {{ plan.name }}
+          </span>
+          -
+          <span class="price"
+            >{{ plan.pricePerMonth | currency }} per month</span
+          >
+        </h3>
+        <h4 matLine>{{ plan.booksPerMonth }} books per month</h4>
+        <a mat-icon-button (click)="editPlan(plan)">
+          <mat-icon>edit</mat-icon>
+        </a>
+        <button mat-icon-button (click)="removePlan(plan)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+    <p *ngIf="!plans.length">
+      There are no subscription plans created yet.
+    </p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-raised-button color="primary" (click)="createPlan()">
+      New Plan
+    </button>
+  </mat-card-actions>
+</mat-card>

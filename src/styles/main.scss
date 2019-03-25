@@ -91,3 +91,11 @@ mat-form-field mat-icon {
     flex: 1;
   }
 }
+
+.color-primary {
+  color: primary-color();
+}
+
+.color-accent {
+  color: accent-color();
+}

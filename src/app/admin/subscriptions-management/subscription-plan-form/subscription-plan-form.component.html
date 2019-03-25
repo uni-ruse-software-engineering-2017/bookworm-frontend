@@ -1,0 +1,53 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2 class="mat-title">Create New Subscription Plan</h2>
+  <mat-form-field>
+    <mat-label>
+      Plan Name
+    </mat-label>
+    <input type="text" matInput formControlName="name" />
+    <mat-error *ngIf="form.controls['name'].errors?.required">
+      The plan name is required.
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Books Per Month</mat-label>
+    <input
+      type="number"
+      matInput
+      step="1"
+      formControlName="booksPerMonth"
+      min="1"
+    />
+    <mat-error *ngIf="form.controls['booksPerMonth'].errors?.required">
+      You must specify how many books a customer can read per month.
+    </mat-error>
+    <mat-error *ngIf="form.controls['booksPerMonth'].errors?.min">
+      The minimum number of books must be at least {{ 1.0 | currency }}.
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Price Per Month</mat-label>
+    <input
+      type="number"
+      matInput
+      step="0.1"
+      formControlName="pricePerMonth"
+      min="1"
+    />
+    <span matPrefix>$&nbsp;</span>
+    <mat-error *ngIf="form.controls['pricePerMonth'].errors?.required">
+      You must specify a price for the plan.
+    </mat-error>
+    <mat-error *ngIf="form.controls['pricePerMonth'].errors?.min">
+      The minimum price must be at least {{ 1.0 | currency }}.
+    </mat-error>
+  </mat-form-field>
+  <div class="actions">
+    <button type="button" mat-button (click)="modalRef.close()">
+      <span>Cancel</span>
+    </button>
+    <button type="submit" mat-raised-button color="primary">
+      <span>Save</span>
+    </button>
+  </div>
+</form>
