@@ -31,4 +31,17 @@ export class SubscriptionPlanService {
   delete(planId: string) {
     return this.httpClient.delete<null>(`${this.apiUrl}/${planId}`);
   }
+
+  subscribeForPlan(planId: string) {
+    return this.httpClient.post<ISubscriptionPlan>(`${this.apiUrl}/subscribe`, {
+      planId
+    });
+  }
+
+  cancelSubscription() {
+    return this.httpClient.post<ISubscriptionPlan>(
+      `${this.apiUrl}/unsubscribe`,
+      {}
+    );
+  }
 }

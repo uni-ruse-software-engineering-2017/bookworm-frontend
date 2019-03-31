@@ -112,6 +112,10 @@ mat-card {
     color: white;
   }
 
+  mat-card-content {
+    margin-bottom: 0;
+  }
+
   .row {
     text-align: center;
     padding: 12px;
@@ -130,6 +134,9 @@ mat-card {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px;
+
+    &:not(:empty) {
+      padding: 8px;
+    }
   }
 }

@@ -8,32 +8,39 @@
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <div class="books-list">
-      <div
-        class="book-list-item-wrapper"
-        *ngFor="let book of books.items; trackBy: book?.id"
-      >
-        <bw-book-list-item
-          [book]="book"
-          [isOwned]="true"
-          [isAdmin]="false"
-          [showPurchasedBadge]="false"
-        ></bw-book-list-item>
+    <ng-container *ngIf="books.total > 0; else noBooks">
+      <div class="books-list">
+        <div
+          class="book-list-item-wrapper"
+          *ngFor="let book of books.items; trackBy: book?.id"
+        >
+          <bw-book-list-item
+            [book]="book"
+            [isOwned]="true"
+            [isAdmin]="false"
+            [showPurchasedBadge]="false"
+          ></bw-book-list-item>
+        </div>
       </div>
-    </div>
-    <div class="paginator">
-      <button mat-button (click)="loadPrev()" [disabled]="books.page <= 1">
-        <mat-icon>chevron_left</mat-icon>
-        <span>
-          Previous
-        </span>
-      </button>
-      <button mat-button (click)="loadNext()" [disabled]="!hasNextPage">
-        <span>
-          Next
-        </span>
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-    </div>
+      <div class="paginator">
+        <button mat-button (click)="loadPrev()" [disabled]="books.page <= 1">
+          <mat-icon>chevron_left</mat-icon>
+          <span>
+            Previous
+          </span>
+        </button>
+        <button mat-button (click)="loadNext()" [disabled]="!hasNextPage">
+          <span>
+            Next
+          </span>
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #noBooks>
+      <p>
+        You haven't purchased any books yet.
+      </p>
+    </ng-template>
   </mat-card-content>
 </mat-card>
