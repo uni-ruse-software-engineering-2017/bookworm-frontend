@@ -23,8 +23,10 @@
     <div class="shopping-cart-total">
       <mat-list>
         <mat-list-item>
-          <p matLine>Total</p>
-          <span class="price">
+          <p matLine>
+            <span class="bold">Total</span>
+          </p>
+          <span class="price color-primary">
             {{ (cart.content$ | async).total | currency }}
           </span>
         </mat-list-item>
@@ -134,11 +136,12 @@
         >
           <mat-icon>menu</mat-icon>
         </button>
-        <h1>Bookworm</h1>
+        <h1 class="title">
+          <a [routerLink]="['/home/']" routerLinkActive="active">
+            Bookworm
+          </a>
+        </h1>
         <span *ngIf="!shouldRenderDrawer">
-          <a [routerLink]="['/home/']" routerLinkActive="active" mat-button
-            >Home</a
-          >
           <a [routerLink]="['/books']" routerLinkActive="active" mat-button
             >Books</a
           >
@@ -193,8 +196,10 @@
         <mat-menu #accountMenu="matMenu">
           <div *ngIf="user">
             <div class="account-menu-header mat-typography">
+              <img class="avatar" [src]="user.gravatarUrl" alt="Avatar" />
               <h3>{{ user.firstName }} {{ user.lastName }}</h3>
             </div>
+            <mat-divider></mat-divider>
             <a [routerLink]="['/profile']" mat-menu-item>
               <mat-icon>account_box</mat-icon>
               <span>Profile</span>

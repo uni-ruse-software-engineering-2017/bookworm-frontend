@@ -26,6 +26,7 @@ export interface IUserProfile {
   lastName: string;
   role: UserRole;
   ownedBooks: string[];
+  gravatarUrl?: string;
 }
 
 export interface IApplicationUserData {
