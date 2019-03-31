@@ -5,12 +5,14 @@ import { CommerceRoutingModule } from "./commerce-routing.module";
 import { OrdersComponent } from "./orders/orders.component";
 import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
 import { SubscriptionPlansComponent } from "./subscription-plans/subscription-plans.component";
+import { MyProfileComponent } from "./my-profile/my-profile.component";
 
 @NgModule({
   declarations: [
     ShoppingCartComponent,
     OrdersComponent,
-    SubscriptionPlansComponent
+    SubscriptionPlansComponent,
+    MyProfileComponent
   ],
   imports: [CommonModule, CommerceRoutingModule, SharedModule]
 })

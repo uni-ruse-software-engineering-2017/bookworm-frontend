@@ -1,0 +1,38 @@
+<ng-container *ngIf="(profile$ | async); let profile">
+  <mat-card>
+    <mat-card-header>
+      <img class="avatar" mat-card-avatar [src]="profile.gravatarUrl" />
+      <mat-card-title>
+        <span>{{ profile.firstName }} {{ profile.lastName }}</span>
+      </mat-card-title>
+      <mat-card-subtitle>{{ profile.email }}</mat-card-subtitle>
+      <span class="badge" *ngIf="profile.subscription">
+        <mat-icon>verified_user</mat-icon>
+        subscriber
+      </span>
+    </mat-card-header>
+    <mat-card-content *ngIf="profile.subscription" class="mat-typography">
+      <mat-divider></mat-divider>
+      <h2>
+        <span class="color-primary">{{ profile.subscription.name }}</span>
+      </h2>
+      <h3>
+        <span class="bold color-primary">{{
+          profile.subscription.booksPerMonth
+        }}</span>
+        books per month
+      </h3>
+      <h3>
+        <span class="bold color-primary">{{
+          profile.subscription.pricePerMonth | currency
+        }}</span>
+        per month
+      </h3>
+      <div class="subscription-actions">
+        <button mat-button color="error" (click)="unsubscribe()">
+          Cancel Subscription
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>

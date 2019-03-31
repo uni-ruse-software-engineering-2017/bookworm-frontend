@@ -1,0 +1,23 @@
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+
+  user-select: none;
+  align-self: flex-start;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  padding: 4px 12px;
+  padding-left: 16px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  background-image: linear-gradient(to right, #4facfe 100%, #00f2fe 0%);
+  margin-bottom: 4px;
+}

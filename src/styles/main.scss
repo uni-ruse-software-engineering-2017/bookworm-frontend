@@ -19,6 +19,7 @@ body {
 
 @import "./themes.scss";
 @import "./layout.scss";
+@import "./badge.scss";
 
 /** Material Overrides */
 button[mat-button],
@@ -98,4 +99,9 @@ mat-form-field mat-icon {
 
 .color-accent {
   color: accent-color();
+}
+
+.bold {
+  font-weight: 500;
+  font-size: 1.125em;
 }
