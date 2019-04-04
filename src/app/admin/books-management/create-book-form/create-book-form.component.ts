@@ -13,6 +13,7 @@ import {
   INewBook
 } from "src/app/core/types/catalog";
 import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.component";
+import { ValidateISBN } from "src/app/shared/validators/isbn.validator";
 import { toggleFormDisabledState } from "src/app/util/ng";
 
 @Component({
@@ -193,14 +194,7 @@ export class CreateBookFormComponent implements OnInit {
   private initializeForm() {
     return this.fb.group({
       title: ["", [Validators.required]],
-      isbn: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(13)
-        ]
-      ],
+      isbn: ["", [Validators.required, ValidateISBN]],
       pages: [
         200,
         [Validators.required, Validators.min(1), Validators.max(2000)]

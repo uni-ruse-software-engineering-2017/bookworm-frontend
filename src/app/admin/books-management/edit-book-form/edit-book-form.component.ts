@@ -14,6 +14,7 @@ import {
   ICategory
 } from "src/app/core/types/catalog";
 import { FileUploadComponent } from "src/app/shared/file-upload/file-upload.component";
+import { ValidateISBN } from "src/app/shared/validators/isbn.validator";
 import { toggleFormDisabledState } from "src/app/util/ng";
 import { environment } from "src/environments/environment";
 
@@ -244,14 +245,7 @@ export class EditBookFormComponent implements OnInit {
   private initializeForm() {
     const formDef: IBookFormData = {
       title: ["", [Validators.required]],
-      isbn: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(13)
-        ]
-      ],
+      isbn: ["", [Validators.required, ValidateISBN]],
       pages: [
         200,
         [Validators.required, Validators.min(1), Validators.max(2000)]

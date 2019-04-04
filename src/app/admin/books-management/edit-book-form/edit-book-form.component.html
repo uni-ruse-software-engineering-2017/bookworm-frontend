@@ -17,13 +17,8 @@
         <mat-error *ngIf="form.controls['isbn'].errors?.required">
           The ISBN is required.
         </mat-error>
-        <mat-error
-          *ngIf="
-            form.controls['isbn'].errors?.minLength ||
-            form.controls['isbn'].errors?.maxLength
-          "
-        >
-          The ISBN should be either 10 or 13 characters long.
+        <mat-error *ngIf="form.controls['isbn'].errors?.isbn">
+          Invalid ISBN.
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="standard">
