@@ -6,6 +6,7 @@ import {
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { map } from "rxjs/operators";
 import {
   buildQueryParamsFromPagination,
   IPaginationQuery
@@ -127,5 +128,11 @@ export class BookService {
 
   getFeaturedBooks() {
     return this.httpClient.get<IBookListItem[]>(`${this.apiUrl}/featured`);
+  }
+
+  getLatestBoooks() {
+    return this.httpClient
+      .get<IPaginatedResource<IBookListItem>>(`${this.apiUrl}/latest`)
+      .pipe(map(response => response.items));
   }
 }

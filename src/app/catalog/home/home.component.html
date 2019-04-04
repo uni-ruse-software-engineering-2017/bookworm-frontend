@@ -17,4 +17,25 @@
       </ul>
     </mat-card-content>
   </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Latest Books</mat-card-title>
+      <mat-card-subtitle>The newest titles in our catalog</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <ul class="featured-list">
+        <li *ngFor="let latestBook of latestBooks" class="featured-list-item">
+          <a [routerLink]="['/books', latestBook.id, 'details']">
+            <img [src]="latestBook.coverImage" [alt]="latestBook.title" />
+            <span class="price">
+              {{
+                latestBook.price > 0 ? (latestBook.price | currency) : "Free"
+              }}
+            </span>
+          </a>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
 </section>

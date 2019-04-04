@@ -9,12 +9,17 @@ import { IBookListItem } from "src/app/core/types/catalog";
 })
 export class HomeComponent implements OnInit {
   featuredBooks: IBookListItem[] = [];
+  latestBooks: IBookListItem[] = [];
 
   constructor(private bookService: BookService) {}
 
   ngOnInit() {
-    return this.bookService.getFeaturedBooks().subscribe(featuredBooks => {
+    this.bookService.getFeaturedBooks().subscribe(featuredBooks => {
       this.featuredBooks = featuredBooks;
+    });
+
+    this.bookService.getLatestBoooks().subscribe(latestBooks => {
+      this.latestBooks = latestBooks;
     });
   }
 }
