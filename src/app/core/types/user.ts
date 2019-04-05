@@ -1,3 +1,5 @@
+import { ISubscriptionPlan } from "./commerce";
+
 export interface ISignUpData {
   email: string;
   firstName: string;
@@ -27,6 +29,7 @@ export interface IUserProfile {
   role: UserRole;
   ownedBooks: string[];
   gravatarUrl?: string;
+  subscription?: ISubscriptionPlan;
 }
 
 export interface IApplicationUserData {

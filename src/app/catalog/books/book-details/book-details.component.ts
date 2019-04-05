@@ -20,6 +20,7 @@ export class BookDetailsComponent implements OnInit {
   author: IAuthor;
   isBookAlreadyAddedInCart = false;
   isBookAlreadyOwnedByUser = false;
+  hasSubscription = false;
   hasEpubFile = false;
   isAdmin = false;
   bookFiles: IBookFile[] = [];
@@ -77,6 +78,8 @@ export class BookDetailsComponent implements OnInit {
           this.isBookAlreadyOwnedByUser = !!user.ownedBooks.find(
             ownedBookId => ownedBookId === book.id
           );
+
+          this.hasSubscription = !!user.subscription;
 
           this.isAdmin = user.role === "admin";
         });

@@ -50,7 +50,10 @@
         color="primary"
         title="Read online"
         [routerLink]="['./online-reader']"
-        *ngIf="(isBookAlreadyOwnedByUser || isAdmin) && hasEpubFile"
+        *ngIf="
+          (isBookAlreadyOwnedByUser || isAdmin || hasSubscription) &&
+          hasEpubFile
+        "
       >
         <mat-icon>
           chrome_reader_mode

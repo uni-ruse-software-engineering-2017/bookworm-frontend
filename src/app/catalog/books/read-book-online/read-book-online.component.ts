@@ -51,8 +51,11 @@ export class ReadBookOnlineComponent implements OnInit {
         this.auth.user$.pipe(filter(user => !!user)).subscribe(user => {
           this.isAdmin = user.role === "admin";
           this.canReadBook =
-            !!user.ownedBooks.find(ownedBookId => ownedBookId === book.id) ||
-            this.isAdmin;
+            Boolean(
+              user.ownedBooks.find(ownedBookId => ownedBookId === book.id)
+            ) ||
+            this.isAdmin ||
+            Boolean(user.subscription);
         });
       });
   }
