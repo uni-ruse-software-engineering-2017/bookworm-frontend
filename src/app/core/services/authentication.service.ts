@@ -20,7 +20,9 @@ export class AuthenticationService {
     this.getProfile().subscribe(
       profile => {
         this.user$.next(profile);
-        this.shoppingCart.fetchContents().subscribe();
+        if (profile.role === "customer") {
+          this.shoppingCart.fetchContents().subscribe();
+        }
       },
       error => this.user$.next(null)
     );
