@@ -3,6 +3,7 @@ import { AbstractControl } from "@angular/forms";
 function calculateChecksum(arr: string[], weights: number[]) {
   return arr
     .reduce((a, x, i) => {
+      x = x === "X" ? "10" : x;
       a.push([Number(x), weights[i]]);
       return a;
     }, [])

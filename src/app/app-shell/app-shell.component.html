@@ -198,6 +198,11 @@
             <div class="account-menu-header mat-typography">
               <img class="avatar" [src]="user.gravatarUrl" alt="Avatar" />
               <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+              <h4>{{ user.email }}</h4>
+              <span class="badge" *ngIf="user.subscription">
+                <mat-icon>verified_user</mat-icon>
+                subscriber
+              </span>
             </div>
             <mat-divider></mat-divider>
             <a [routerLink]="['/profile']" mat-menu-item>
