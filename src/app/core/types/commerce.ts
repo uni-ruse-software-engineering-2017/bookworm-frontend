@@ -23,6 +23,18 @@ export interface ISubscriptionPlan {
   pricePerMonth: number;
 }
 
+export interface IUserSubscription extends ISubscriptionPlan {
+  credits: ISubscriptionCredits;
+  lastRenewedAt: null | Date;
+  expiresAt: Date;
+  subscribedAt: Date;
+}
+
+export interface ISubscriptionCredits {
+  limit: number;
+  used: number;
+}
+
 export interface IPurchaseSnapshot {
   author: {
     id: string;

@@ -15,6 +15,11 @@
       <mat-divider></mat-divider>
       <h2>
         <span class="color-primary">{{ profile.subscription.name }}</span>
+        <span style="margin-left: 4px; font-size: 0.875em;"
+          >({{ profile.subscription.credits.used }}/{{
+            profile.subscription.credits.limit
+          }})</span
+        >
       </h2>
       <h3>
         <span class="bold color-primary">{{
@@ -28,6 +33,25 @@
         }}</span>
         per month
       </h3>
+      <h3>
+        <span class="bold color-primary">
+          Subscribed on
+        </span>
+        {{ profile.subscription.subscribedAt | date }}
+      </h3>
+      <h3>
+        <span class="bold color-primary">
+          Next payment on
+        </span>
+        {{ profile.subscription.expiresAt | date }}
+      </h3>
+      <h3 *ngIf="profile.subscription.renewedAt">
+        <span class="bold color-primary">
+          Last payment on
+        </span>
+        {{ profile.subscription.renewedAt | date }}
+      </h3>
+
       <div class="subscription-actions">
         <button mat-button color="error" (click)="unsubscribe()">
           Cancel Subscription
