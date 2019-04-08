@@ -57,6 +57,16 @@ export class BookService {
     );
   }
 
+  getUserBooksForOnlineReading(query?: IPaginationQuery) {
+    const queryParams = buildQueryParamsFromPagination(query);
+    return this.httpClient.get<IPaginatedResource<IBookListItem>>(
+      `${this.apiUrl}/available-for-online-reading`,
+      {
+        params: queryParams
+      }
+    );
+  }
+
   getById(bookId: string) {
     return this.httpClient.get<IBookDetailed>(`${this.apiUrl}/${bookId}`);
   }

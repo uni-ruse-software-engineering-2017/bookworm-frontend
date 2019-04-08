@@ -10,29 +10,41 @@ import { emptyResource } from "src/app/util/pagination";
   styleUrls: ["./my-books.component.scss"]
 })
 export class MyBooksComponent implements OnInit {
-  books: IPaginatedResource<IBookListItem> = emptyResource();
-  hasNextPage: boolean;
+  purchasedBooks: IPaginatedResource<IBookListItem> = emptyResource();
+  availableOnline: IPaginatedResource<IBookListItem> = emptyResource();
 
   constructor(public bookService: BookService) {}
 
   ngOnInit() {
-    this.fetchBooks();
+    this.fetchPurchasedBooks();
+    this.fetchOnlineBooks();
   }
 
-  fetchBooks(page = 1) {
-    this.bookService
-      .getUserBooks({ page: page || 1, pageSize: 10 })
-      .subscribe(books => {
-        this.books = books;
-        this.hasNextPage = books.page < books.pageCount;
-      });
+  fetchPurchasedBooks(page = 1) {
+    this.bookService.getUserBooks({ page: page || 1 }).subscribe(books => {
+      this.purchasedBooks = books;
+    });
   }
 
-  loadNext() {
-    this.fetchBooks(this.books.page + 1);
+  fetchOnlineBooks(page = 1) {
+    this.bookService.getUserBooksForOnlineReading({ page }).subscribe(books => {
+      this.availableOnline = books;
+    });
   }
 
-  loadPrev() {
-    this.fetchBooks(this.books.page - 1);
+  loadNextOnline() {
+    this.fetchOnlineBooks(this.availableOnline.page + 1);
+  }
+
+  loadPrevOnline() {
+    this.fetchOnlineBooks(this.availableOnline.page - 1);
+  }
+
+  loadNextPurchased() {
+    this.fetchPurchasedBooks(this.purchasedBooks.page + 1);
+  }
+
+  loadPrevPurchased() {
+    this.fetchPurchasedBooks(this.purchasedBooks.page - 1);
   }
 }

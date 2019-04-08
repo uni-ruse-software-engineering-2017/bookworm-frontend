@@ -46,12 +46,12 @@ export class EbookReaderComponent implements OnInit {
     });
   }
 
-  goToNextPage() {
-    this.rendition.next();
+  async goToNextPage() {
+    await this.rendition.next();
   }
 
-  goToPrevPage() {
-    this.rendition.prev();
+  async goToPrevPage() {
+    await this.rendition.prev();
   }
 
   toggleTableOfContents() {

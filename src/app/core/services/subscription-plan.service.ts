@@ -44,4 +44,11 @@ export class SubscriptionPlanService {
       {}
     );
   }
+
+  startReadingBook(bookId: string) {
+    return this.httpClient.post<ISubscriptionPlan>(
+      `${this.apiUrl}/start-reading`,
+      { bookId }
+    );
+  }
 }

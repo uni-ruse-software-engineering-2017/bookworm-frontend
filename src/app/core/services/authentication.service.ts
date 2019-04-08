@@ -74,6 +74,11 @@ export class AuthenticationService {
     const headers = new HttpHeaders().set(HttpErrorInterceptorSkip, "");
     return this.httpClient
       .get(`${apiUrl}/user/profile`, { headers, withCredentials: true })
-      .pipe(map(res => res as IUserProfile));
+      .pipe(
+        map((userProfile: IUserProfile) => {
+          this.user$.next(userProfile);
+          return userProfile;
+        })
+      );
   }
 }

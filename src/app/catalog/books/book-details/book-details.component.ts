@@ -20,6 +20,7 @@ export class BookDetailsComponent implements OnInit {
   author: IAuthor;
   isBookAlreadyAddedInCart = false;
   isBookAlreadyOwnedByUser = false;
+  isBookAvailableForOnlineReading = false;
   hasSubscription = false;
   hasEpubFile = false;
   isAdmin = false;
@@ -76,6 +77,10 @@ export class BookDetailsComponent implements OnInit {
         // check if the book is already bought by the user
         this.auth.user$.pipe(filter(user => !!user)).subscribe(user => {
           this.isBookAlreadyOwnedByUser = !!user.ownedBooks.find(
+            ownedBookId => ownedBookId === book.id
+          );
+
+          this.isBookAvailableForOnlineReading = !!user.booksAvailableForOnlineReading.find(
             ownedBookId => ownedBookId === book.id
           );
 

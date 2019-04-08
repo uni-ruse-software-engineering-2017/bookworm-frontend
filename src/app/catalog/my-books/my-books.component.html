@@ -1,46 +1,96 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>My Books</mat-card-title>
-    <mat-card-subtitle>
-      <span *ngIf="books.total > 0"
-        >You have purchased {{ books.total }} books</span
-      >
-    </mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <ng-container *ngIf="books.total > 0; else noBooks">
-      <div class="books-list">
-        <div
-          class="book-list-item-wrapper"
-          *ngFor="let book of books.items; trackBy: book?.id"
-        >
-          <bw-book-list-item
-            [book]="book"
-            [isOwned]="true"
-            [isAdmin]="false"
-            [showPurchasedBadge]="false"
-          ></bw-book-list-item>
-        </div>
-      </div>
-      <div class="paginator">
-        <button mat-button (click)="loadPrev()" [disabled]="books.page <= 1">
-          <mat-icon>chevron_left</mat-icon>
-          <span>
-            Previous
-          </span>
-        </button>
-        <button mat-button (click)="loadNext()" [disabled]="!hasNextPage">
-          <span>
-            Next
-          </span>
-          <mat-icon>chevron_right</mat-icon>
-        </button>
-      </div>
-    </ng-container>
-    <ng-template #noBooks>
-      <p>
-        You haven't purchased any books yet.
-      </p>
-    </ng-template>
-  </mat-card-content>
+  <mat-tab-group>
+    <mat-tab label="My Books">
+      <mat-card-content>
+        <ng-container *ngIf="purchasedBooks.total > 0; else noBooks">
+          <div class="books-list">
+            <div
+              class="book-list-item-wrapper"
+              *ngFor="let book of purchasedBooks.items; trackBy: book?.id"
+            >
+              <bw-book-list-item
+                [book]="book"
+                [isOwned]="true"
+                [isAdmin]="false"
+                [showPurchasedBadge]="false"
+              ></bw-book-list-item>
+            </div>
+          </div>
+          <div class="paginator">
+            <button
+              mat-button
+              (click)="loadPrevPurchased()"
+              [disabled]="purchasedBooks.page <= 1"
+            >
+              <mat-icon>chevron_left</mat-icon>
+              <span>
+                Previous
+              </span>
+            </button>
+            <button
+              mat-button
+              (click)="loadNextPurchased()"
+              [disabled]="purchasedBooks.pageCount <= purchasedBooks.page"
+            >
+              <span>
+                Next
+              </span>
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+        <ng-template #noBooks>
+          <p>
+            You haven't purchased any books yet.
+          </p>
+        </ng-template>
+      </mat-card-content>
+    </mat-tab>
+    <mat-tab label="Books for Online Reading">
+      <mat-card-content>
+        <ng-container *ngIf="availableOnline.total > 0; else noBooks">
+          <div class="books-list">
+            <div
+              class="book-list-item-wrapper"
+              *ngFor="let book of availableOnline.items; trackBy: book?.id"
+            >
+              <bw-book-list-item
+                [book]="book"
+                [isOwned]="true"
+                [isAdmin]="false"
+                [showPurchasedBadge]="false"
+              ></bw-book-list-item>
+            </div>
+          </div>
+          <div class="paginator">
+            <button
+              mat-button
+              (click)="loadPrevOnline()"
+              [disabled]="availableOnline.page <= 1"
+            >
+              <mat-icon>chevron_left</mat-icon>
+              <span>
+                Previous
+              </span>
+            </button>
+            <button
+              mat-button
+              (click)="loadNextOnline()"
+              [disabled]="availableOnline.pageCount <= availableOnline.page"
+            >
+              <span>
+                Next
+              </span>
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+        <ng-template #noBooks>
+          <p>
+            There are no books which you started reading while subscribed.
+          </p>
+        </ng-template>
+      </mat-card-content>
+    </mat-tab>
+  </mat-tab-group>
 </mat-card>

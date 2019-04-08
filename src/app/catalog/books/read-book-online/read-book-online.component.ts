@@ -5,6 +5,7 @@ import { filter, flatMap } from "rxjs/operators";
 import { AuthenticationService } from "src/app/core/services/authentication.service";
 import { AuthorService } from "src/app/core/services/author.service";
 import { BookService } from "src/app/core/services/book.service";
+import { SubscriptionPlanService } from "src/app/core/services/subscription-plan.service";
 import { IBookDetailed, IBookFile } from "src/app/core/types/catalog";
 import { environment } from "src/environments/environment";
 
@@ -17,6 +18,7 @@ export class ReadBookOnlineComponent implements OnInit {
   book: IBookDetailed;
   canReadBook = false;
   isAdmin = false;
+  isSubscribed = false;
   FILES_URL = `${environment.host}/files/`;
   bookFile: IBookFile;
 
@@ -25,6 +27,7 @@ export class ReadBookOnlineComponent implements OnInit {
     private bookService: BookService,
     private authorService: AuthorService,
     private auth: AuthenticationService,
+    private subscriptionService: SubscriptionPlanService,
     public router: Router
   ) {}
 
@@ -50,13 +53,25 @@ export class ReadBookOnlineComponent implements OnInit {
         // check if the book is already bought by the user
         this.auth.user$.pipe(filter(user => !!user)).subscribe(user => {
           this.isAdmin = user.role === "admin";
+          this.isSubscribed = Boolean(user.subscription);
+
           this.canReadBook =
+            this.isAdmin ||
             Boolean(
               user.ownedBooks.find(ownedBookId => ownedBookId === book.id)
             ) ||
-            this.isAdmin ||
-            Boolean(user.subscription);
+            Boolean(
+              user.booksAvailableForOnlineReading.find(b => b === book.id)
+            );
         });
+      });
+  }
+
+  startReading() {
+    this.subscriptionService
+      .startReadingBook(this.route.snapshot.params.bookId)
+      .subscribe(response => {
+        this.auth.getProfile().subscribe();
       });
   }
 }

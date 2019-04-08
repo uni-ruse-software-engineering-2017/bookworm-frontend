@@ -51,7 +51,10 @@
         title="Read online"
         [routerLink]="['./online-reader']"
         *ngIf="
-          (isBookAlreadyOwnedByUser || isAdmin || hasSubscription) &&
+          (isBookAlreadyOwnedByUser ||
+            isBookAvailableForOnlineReading ||
+            isAdmin ||
+            hasSubscription) &&
           hasEpubFile
         "
       >

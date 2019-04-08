@@ -26,8 +26,8 @@ export function buildQueryParamsFromPagination(
 ): { [key: string]: any } {
   const p = pagination || defaultPaginationQuery();
   const result: { [key: string]: any } = {
-    page_size: p.pageSize,
-    page: p.page
+    page_size: p.pageSize || 10,
+    page: p.page || 1
   };
 
   if (p.search) {
@@ -38,7 +38,7 @@ export function buildQueryParamsFromPagination(
 }
 
 export interface IPaginationQuery {
-  pageSize: number;
+  pageSize?: number;
   page: number;
   search?: string;
 }

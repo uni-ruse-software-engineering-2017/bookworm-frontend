@@ -17,7 +17,7 @@
   </ng-container>
 </mat-card>
 
-<mat-card *ngIf="!canReadBook" class="mat-typography">
+<mat-card *ngIf="!canReadBook && !isSubscribed" class="mat-typography">
   <mat-card-content>
     <p>
       You don't have access for reading this book online. Please buy the book or
@@ -26,5 +26,20 @@
   </mat-card-content>
   <mat-card-actions align="end">
     <a [routerLink]="['./..']" mat-button>Go Back</a>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card *ngIf="!canReadBook && isSubscribed">
+  <mat-card-content>
+    <p>
+      Do you want to read this book online? This will cost you one credit from
+      your monthly subscription quota.
+    </p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <a [routerLink]="['./..']" mat-button>Go Back</a>
+    <button mat-button color="primary" (click)="startReading()">
+      Start Reading
+    </button>
   </mat-card-actions>
 </mat-card>

@@ -1,6 +1,7 @@
 mat-card {
   .books-list {
     display: block;
+    margin-top: 16px;
 
     .book-list-item-wrapper {
       &:not(:last-of-type) {
@@ -19,4 +20,8 @@ mat-card {
   button {
     width: 120px;
   }
+}
+
+p {
+  margin-top: 24px !important;
 }
