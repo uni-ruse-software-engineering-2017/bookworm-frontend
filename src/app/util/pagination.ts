@@ -6,7 +6,7 @@ export function emptyResource<T>() {
     itemsCount: 0,
     page: 1,
     pageCount: 1,
-    pageSize: 25,
+    pageSize: 10,
     total: 0
   };
 

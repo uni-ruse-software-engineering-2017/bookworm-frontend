@@ -5,19 +5,36 @@
 
   mat-icon {
     margin-right: 8px;
+    font-size: 16px;
+    width: auto;
+    height: auto;
   }
 
   user-select: none;
   align-self: flex-start;
   color: white;
   font-size: 12px;
+  line-height: 0;
   text-align: center;
   text-decoration: none;
-  padding: 4px 12px;
+  padding: 8px 12px;
   padding-left: 16px;
   letter-spacing: 4px;
   text-transform: uppercase;
   border-radius: 6px;
-  background-image: linear-gradient(to right, #4facfe 100%, #00f2fe 0%);
+  background: linear-gradient(to right, #4facfe, #00cffe);
   margin-bottom: 4px;
+
+  &.green {
+    background: linear-gradient(to right, #29f279, #a2fe4f);
+  }
+
+  &.yellow {
+    color: black;
+    background: linear-gradient(to right, #ffff66, #ffcbe3);
+  }
+
+  &.pink {
+    background: linear-gradient(to right, #f17dff, #f7678f);
+  }
 }

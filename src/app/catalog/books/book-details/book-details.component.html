@@ -4,7 +4,22 @@
       <div class="book-container">
         <div class="book-header">
           <div class="book-header-image">
-            <img class="book-cover" [src]="book.coverImage" />
+            <div class="book-cover">
+              <img [src]="book.coverImage" />
+              <span class="badge green" *ngIf="isBookAlreadyOwnedByUser">
+                <mat-icon>verified_user</mat-icon>
+                Purchased
+              </span>
+              <span
+                class="badge pink"
+                *ngIf="
+                  !isBookAlreadyOwnedByUser && isBookAvailableForOnlineReading
+                "
+              >
+                <mat-icon>cloud</mat-icon>
+                Readable Online
+              </span>
+            </div>
             <div class="book-metadata">
               <dl>
                 <dt>Price</dt>
@@ -13,7 +28,7 @@
                     {{ book.price | currency }}
                   </ng-container>
                   <ng-container *ngIf="book.price == 0">
-                    <span class="free-badge">
+                    <span class="badge yellow">
                       FREE
                     </span>
                   </ng-container>
@@ -86,7 +101,7 @@
         [disabled]="isBookAlreadyAddedInCart"
         *ngIf="!isAdmin && !isBookAlreadyOwnedByUser"
       >
-        <ng-container *ngIf="!isBookAlreadyAddedInCart">
+        <ng-container *ngIf="!isBookAlreadyAddedInCart && book.available">
           <mat-icon>
             add_shopping_cart
           </mat-icon>
@@ -100,7 +115,7 @@
       <a
         mat-raised-button
         color="accent"
-        [routerLink]="['/admin/books-management/edit', book.id]"
+        [routerLink]="['/admin/management/books/edit', book.id]"
         *ngIf="isAdmin"
       >
         <mat-icon>edit</mat-icon>

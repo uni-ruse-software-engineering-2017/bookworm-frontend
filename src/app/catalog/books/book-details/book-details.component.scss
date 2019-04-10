@@ -32,16 +32,31 @@ section {
       display: flex;
       margin-bottom: 12px;
 
-      img {
-        display: inline-block;
-        border-radius: 4px;
-        height: 280px;
-        margin-right: 12px;
+      .book-cover {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          display: inline-block;
+          border-radius: 4px;
+          height: 280px;
+        }
+
+        .badge {
+          margin-top: 12px;
+          align-self: center;
+        }
       }
 
       .book-metadata {
         flex: 1;
         max-width: 360px;
+
+        .badge {
+          padding: 12px;
+          text-align: center;
+        }
 
         dt,
         dd {
@@ -49,14 +64,6 @@ section {
           margin: 0;
           padding: 12px;
           font-size: 1.125em;
-        }
-
-        .free-badge {
-          padding: 4px 12px;
-          color: white;
-          background: linear-gradient(to right, #a8e063, #56ab2f);
-          border-radius: 6px;
-          letter-spacing: 4px;
         }
 
         dt {
