@@ -45,18 +45,20 @@ export class CreateCategoryFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categoryService.getAll().subscribe(categories => {
-      this.categories = categories;
+    this.categoryService
+      .getAll({ pageSize: -1, page: 1 })
+      .subscribe(categories => {
+        this.categories = categories;
 
-      if (this.mode === "edit") {
-        // set the parent category value
-        this.form.controls.parentId.setValue(
-          this.categories.items.find(
-            category => category.id === this.categoryData.parentId
-          )
-        );
-      }
-    });
+        if (this.mode === "edit") {
+          // set the parent category value
+          this.form.controls.parentId.setValue(
+            this.categories.items.find(
+              category => category.id === this.categoryData.parentId
+            )
+          );
+        }
+      });
 
     this.filteredCategories = this.form.get("parentId").valueChanges.pipe(
       startWith<string | ICategory>(""),

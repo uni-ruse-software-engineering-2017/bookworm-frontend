@@ -1,5 +1,5 @@
 <div class="book">
-  <a [routerLink]="['./', book.id, 'details']">
+  <a [routerLink]="['/books', book.id, 'details']">
     <img [src]="book.coverImage" [alt]="book.title" />
   </a>
   <div class="book-content">
@@ -19,7 +19,7 @@
         color="accent"
         (click)="onBuyPressed()"
         [disabled]="!canAddToCart"
-        *ngIf="!isOwned && !isAdmin"
+        *ngIf="!isOwned && !isAdmin && book?.available"
         title="Add to cart"
       >
         <ng-container *ngIf="canAddToCart">

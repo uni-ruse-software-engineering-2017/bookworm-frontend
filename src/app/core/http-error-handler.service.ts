@@ -35,7 +35,9 @@ export class HttpErrorHandlerService {
         return this._showSnack("Bad request");
 
       case 401:
-        return this._showSnack("Unauthenticated action");
+        return this._showSnack(
+          "You need to be logged in to complete this action"
+        );
 
       case 403:
         return this._showSnack(`You don't have the required permissions`);

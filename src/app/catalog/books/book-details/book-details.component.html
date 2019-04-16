@@ -101,7 +101,7 @@
         [disabled]="isBookAlreadyAddedInCart"
         *ngIf="!isAdmin && !isBookAlreadyOwnedByUser"
       >
-        <ng-container *ngIf="!isBookAlreadyAddedInCart && book.available">
+        <ng-container *ngIf="!isBookAlreadyAddedInCart && book?.available">
           <mat-icon>
             add_shopping_cart
           </mat-icon>

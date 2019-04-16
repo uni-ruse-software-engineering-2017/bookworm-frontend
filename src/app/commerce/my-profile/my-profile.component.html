@@ -53,7 +53,11 @@
       </h3>
 
       <div class="subscription-actions">
-        <button mat-button color="error" (click)="unsubscribe()">
+        <button
+          mat-button
+          color="error"
+          (click)="unsubscribe(profile.subscription)"
+        >
           Cancel Subscription
         </button>
       </div>

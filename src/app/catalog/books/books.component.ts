@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, Router } from "@angular/router";
-import { distinctUntilChanged, map } from "rxjs/operators";
+import { distinctUntilChanged, filter, map } from "rxjs/operators";
 import { AuthenticationService } from "src/app/core/services/authentication.service";
 import { BookService } from "src/app/core/services/book.service";
 import { CategoryService } from "src/app/core/services/category.service";
@@ -72,7 +72,7 @@ export class BooksComponent implements OnInit {
       }, {});
     });
 
-    this.auth.user$.subscribe(user => {
+    this.auth.user$.pipe(filter(user => Boolean(user))).subscribe(user => {
       // checks which books are already owned by the user
       // so that the "add to cart" button will be hidden
       this.booksOwnedHash = user.ownedBooks.reduce((prev, curr) => {

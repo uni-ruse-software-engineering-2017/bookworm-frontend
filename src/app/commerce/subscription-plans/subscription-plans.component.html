@@ -34,7 +34,7 @@
         <button
           mat-raised-button
           color="error"
-          (click)="unsubscribe()"
+          (click)="unsubscribe(plan)"
           *ngIf="
             user.subscription &&
             user.subscription.subscriptionPlanId === plan.id
