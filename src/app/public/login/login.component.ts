@@ -1,6 +1,7 @@
+import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { HttpErrorHandlerService } from "src/app/core/http-error-handler.service";
 import { AuthenticationService } from "src/app/core/services/authentication.service";
 
@@ -21,7 +22,9 @@ export class LoginComponent implements OnInit {
     private auth: AuthenticationService,
     private fb: FormBuilder,
     private router: Router,
-    private errorHandler: HttpErrorHandlerService
+    private route: ActivatedRoute,
+    private errorHandler: HttpErrorHandlerService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -44,7 +47,15 @@ export class LoginComponent implements OnInit {
         password: formData.password
       })
       .subscribe(
-        () => this.router.navigate([""]),
+        () => {
+          const prevUrl = this.route.snapshot.queryParams.prevUrl;
+
+          if (prevUrl) {
+            return this.router.navigate([decodeURIComponent(prevUrl)]);
+          } else {
+            return this.router.navigate([""]);
+          }
+        },
         error => this.errorHandler.handle(error)
       );
   }

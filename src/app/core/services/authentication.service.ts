@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { ReplaySubject } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
@@ -15,7 +16,8 @@ export class AuthenticationService {
 
   constructor(
     private httpClient: HttpClient,
-    private shoppingCart: ShoppingCartService
+    private shoppingCart: ShoppingCartService,
+    private router: Router
   ) {
     this.getProfile().subscribe(
       profile => {
@@ -65,6 +67,7 @@ export class AuthenticationService {
       map((response: { success: boolean }) => {
         this.user$.next(null);
         this.shoppingCart.clearLocal();
+        this.router.navigate(["login"]);
         return response.success;
       })
     );

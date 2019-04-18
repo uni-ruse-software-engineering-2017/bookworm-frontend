@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import { map } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { BehaviorSubject, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { ICartContent, ICartLine } from "../types/commerce";
 
@@ -16,7 +17,7 @@ export class ShoppingCartService {
 
   public content$ = new BehaviorSubject(INITIAL_STATE);
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   fetchContents() {
     return this.httpClient.get(this.apiUrl).pipe(
@@ -48,6 +49,17 @@ export class ShoppingCartService {
           this.content$.next(newContent);
 
           return cartLine;
+        }),
+        catchError(error => {
+          if (error.status === 401) {
+            this.router.navigate(["login"], {
+              queryParams: {
+                prevUrl: encodeURIComponent(window.location.pathname)
+              }
+            });
+          }
+
+          return throwError(error);
         })
       );
   }
