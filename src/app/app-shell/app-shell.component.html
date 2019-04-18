@@ -203,9 +203,17 @@
                 <mat-icon>verified_user</mat-icon>
                 subscriber
               </span>
+              <span class="badge" *ngIf="user.role === 'admin'">
+                <mat-icon>work</mat-icon>
+                administrator
+              </span>
             </div>
             <mat-divider></mat-divider>
-            <a [routerLink]="['/profile']" mat-menu-item>
+            <a
+              [routerLink]="['/profile']"
+              mat-menu-item
+              *ngIf="user.role === 'customer'"
+            >
               <mat-icon>account_box</mat-icon>
               <span>Profile</span>
             </a>
