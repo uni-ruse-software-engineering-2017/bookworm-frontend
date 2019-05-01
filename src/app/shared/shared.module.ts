@@ -10,6 +10,7 @@ import { FileSizePipe } from "./file-size.pipe";
 import { FileUploadComponent } from "./file-upload/file-upload.component";
 import { ImgFallbackDirective } from "./image-fallback.directive";
 import { MaterialComponentsModule } from "./material-components.module";
+import { ZeropadPipe } from "./zeropad.pipe";
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { MaterialComponentsModule } from "./material-components.module";
     CategoriesTreeComponent,
     FileUploadComponent,
     EbookReaderComponent,
-    FileSizePipe
+    FileSizePipe,
+    ZeropadPipe
   ],
   entryComponents: [ConfirmationModalComponent],
   exports: [
@@ -39,7 +41,8 @@ import { MaterialComponentsModule } from "./material-components.module";
     CategoriesTreeComponent,
     FileUploadComponent,
     EbookReaderComponent,
-    FileSizePipe
+    FileSizePipe,
+    ZeropadPipe
   ]
 })
 export class SharedModule {}

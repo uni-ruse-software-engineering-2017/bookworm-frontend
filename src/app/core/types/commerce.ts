@@ -56,3 +56,34 @@ export interface IPurchase {
   isPaid: boolean;
   snapshot: IPurchaseSnapshot[];
 }
+
+export interface ICheckoutSession {
+  id: string;
+  object: string;
+  billing_address_collection?: any;
+  cancel_url: string;
+  client_reference_id: string;
+  customer?: any;
+  customer_email: string;
+  display_items: IDisplayItem[];
+  livemode: boolean;
+  locale?: any;
+  payment_intent: string;
+  payment_method_types: string[];
+  subscription?: any;
+  success_url: string;
+}
+
+interface IDisplayItem {
+  amount: number;
+  currency: string;
+  custom: ICustomData;
+  quantity: number;
+  type: string;
+}
+
+interface ICustomData {
+  description: string;
+  images: string[];
+  name: string;
+}

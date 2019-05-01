@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { BehaviorSubject, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
-import { ICartContent, ICartLine } from "../types/commerce";
+import { ICartContent, ICartLine, ICheckoutSession } from "../types/commerce";
 
 const INITIAL_STATE: ICartContent = {
   items: [],
@@ -101,11 +101,9 @@ export class ShoppingCartService {
   }
 
   checkout() {
-    return this.httpClient.post(`${this.apiUrl}/checkout`, {}).pipe(
-      map(() => {
-        this.content$.next(INITIAL_STATE);
-        return INITIAL_STATE;
-      })
+    return this.httpClient.post<ICheckoutSession>(
+      `${this.apiUrl}/checkout`,
+      {}
     );
   }
 }

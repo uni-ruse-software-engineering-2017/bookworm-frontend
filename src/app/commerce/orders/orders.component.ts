@@ -9,12 +9,13 @@ import { IPurchase } from "src/app/core/types/commerce";
 })
 export class OrdersComponent implements OnInit {
   orders: IPurchase[] = [];
-  displayedColumns: string[] = ["id", "books", "date", "total"];
+  displayedColumns: string[] = ["id", "books", "date", "isPaid", "total"];
   dataSource: {
     id: string;
     placedAt: Date;
     total: number;
     books: string;
+    isPaid: boolean;
   }[] = [];
 
   constructor(public purchaseService: PurchaseService) {}
@@ -29,7 +30,8 @@ export class OrdersComponent implements OnInit {
           total: order.snapshot.reduce((sum, book) => {
             return (sum += Number(book.price));
           }, 0),
-          books: order.snapshot.map(book => book.title).join(", ")
+          books: order.snapshot.map(book => book.title).join(", "),
+          isPaid: order.isPaid
         };
       });
     });

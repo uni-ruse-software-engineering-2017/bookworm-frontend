@@ -6,13 +6,17 @@ import { OrdersComponent } from "./orders/orders.component";
 import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
 import { SubscriptionPlansComponent } from "./subscription-plans/subscription-plans.component";
 import { MyProfileComponent } from "./my-profile/my-profile.component";
+import { PaymentSuccessfulComponent } from "./payment-successful/payment-successful.component";
+import { PaymentFailedComponent } from "./payment-failed/payment-failed.component";
 
 @NgModule({
   declarations: [
     ShoppingCartComponent,
     OrdersComponent,
     SubscriptionPlansComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    PaymentSuccessfulComponent,
+    PaymentFailedComponent
   ],
   imports: [CommonModule, CommerceRoutingModule, SharedModule]
 })

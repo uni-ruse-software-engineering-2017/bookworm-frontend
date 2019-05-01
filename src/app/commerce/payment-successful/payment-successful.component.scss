@@ -1,0 +1,27 @@
+section {
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 112px);
+}
+
+h1 {
+  font-size: 3em;
+  color: #3acc6c;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 2em;
+  opacity: 0.76;
+  margin-bottom: 32px;
+}
+
+img {
+  width: 320px;
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
