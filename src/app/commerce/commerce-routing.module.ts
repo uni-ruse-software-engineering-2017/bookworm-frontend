@@ -1,7 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { OrderResolver } from "../core/resolvers/order.resolver";
 import { CustomerGuard } from "../core/route-guards/customer.guard";
 import { MyProfileComponent } from "./my-profile/my-profile.component";
+import { OrderDetailsComponent } from "./order-details/order-details.component";
 import { OrdersComponent } from "./orders/orders.component";
 import { PaymentFailedComponent } from "./payment-failed/payment-failed.component";
 import { PaymentSuccessfulComponent } from "./payment-successful/payment-successful.component";
@@ -25,11 +27,22 @@ const routes: Routes = [
   },
   {
     path: "orders",
-    component: OrdersComponent,
     canActivate: [CustomerGuard],
     data: {
       breadcrumbs: "My Orders"
-    }
+    },
+    children: [
+      { path: "", component: OrdersComponent },
+      {
+        path: ":orderId",
+        component: OrderDetailsComponent,
+        canActivate: [CustomerGuard],
+        data: {
+          breadcrumbs: "#{{ orderId }}"
+        },
+        resolve: { orderId: OrderResolver }
+      }
+    ]
   },
   {
     path: "profile",

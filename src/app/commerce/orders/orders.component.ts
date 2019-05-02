@@ -9,7 +9,14 @@ import { IPurchase } from "src/app/core/types/commerce";
 })
 export class OrdersComponent implements OnInit {
   orders: IPurchase[] = [];
-  displayedColumns: string[] = ["id", "books", "date", "isPaid", "total"];
+  displayedColumns: string[] = [
+    "id",
+    "books",
+    "date",
+    "isPaid",
+    "total",
+    "actions"
+  ];
   dataSource: {
     id: string;
     placedAt: Date;

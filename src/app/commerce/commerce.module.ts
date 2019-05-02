@@ -8,6 +8,7 @@ import { SubscriptionPlansComponent } from "./subscription-plans/subscription-pl
 import { MyProfileComponent } from "./my-profile/my-profile.component";
 import { PaymentSuccessfulComponent } from "./payment-successful/payment-successful.component";
 import { PaymentFailedComponent } from "./payment-failed/payment-failed.component";
+import { OrderDetailsComponent } from "./order-details/order-details.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PaymentFailedComponent } from "./payment-failed/payment-failed.componen
     SubscriptionPlansComponent,
     MyProfileComponent,
     PaymentSuccessfulComponent,
-    PaymentFailedComponent
+    PaymentFailedComponent,
+    OrderDetailsComponent
   ],
   imports: [CommonModule, CommerceRoutingModule, SharedModule]
 })

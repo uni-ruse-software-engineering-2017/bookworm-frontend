@@ -14,6 +14,7 @@
   align-self: flex-start;
   color: white;
   font-size: 12px;
+  font-weight: 500;
   line-height: 0;
   text-align: center;
   text-decoration: none;
@@ -26,7 +27,7 @@
   margin-bottom: 4px;
 
   &.green {
-    background: linear-gradient(to right, #29f279, #a2fe4f);
+    background: linear-gradient(to right, #5fba7d, #29f279);
   }
 
   &.yellow {
@@ -36,5 +37,9 @@
 
   &.pink {
     background: linear-gradient(to right, #f17dff, #f7678f);
+  }
+
+  &.red {
+    background: linear-gradient(to right, #ba4242, #d95656);
   }
 }

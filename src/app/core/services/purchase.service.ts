@@ -16,4 +16,8 @@ export class PurchaseService {
       .get(this.apiUrl)
       .pipe(map(response => response as IPaginatedResource<IPurchase>));
   }
+
+  getById(purchaseId: string) {
+    return this.httpClient.get<IPurchase>(`${this.apiUrl}/${purchaseId}`);
+  }
 }

@@ -1,0 +1,22 @@
+mat-card-actions {
+  button {
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.badge {
+  width: 128px;
+}
+
+.book-cover {
+  border-radius: 0 !important;
+  width: auto !important;
+}
+
+.price {
+  font-weight: 500;
+  font-size: 1.125em;
+  margin-right: 4px;
+}

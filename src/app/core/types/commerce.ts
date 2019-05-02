@@ -51,6 +51,7 @@ export interface IPurchaseSnapshot {
 export interface IPurchase {
   id: string;
   paymentMethod: string;
+  paymentId: string;
   placedAt: string;
   paidAt: string;
   isPaid: boolean;

@@ -1,0 +1,67 @@
+<mat-card *ngIf="purchase">
+  <mat-card-header>
+    <mat-card-title>
+      <span>Order #{{ orderId | zeropad }}</span>
+    </mat-card-title>
+    <mat-card-subtitle>{{
+      purchase.placedAt | date: "medium"
+    }}</mat-card-subtitle>
+    <mat-card-subtitle>
+      <span class="badge green" *ngIf="purchase.isPaid">
+        <mat-icon>
+          verified_user
+        </mat-icon>
+        <span>Paid</span>
+      </span>
+      <span class="badge red" *ngIf="!purchase.isPaid">
+        <mat-icon>
+          cancel
+        </mat-icon>
+        <span>Not Paid</span>
+      </span>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let item of purchase.snapshot; trackBy: item?.id">
+        <a [routerLink]="['/books', item.bookId, 'details']" matListAvatar>
+          <img
+            [src]="item.coverImage"
+            matListAvatar
+            [alt]="item.title"
+            class="mat-elevation-z1 book-cover"
+          />
+        </a>
+        <a
+          class="link"
+          matLine
+          [routerLink]="['/books', item.bookId, 'details']"
+        >
+          {{ item.title }}
+        </a>
+        <h4 matLine>
+          {{ item.author.name }}
+        </h4>
+        <span class="price">
+          {{ item.price | currency }}
+        </span>
+      </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <mat-list>
+      <mat-list-item>
+        <h3 matLine></h3>
+        <span style="margin-right: 12px;">Total:</span>
+        <span class="price color-primary">{{ total | currency }} </span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions align="end" *ngIf="!purchase.isPaid">
+    <button mat-raised-button color="primary" (click)="payPurchase()">
+      <mat-icon>credit_card</mat-icon>
+      <span>
+        Make Payment
+      </span>
+    </button>
+  </mat-card-actions>
+</mat-card>
