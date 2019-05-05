@@ -1,12 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
 import { ShoppingCartService } from "src/app/core/services/shopping-cart.service";
+import { stripeService } from "src/app/core/services/stripe.service";
 import { ICartContent, ICartLine } from "src/app/core/types/commerce";
-import { environment } from "src/environments/environment";
-
-declare const Stripe: any;
-
-const stripe = Stripe(environment.stripeKey);
 
 @Component({
   selector: "bw-shopping-cart",
@@ -46,7 +42,7 @@ export class ShoppingCartComponent implements OnInit {
 
   checkout() {
     this.cartService.checkout().subscribe(checkoutSession => {
-      stripe
+      stripeService
         .redirectToCheckout({
           sessionId: checkoutSession.id
         })

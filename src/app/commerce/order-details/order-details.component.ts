@@ -2,12 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { PurchaseService } from "src/app/core/services/purchase.service";
+import { stripeService } from "src/app/core/services/stripe.service";
 import { IPurchase } from "src/app/core/types/commerce";
-import { environment } from "src/environments/environment";
-
-declare const Stripe: any;
-
-const stripe = Stripe(environment.stripeKey);
 
 @Component({
   selector: "bw-order-details",
@@ -41,7 +37,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   payPurchase() {
-    stripe
+    stripeService
       .redirectToCheckout({
         sessionId: this.purchase.paymentId
       })

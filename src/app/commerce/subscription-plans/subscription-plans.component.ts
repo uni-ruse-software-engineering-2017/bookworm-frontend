@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { Observable, of } from "rxjs";
 import { filter, flatMap } from "rxjs/operators";
 import { AuthenticationService } from "src/app/core/services/authentication.service";
+import { stripeService } from "src/app/core/services/stripe.service";
 import { SubscriptionPlanService } from "src/app/core/services/subscription-plan.service";
 import { ISubscriptionPlan } from "src/app/core/types/commerce";
 import { IUserProfile } from "src/app/core/types/user";
@@ -23,7 +24,8 @@ export class SubscriptionPlansComponent implements OnInit {
   constructor(
     private subscriptionService: SubscriptionPlanService,
     public auth: AuthenticationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public snackbars: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -32,10 +34,22 @@ export class SubscriptionPlansComponent implements OnInit {
   }
 
   subscribe(plan: ISubscriptionPlan) {
-    // TODO: go to payments page
-    this.subscriptionService.subscribeForPlan(plan.id).subscribe(() => {
-      window.location.reload();
-    });
+    this.subscriptionService
+      .subscribeForPlan(plan.id)
+      .subscribe(checkoutSession => {
+        stripeService
+          .redirectToCheckout({
+            sessionId: checkoutSession.id
+          })
+          .then(result => {
+            // show error message if any
+            if (result.error) {
+              this.snackbars.open(result.error.message, null, {
+                duration: 5000
+              });
+            }
+          });
+      });
   }
 
   unsubscribe(plan: ISubscriptionPlan) {
