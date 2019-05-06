@@ -1,8 +1,12 @@
 <section class="mat-typography">
   <h1>Payment Confirmed</h1>
-  <h2>Order #{{ orderId | zeropad }}</h2>
+  <h2 *ngIf="orderId">Order #{{ orderId | zeropad }}</h2>
   <img src="/assets/payment-successful.svg" alt="Payment successful" />
-  <a mat-raised-button color="primary" [routerLink]="['/orders', orderId]"
+  <a
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/orders', orderId]"
+    *ngIf="orderId"
     >View Order</a
   >
 </section>

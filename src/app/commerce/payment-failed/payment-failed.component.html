@@ -1,8 +1,14 @@
 <section class="mat-typography">
   <h1>Payment Failed</h1>
-  <h2>Order #{{ orderId | zeropad }}</h2>
+  <h2 *ngIf="orderId">Order #{{ orderId | zeropad }}</h2>
   <mat-icon>
     cancel
   </mat-icon>
-  <button mat-raised-button color="primary">Retry Payment</button>
+  <a
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/orders', orderId]"
+    *ngIf="orderId"
+    >View Order</a
+  >
 </section>
