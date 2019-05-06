@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { PageEvent } from "@angular/material";
 import { PurchaseService } from "src/app/core/services/purchase.service";
+import { IPaginatedResource } from "src/app/core/types";
 import { IPurchase } from "src/app/core/types/commerce";
+import { emptyResource, IPaginationQuery } from "src/app/util/pagination";
 
 @Component({
   selector: "bw-orders",
@@ -8,7 +11,7 @@ import { IPurchase } from "src/app/core/types/commerce";
   styleUrls: ["./orders.component.scss"]
 })
 export class OrdersComponent implements OnInit {
-  orders: IPurchase[] = [];
+  orders: IPaginatedResource<IPurchase> = emptyResource();
   displayedColumns: string[] = [
     "id",
     "books",
@@ -28,9 +31,13 @@ export class OrdersComponent implements OnInit {
   constructor(public purchaseService: PurchaseService) {}
 
   ngOnInit() {
-    this.purchaseService.getAll().subscribe(response => {
-      this.orders = response.items;
-      this.dataSource = this.orders.map(order => {
+    this.getOrders();
+  }
+
+  getOrders(query?: IPaginationQuery) {
+    this.purchaseService.getAll(query).subscribe(orders => {
+      this.orders = orders;
+      this.dataSource = this.orders.items.map(order => {
         return {
           id: order.id,
           placedAt: new Date(order.placedAt),
@@ -42,5 +49,9 @@ export class OrdersComponent implements OnInit {
         };
       });
     });
+  }
+
+  onPaginate(event: PageEvent) {
+    this.getOrders({ page: event.pageIndex + 1, pageSize: event.pageSize });
   }
 }
