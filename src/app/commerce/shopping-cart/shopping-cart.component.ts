@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material";
+import { finalize } from "rxjs/operators";
 import { ShoppingCartService } from "src/app/core/services/shopping-cart.service";
 import { stripeService } from "src/app/core/services/stripe.service";
 import { ICartContent, ICartLine } from "src/app/core/types/commerce";
@@ -10,6 +11,7 @@ import { ICartContent, ICartLine } from "src/app/core/types/commerce";
   styleUrls: ["./shopping-cart.component.scss"]
 })
 export class ShoppingCartComponent implements OnInit {
+  isLoading = false;
   cart: ICartContent = {
     items: [],
     total: 0
@@ -41,17 +43,29 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout() {
-    this.cartService.checkout().subscribe(checkoutSession => {
-      stripeService
-        .redirectToCheckout({
-          sessionId: checkoutSession.id
+    this.isLoading = true;
+    this.cartService
+      .checkout()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
         })
-        .then(result => {
-          // show error message if any
-          if (result.error) {
-            this.snackbars.open(result.error.message, null, { duration: 5000 });
-          }
-        });
-    });
+      )
+      .subscribe(checkoutSession => {
+        stripeService
+          .redirectToCheckout({
+            sessionId: checkoutSession.id
+          })
+          .then(result => {
+            // show error message if any
+            if (result.error) {
+              this.snackbars.open(result.error.message, null, {
+                duration: 5000
+              });
+            }
+
+            this.isLoading = false;
+          });
+      });
   }
 }
