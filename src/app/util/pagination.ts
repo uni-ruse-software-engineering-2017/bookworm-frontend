@@ -34,6 +34,14 @@ export function buildQueryParamsFromPagination(
     result.q = p.search;
   }
 
+  if (p.sortBy) {
+    result.sort_by = p.sortBy;
+  }
+
+  if (p.sortOrder) {
+    result.sort_order = p.sortOrder;
+  }
+
   return result;
 }
 
@@ -41,4 +49,6 @@ export interface IPaginationQuery {
   pageSize?: number;
   page: number;
   search?: string;
+  sortBy?: string;
+  sortOrder?: "ASC" | "DESC";
 }

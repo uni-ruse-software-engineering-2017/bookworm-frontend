@@ -12,6 +12,11 @@ import {
 import { emptyResource, IPaginationQuery } from "src/app/util/pagination";
 import { searchOperator } from "src/app/util/search.operator";
 
+const sort = {
+  sortBy: "created_at",
+  sortOrder: "DESC" as any
+};
+
 @Component({
   selector: "bw-books-management",
   templateUrl: "./books-management.component.html",
@@ -25,13 +30,21 @@ export class BooksManagementComponent implements OnInit {
   constructor(private bookService: BookService, private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.getBooks();
+    this.getBooks({
+      page: 1,
+      ...sort
+    });
 
     this.searchInput.valueChanges
       .pipe(
         searchOperator,
         map((searchString: string) =>
-          this.getBooks({ page: 1, pageSize: 10, search: searchString })
+          this.getBooks({
+            page: 1,
+            pageSize: 10,
+            search: searchString,
+            ...sort
+          })
         )
       )
       .subscribe();
@@ -43,7 +56,10 @@ export class BooksManagementComponent implements OnInit {
         return;
       }
 
-      this.getBooks();
+      this.getBooks({
+        page: 1,
+        ...sort
+      });
     });
   }
 
@@ -69,12 +85,19 @@ export class BooksManagementComponent implements OnInit {
         flatMap(() => this.bookService.delete(book.id))
       )
       .subscribe(x => {
-        this.getBooks();
+        this.getBooks({
+          page: 1,
+          ...sort
+        });
       });
   }
 
   onPaginate(event: PageEvent) {
-    this.getBooks({ page: event.pageIndex + 1, pageSize: event.pageSize });
+    this.getBooks({
+      page: event.pageIndex + 1,
+      pageSize: event.pageSize,
+      ...sort
+    });
   }
 
   toggleSearch(state: boolean) {

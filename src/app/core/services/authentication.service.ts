@@ -35,18 +35,18 @@ export class AuthenticationService {
       .post(`${apiUrl}/login`, credentials, { withCredentials: true })
       .pipe(
         map((response: { token: string }) => {
-          const { token } = response;
-
-          // refresh the cart on login
-          this.shoppingCart.fetchContents().subscribe();
-
           return this.getProfile();
         }),
         map(profile$ => {
           return profile$
             .pipe(
               map(profile => {
-                this.user$.next(profile);
+                // refresh the cart on login
+                if (profile.role === "customer") {
+                  return this.shoppingCart.fetchContents().subscribe();
+                }
+
+                return this.user$.next(profile);
               })
             )
             .subscribe();
