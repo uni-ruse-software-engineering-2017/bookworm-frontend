@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from "@angular/core";
 import { MatSidenav } from "@angular/material";
 import { Book, Rendition } from "epubjs";
 import Navigation, { NavItem } from "epubjs/types/navigation";
@@ -9,7 +17,7 @@ import * as screenfull from "screenfull";
   templateUrl: "./ebook-reader.component.html",
   styleUrls: ["./ebook-reader.component.scss"]
 })
-export class EbookReaderComponent implements OnInit {
+export class EbookReaderComponent implements OnInit, OnChanges {
   @Input() epubUrl = "";
   @Input() height = 600;
   @ViewChild("sideNav") sideNav: MatSidenav;
@@ -25,6 +33,20 @@ export class EbookReaderComponent implements OnInit {
   constructor(private host: ElementRef) {}
 
   async ngOnInit() {
+    if (!this.epubUrl) {
+      return;
+    }
+
+    this.loadBook();
+  }
+
+  async ngOnChanges(changes: SimpleChanges) {
+    if (changes.epubUrl && changes.epubUrl.currentValue) {
+      this.loadBook();
+    }
+  }
+
+  async loadBook() {
     this.book = new Book(this.epubUrl);
     await this.book.ready;
     this.isLoaded = true;

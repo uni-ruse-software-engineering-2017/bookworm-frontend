@@ -1,4 +1,4 @@
-<mat-card class="book-reader" *ngIf="canReadBook">
+<mat-card class="book-reader" *ngIf="canReadBook && bookFile">
   <bw-ebook-reader
     *ngIf="bookFile"
     [epubUrl]="FILES_URL + bookFile.url"

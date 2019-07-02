@@ -72,6 +72,7 @@ export class ReadBookOnlineComponent implements OnInit {
       .startReadingBook(this.route.snapshot.params.bookId)
       .subscribe(response => {
         this.auth.getProfile().subscribe();
+        this.ngOnInit();
       });
   }
 }
